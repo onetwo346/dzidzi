@@ -1,203 +1,172 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZIVI - Secure Bitcoin Purchases</title>
-    <style>
-        body {
-            font-family: sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-        .container {
-            width: 80%;
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            flex: 1;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-        }
-        .form-group input {
-            width: calc(100% - 12px);
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        .button {
-            padding: 10px 15px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        .button:hover {
-            background-color: #0056b3;
-        }
-        #product-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
-        .product-item {
-            border: 1px solid #eee;
-            padding: 15px;
-            border-radius: 8px;
-        }
-        #purchase-history {
-            margin-top: 20px;
-        }
-        footer {
-            text-align: center;
-            padding: 10px;
-            background-color: #f0f0f0;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>ZIVI - Portal</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: #121212;
+      color: white;
+    }
+    h1, h2, h3 {
+      color: #00ffcc;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+    }
+    input, button {
+      padding: 10px;
+      margin: 8px 0;
+      width: 100%;
+      border: none;
+      border-radius: 5px;
+      font-size: 1em;
+    }
+    input {
+      background: #222;
+      color: white;
+    }
+    button {
+      background: #00ffcc;
+      color: black;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #00ccaa;
+    }
+    #portal, #shop {
+      display: none;
+    }
+    .product {
+      background: #1e1e1e;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+    }
+    ul {
+      padding-left: 20px;
+    }
+  </style>
 </head>
 <body>
-    <div class="container" id="login-signup-page">
-        <h2>Welcome to ZIVI</h2>
-        <div class="form-group">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username">
-        </div>
-        <div class="form-group">
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password">
-        </div>
-        <button class="button" id="signup-button">Sign Up</button>
-        <button class="button" id="login-button">Log In</button>
+  <div class="container">
+    <h1>ZIVI</h1>
+
+    <!-- Auth Section -->
+    <div id="auth">
+      <h2>Register or Login</h2>
+      <input id="username" placeholder="Username" />
+      <input id="password" type="password" placeholder="Password" />
+      <button onclick="register()">Sign Up</button>
+      <button onclick="login()">Login</button>
     </div>
 
-    <div class="container" id="user-portal" style="display: none;">
-        <h2>Welcome, <span id="user-display"></span>!</h2>
-        <div id="product-list">
-            </div>
-        <div id="purchase-history">
-            <h3>Purchase History</h3>
-            <ul id="history-list">
-                </ul>
-        </div>
+    <!-- User Portal -->
+    <div id="portal">
+      <h2>Welcome, <span id="userDisplay"></span>!</h2>
+      <button onclick="logout()">Log Out</button>
+
+      <div id="shop">
+        <h3>Available Items</h3>
+        <div id="items"></div>
+
+        <h3>Your Purchases</h3>
+        <ul id="purchases"></ul>
+      </div>
     </div>
+  </div>
 
-    <footer>
-        <p>&copy; 2024 ZIVI. All rights reserved.</p>
-    </footer>
+  <script>
+    // Mock product list
+    const products = [
+      { id: "item1", name: "Service Access A" },
+      { id: "item2", name: "Membership Pass B" },
+      { id: "item3", name: "Private Vault Entry" }
+    ];
 
-    <script>
-        // Mock Data for demonstration purposes
-        const users = {};
-        const products = [
-            { id: 1, name: "Exclusive Digital Content 1", price: "0.001 BTC", content: "This is exclusive content 1." },
-            { id: 2, name: "Premium Service Access", price: "0.002 BTC", content: "Access granted to premium services." },
-            { id: 3, name: "Digital Art Collection", price: "0.0015 BTC", content: "A collection of digital art." }
-        ];
-        const purchaseHistory = {};
+    // Load user from localStorage
+    const currentUser = localStorage.getItem('zivi_user');
+    if (currentUser) {
+      document.getElementById('auth').style.display = 'none';
+      document.getElementById('portal').style.display = 'block';
+      document.getElementById('userDisplay').innerText = currentUser;
+      loadItems();
+      loadPurchases();
+    }
 
-        // Helper Functions
-        function showPage(pageId) {
-            document.getElementById('login-signup-page').style.display = 'none';
-            document.getElementById('user-portal').style.display = 'none';
-            document.getElementById(pageId).style.display = 'block';
-        }
+    function register() {
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value;
+      if (!username || !password) return alert("Enter both fields");
 
-        function displayProducts() {
-            const productList = document.getElementById('product-list');
-            productList.innerHTML = '';
-            products.forEach(product => {
-                const productItem = document.createElement('div');
-                productItem.className = 'product-item';
-                productItem.innerHTML = `
-                    <h3>${product.name}</h3>
-                    <p>Price: ${product.price}</p>
-                    <button class="button purchase-button" data-product-id="${product.id}">Purchase</button>
-                `;
-                productList.appendChild(productItem);
-            });
-        }
+      const users = JSON.parse(localStorage.getItem('zivi_users') || '{}');
+      if (users[username]) return alert("Username already exists!");
 
-        function displayPurchaseHistory(username) {
-            const historyList = document.getElementById('history-list');
-            historyList.innerHTML = '';
-            if (purchaseHistory[username]) {
-                purchaseHistory[username].forEach(item => {
-                    const listItem = document.createElement('li');
-                    listItem.textContent = `${item.name} - ${item.price}`;
-                    historyList.appendChild(listItem);
-                });
-            } else {
-                historyList.innerHTML = '<li>No purchases yet.</li>';
-            }
-        }
+      users[username] = { password, purchases: [] };
+      localStorage.setItem('zivi_users', JSON.stringify(users));
+      alert("Registered successfully!");
+    }
 
-        // Event Listeners
-        document.getElementById('signup-button').addEventListener('click', () => {
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
+    function login() {
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value;
+      const users = JSON.parse(localStorage.getItem('zivi_users') || '{}');
 
-            if (users[username]) {
-                alert('Username already exists.');
-                return;
-            }
+      if (!users[username] || users[username].password !== password) {
+        return alert("Invalid credentials");
+      }
 
-            users[username] = password;
-            alert('Sign up successful!');
-            showPage('user-portal');
-            document.getElementById('user-display').textContent = username;
-            displayProducts();
-            displayPurchaseHistory(username);
-        });
+      localStorage.setItem('zivi_user', username);
+      location.reload();
+    }
 
-        document.getElementById('login-button').addEventListener('click', () => {
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
+    function logout() {
+      localStorage.removeItem('zivi_user');
+      location.reload();
+    }
 
-            if (users[username] && users[username] === password) {
-                alert('Login successful!');
-                showPage('user-portal');
-                document.getElementById('user-display').textContent = username;
-                displayProducts();
-                displayPurchaseHistory(username);
-            } else {
-                alert('Invalid username or password.');
-            }
-        });
+    function loadItems() {
+      const itemsDiv = document.getElementById('items');
+      itemsDiv.innerHTML = '';
+      products.forEach(product => {
+        const btn = `<button onclick="buy('${product.id}')">Buy with BTC</button>`;
+        itemsDiv.innerHTML += `<div class="product">${product.name} ${btn}</div>`;
+      });
+    }
 
-        document.getElementById('product-list').addEventListener('click', (event) => {
-            if (event.target.classList.contains('purchase-button')) {
-                const productId = parseInt(event.target.dataset.productId);
-                const product = products.find(p => p.id === productId);
-                const username = document.getElementById('user-display').textContent;
+    function loadPurchases() {
+      const ul = document.getElementById('purchases');
+      ul.innerHTML = '';
+      const users = JSON.parse(localStorage.getItem('zivi_users') || '{}');
+      const user = users[currentUser];
 
-                // Mock Bitcoin Payment (replace with actual Bitcoin integration)
-                alert(`Simulating Bitcoin payment for ${product.name}...`);
+      user.purchases.forEach(item => {
+        const product = products.find(p => p.id === item);
+        if (product) ul.innerHTML += `<li>${product.name} (Unlocked)</li>`;
+      });
+    }
 
-                if (!purchaseHistory[username]) {
-                    purchaseHistory[username] = [];
-                }
-                purchaseHistory[username].push({
-                    name: product.name,
-                    price: product.price,
-                    content: product.content
-                });
+    function buy(itemId) {
+      // Simulate Bitcoin payment confirmation
+      if (!confirm("Simulate Bitcoin payment?")) return;
 
-                alert(`Purchase successful! ${product.content}`);
-                displayPurchaseHistory(username);
-            }
-        });
-    </script>
+      const users = JSON.parse(localStorage.getItem('zivi_users') || '{}');
+      const user = users[currentUser];
+
+      if (!user.purchases.includes(itemId)) {
+        user.purchases.push(itemId);
+        users[currentUser] = user;
+        localStorage.setItem('zivi_users', JSON.stringify(users));
+        alert("Item purchased and unlocked!");
+        loadPurchases();
+      } else {
+        alert("Already purchased.");
+      }
+    }
+  </script>
 </body>
 </html>
