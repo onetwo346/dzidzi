@@ -15,6 +15,8 @@
             --error: #d63031;
             --background: #f8f9fd;
             --border: #e0e0e0;
+            --sidebar-bg: #ffffff;
+            --sidebar-width: 250px;
         }
 
         * {
@@ -35,6 +37,58 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
+            margin-left: var(--sidebar-width);
+            transition: margin-left 0.3s ease;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .container {
+                margin-left: 0;
+                padding: 15px;
+            }
+            
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+            
+            .sidebar.active {
+                transform: translateX(0);
+            }
+            
+            .header-content {
+                padding: 0 15px;
+            }
+            
+            .product-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .auth-container {
+                padding: 20px;
+                margin: 30px 15px;
+            }
+            
+            .modal-content {
+                width: 90%;
+                padding: 15px;
+            }
+            
+            .payment-options {
+                flex-direction: column;
+            }
+            
+            .payment-option {
+                width: 100%;
+                margin-bottom: 15px;
+            }
         }
 
         header {
@@ -52,6 +106,9 @@
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
 
         .logo {
@@ -91,7 +148,86 @@
             display: block;
         }
 
-        /* Auth Page */
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--sidebar-bg);
+            position: fixed;
+            top: 65px;
+            left: 0;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            z-index: 999;
+            display: none;
+        }
+
+        .sidebar .user-profile {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .sidebar .user-avatar {
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+
+        .sidebar .user-details h3 {
+            font-size: 16px;
+        }
+
+        .sidebar .user-details p {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .sidebar-nav {
+            margin-bottom: 20px;
+        }
+
+        .sidebar-nav a {
+            display: block;
+            padding: 10px;
+            color: var(--dark);
+            text-decoration: none;
+            border-radius: 4px;
+            margin-bottom: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .sidebar-nav a:hover {
+            background-color: var(--light);
+        }
+
+        .sidebar-nav a.active {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .sidebar .quick-filter {
+            margin-bottom: 20px;
+        }
+
+        .sidebar .quick-filter select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+        }
+
+        .sidebar .dark-mode-toggle {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
         .auth-container {
             max-width: 500px;
             margin: 50px auto;
@@ -99,6 +235,26 @@
             padding: 30px;
             border-radius: 8px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .marketplace-intro {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--dark);
+        }
+
+        .marketplace-intro h1 {
+            color: var(--primary);
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+
+        .marketplace-intro p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            color: #666;
+            max-width: 400px;
+            margin: 0 auto;
         }
 
         .auth-form h2 {
@@ -140,7 +296,6 @@
             color: white;
             border: none;
             border-radius: 4px;
-            font-size: 16px;
             font-weight: 600;
             cursor: pointer;
             transition: background-color 0.3s ease;
@@ -179,7 +334,6 @@
             min-height: 20px;
         }
 
-        /* Portal Page */
         .portal-header {
             display: flex;
             justify-content: space-between;
@@ -240,9 +394,51 @@
             font-weight: 600;
             color: var(--primary);
             margin-bottom: 20px;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 5px;
         }
 
-        /* Search and Filter */
+        .dashboard-section {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .dashboard-card {
+            padding: 20px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .dashboard-card i {
+            font-size: 30px;
+            color: var(--primary);
+        }
+
+        .dashboard-card h3 {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .dashboard-card p {
+            font-size: 24px;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
         .search-filter {
             display: flex;
             flex-wrap: wrap;
@@ -270,25 +466,47 @@
             border-color: var(--primary);
         }
 
-        /* Products Grid */
         .products-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
+            gap: 25px;
             margin-bottom: 40px;
         }
 
         .product-card {
             background-color: white;
-            border-radius: 8px;
+            border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
         }
 
         .product-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+        }
+        
+        .out-of-stock-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: var(--error);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            z-index: 10;
+        }
+        
+        .product-card.out-of-stock .product-image {
+            opacity: 0.7;
+        }
+        
+        .product-card.out-of-stock .buy-button {
+            background-color: #ccc;
+            cursor: not-allowed;
         }
 
         .product-image {
@@ -318,15 +536,16 @@
         }
 
         .product-title {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 600;
             margin-bottom: 10px;
+            color: var(--dark);
         }
 
         .product-price {
             color: var(--primary);
             font-weight: bold;
-            font-size: 20px;
+            font-size: 22px;
             margin-bottom: 10px;
         }
 
@@ -345,7 +564,7 @@
 
         .buy-btn {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             background-color: var(--primary);
             color: white;
             border: none;
@@ -374,40 +593,6 @@
             margin-bottom: 10px;
         }
 
-        /* User Dashboard */
-        .dashboard-section {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-            margin-bottom: 30px;
-        }
-
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
-
-        .dashboard-card {
-            padding: 15px;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            text-align: center;
-        }
-
-        .dashboard-card h3 {
-            font-size: 16px;
-            margin-bottom: 10px;
-        }
-
-        .dashboard-card p {
-            font-size: 24px;
-            color: var(--primary);
-            font-weight: bold;
-        }
-
-        /* Purchase History */
         .history-section {
             margin-bottom: 40px;
         }
@@ -436,7 +621,6 @@
             margin-bottom: 10px;
         }
 
-        /* Profile Settings Modal */
         .modal {
             display: none;
             position: fixed;
@@ -504,9 +688,40 @@
             background-color: var(--secondary);
         }
 
-        /* Payment Modal */
         .payment-info {
-            margin-bottom: 20px;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .btc-qr-code {
+            width: 200px;
+            height: 200px;
+            margin: 20px auto;
+        }
+
+        .btc-address {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: monospace;
+            margin: 15px 0;
+            word-break: break-all;
+            font-size: 14px;
+        }
+
+        .copy-address {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 10px 0;
+            transition: background-color 0.3s;
+        }
+
+        .copy-address:hover {
+            background-color: var(--secondary);
         }
 
         .payment-address {
@@ -538,8 +753,15 @@
             color: var(--error);
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
+            .sidebar {
+                width: 200px;
+            }
+
+            .container {
+                margin-left: 0;
+            }
+
             .products-grid, .history-items, .dashboard-grid {
                 grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             }
@@ -573,6 +795,16 @@
         }
 
         @media (max-width: 480px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+
+            .container {
+                margin-left: 0;
+            }
+
             .products-grid, .history-items, .dashboard-grid {
                 grid-template-columns: 1fr;
             }
@@ -583,22 +815,58 @@
             }
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
     <header>
         <div class="container header-content">
             <div class="logo">DZIDZI</div>
-            <div class="auth-buttons">
+            <div class="auth-buttons" id="authButtons">
                 <button id="showLogin">Login</button>
                 <button id="showSignup">Sign Up</button>
             </div>
         </div>
     </header>
 
+    <div class="sidebar" id="sidebar">
+        <div class="user-profile">
+            <div class="user-avatar" id="sidebarAvatar">U</div>
+            <div class="user-details">
+                <h3 id="sidebarUsername">Username</h3>
+                <p>Balance: <span id="sidebarBalance">0</span> BTC</p>
+            </div>
+        </div>
+        <div class="sidebar-nav">
+            <a href="#" id="navDashboard" class="active">Dashboard</a>
+            <a href="#" id="navProducts">Products</a>
+            <a href="#" id="navHistory">Purchase History</a>
+            <a href="#" id="navSettings">Settings</a>
+            <a href="#" id="navLogout">Logout</a>
+        </div>
+        <div class="quick-filter">
+            <select id="sidebarCategoryFilter">
+                <option value="all">All Categories</option>
+                <option value="art">Digital Art</option>
+                <option value="education">Education</option>
+                <option value="music">Music</option>
+                <option value="books">Books</option>
+                <option value="3d">3D Models</option>
+                <option value="photography">Photography</option>
+            </select>
+        </div>
+        <div class="dark-mode-toggle">
+            <label>Dark Mode</label>
+            <input type="checkbox" id="darkModeToggle">
+        </div>
+    </div>
+
     <div class="container">
-        <!-- Auth Page -->
         <div id="authPage" class="page active">
             <div class="auth-container">
+                <div class="marketplace-intro">
+                    <h1>Welcome to DZIDZI</h1>
+                    <p>Exclusive digital marketplace</p>
+                </div>
                 <div id="loginForm" class="auth-form">
                     <h2>Login to Your Account</h2>
                     <div class="form-group">
@@ -642,7 +910,6 @@
             </div>
         </div>
 
-        <!-- Portal Page -->
         <div id="portalPage" class="page">
             <div class="portal-header">
                 <div class="user-info">
@@ -658,26 +925,27 @@
                 </div>
             </div>
 
-            <!-- User Dashboard -->
             <div class="dashboard-section">
                 <h2 class="section-title">Your Dashboard</h2>
                 <div class="dashboard-grid">
                     <div class="dashboard-card">
+                        <i class="fas fa-shopping-cart"></i>
                         <h3>Total Purchases</h3>
                         <p id="totalPurchases">0</p>
                     </div>
                     <div class="dashboard-card">
+                        <i class="fas fa-calendar-alt"></i>
                         <h3>Account Age</h3>
                         <p id="accountAge">0 days</p>
                     </div>
                     <div class="dashboard-card">
+                        <i class="fas fa-wallet"></i>
                         <h3>Balance</h3>
                         <p id="dashboardBalance">0 BTC</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Search and Filter -->
             <div class="search-filter">
                 <input type="text" id="searchInput" placeholder="Search products...">
                 <select id="categoryFilter">
@@ -697,11 +965,9 @@
                 </select>
             </div>
 
-            <!-- Products -->
             <h2 class="section-title">Exclusive Products</h2>
             <div class="products-grid" id="productsGrid"></div>
 
-            <!-- Purchase History -->
             <div class="history-section">
                 <h2 class="section-title">Your Purchase History</h2>
                 <div class="history-items" id="purchaseHistory"></div>
@@ -709,39 +975,30 @@
         </div>
     </div>
 
-    <!-- Settings Modal -->
     <div class="modal" id="settingsModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title">Account Settings</h3>
+                <h3>Settings</h3>
                 <button class="close-modal" id="closeSettingsModal">×</button>
             </div>
-            <div class="modal-form">
+            <div class="settings-form">
                 <div class="form-group">
-                    <label for="settingsUsername">Username</label>
+                    <label for="username">Username</label>
                     <input type="text" id="settingsUsername" disabled>
                 </div>
                 <div class="form-group">
-                    <label for="settingsPassword">New Password</label>
-                    <input type="password" id="settingsPassword" placeholder="Enter new password">
-                    <div id="settingsPasswordError" class="error-message"></div>
+                    <label for="password">New Password (optional)</label>
+                    <input type="password" id="settingsPassword">
                 </div>
                 <div class="form-group">
-                    <label for="settingsConfirmPassword">Confirm New Password</label>
-                    <input type="password" id="settingsConfirmPassword" placeholder="Confirm new password">
-                    <div id="settingsConfirmPasswordError" class="error-message"></div>
-                </div>
-                <div class="form-group">
-                    <label for="topUpAmount">Top Up Balance (BTC)</label>
-                    <input type="number" id="topUpAmount" placeholder="Enter amount" step="0.0001" min="0">
-                    <div id="topUpAmountError" class="error-message"></div>
+                    <label for="confirmPassword">Confirm New Password</label>
+                    <input type="password" id="settingsConfirmPassword">
                 </div>
                 <button id="saveSettingsBtn">Save Changes</button>
             </div>
         </div>
     </div>
 
-    <!-- Payment Modal -->
     <div class="modal" id="paymentModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -749,19 +1006,84 @@
                 <button class="close-modal" id="closePaymentModal">×</button>
             </div>
             <div class="payment-info">
-                <p>Please send the exact amount to the following Bitcoin address:</p>
-                <div class="payment-address" id="btcAddress">bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh</div>
-                <p>Amount: <span class="payment-amount" id="paymentAmount">0.05 BTC</span></p>
+                <p>Please send the exact amount to complete your purchase:</p>
+                <img src="btcqr.jpg" alt="BTC QR Code" class="btc-qr-code">
+                <p>BTC Address:</p>
+                <div class="btc-address" id="btcAddress">39S361eEA2JJDwSdFwGH1HnA79KWvYzURk</div>
+                <button class="copy-address" onclick="copyBTCAddress()">Copy Address</button>
+                <p>Amount to Send: <span class="payment-amount" id="paymentAmount">0 BTC</span></p>
+                <div id="paymentStatus"></div>
+                <p class="payment-note">* After sending the payment, click the button below to verify your transaction.</p>
+                <button id="verifyPaymentBtn" class="verify-payment-btn">I've Sent the Payment</button>
             </div>
-            <div class="payment-status" id="paymentStatus">
-                <p>Waiting for payment confirmation...</p>
-            </div>
-            <button id="confirmPayment" class="buy-btn">I've Sent the Payment</button>
         </div>
     </div>
 
     <script>
-        // Simulated hash function (for demo purposes)
+        let currentUser = null;
+        let selectedProduct = null;
+        let currentSection = 'dashboard';
+
+        const authPage = document.getElementById('authPage');
+        const portalPage = document.getElementById('portalPage');
+        const sidebar = document.getElementById('sidebar');
+        const loginForm = document.getElementById('loginForm');
+        const signupForm = document.getElementById('signupForm');
+        const showLogin = document.getElementById('showLogin');
+        const showSignup = document.getElementById('showSignup');
+        const switchToLogin = document.getElementById('switchToLogin');
+        const switchToSignup = document.getElementById('switchToSignup');
+        const loginBtn = document.getElementById('loginBtn');
+        const signupBtn = document.getElementById('signupBtn');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const settingsBtn = document.getElementById('settingsBtn');
+        const productsGrid = document.getElementById('productsGrid');
+        const purchaseHistory = document.getElementById('purchaseHistory');
+        const welcomeMessage = document.getElementById('welcomeMessage');
+        const userAvatar = document.getElementById('userAvatar');
+        const userBalance = document.getElementById('userBalance');
+        const totalPurchases = document.getElementById('totalPurchases');
+        const accountAge = document.getElementById('accountAge');
+        const dashboardBalance = document.getElementById('dashboardBalance');
+        const searchInput = document.getElementById('searchInput');
+        const categoryFilter = document.getElementById('categoryFilter');
+        const sortFilter = document.getElementById('sortFilter');
+        const sidebarAvatar = document.getElementById('sidebarAvatar');
+        const sidebarUsername = document.getElementById('sidebarUsername');
+        const sidebarBalance = document.getElementById('sidebarBalance');
+        const sidebarCategoryFilter = document.getElementById('sidebarCategoryFilter');
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const navDashboard = document.getElementById('navDashboard');
+        const navProducts = document.getElementById('navProducts');
+        const navHistory = document.getElementById('navHistory');
+        const navSettings = document.getElementById('navSettings');
+        const navLogout = document.getElementById('navLogout');
+        const settingsModal = document.getElementById('settingsModal');
+        const closeSettingsModal = document.getElementById('closeSettingsModal');
+        const settingsUsername = document.getElementById('settingsUsername');
+        const settingsPassword = document.getElementById('settingsPassword');
+        const settingsConfirmPassword = document.getElementById('settingsConfirmPassword');
+        const saveSettingsBtn = document.getElementById('saveSettingsBtn');
+        const paymentModal = document.getElementById('paymentModal');
+        const closePaymentModal = document.getElementById('closePaymentModal');
+        const btcAddress = document.getElementById('btcAddress');
+        const paymentAmount = document.getElementById('paymentAmount');
+        const paymentStatus = document.getElementById('paymentStatus');
+        const verifyPaymentBtn = document.getElementById('verifyPaymentBtn');
+        const authButtons = document.getElementById('authButtons');
+
+        const loginUsername = document.getElementById('loginUsername');
+        const loginPassword = document.getElementById('loginPassword');
+        const signupUsername = document.getElementById('signupUsername');
+        const signupPassword = document.getElementById('signupPassword');
+        const confirmPassword = document.getElementById('confirmPassword');
+
+        const loginUsernameError = document.getElementById('loginUsernameError');
+        const loginPasswordError = document.getElementById('loginPasswordError');
+        const signupUsernameError = document.getElementById('signupUsernameError');
+        const signupPasswordError = document.getElementById('signupPasswordError');
+        const confirmPasswordError = document.getElementById('confirmPasswordError');
+
         function simpleHash(str) {
             let hash = 0;
             for (let i = 0; i < str.length; i++) {
@@ -772,14 +1094,12 @@
             return hash.toString();
         }
 
-        // Input sanitization
         function sanitizeInput(str) {
             const div = document.createElement('div');
             div.textContent = str;
             return div.innerHTML.replace(/[<>&"]/g, '');
         }
 
-        // Database simulation
         const DB = {
             users: JSON.parse(localStorage.getItem('dzidzi_users')) || [],
             products: [
@@ -790,7 +1110,8 @@
                     price: 0.05,
                     category: 'art',
                     image: 'https://source.unsplash.com/random/600x400/?digital-art',
-                    createdAt: '2025-01-01'
+                    createdAt: '2025-01-01',
+                    stock: 10
                 },
                 {
                     id: 'prod2',
@@ -799,7 +1120,8 @@
                     price: 0.1,
                     category: 'education',
                     image: 'https://source.unsplash.com/random/600x400/?coding',
-                    createdAt: '2025-02-01'
+                    createdAt: '2025-02-01',
+                    stock: 5
                 },
                 {
                     id: 'prod3',
@@ -808,7 +1130,8 @@
                     price: 0.03,
                     category: 'music',
                     image: 'https://source.unsplash.com/random/600x400/?music',
-                    createdAt: '2025-03-01'
+                    createdAt: '2025-03-01',
+                    stock: 4
                 },
                 {
                     id: 'prod4',
@@ -817,7 +1140,8 @@
                     price: 0.02,
                     category: 'books',
                     image: 'https://source.unsplash.com/random/600x400/?books',
-                    createdAt: '2025-04-01'
+                    createdAt: '2025-04-01',
+                    stock: 3
                 },
                 {
                     id: 'prod5',
@@ -826,7 +1150,8 @@
                     price: 0.15,
                     category: '3d',
                     image: 'https://source.unsplash.com/random/600x400/?3d-model',
-                    createdAt: '2025-05-01'
+                    createdAt: '2025-05-01',
+                    stock: 20
                 },
                 {
                     id: 'prod6',
@@ -835,7 +1160,8 @@
                     price: 0.04,
                     category: 'photography',
                     image: 'https://source.unsplash.com/random/600x400/?photography',
-                    createdAt: '2025-06-01'
+                    createdAt: '2025-06-01',
+                    stock: 10
                 }
             ],
 
@@ -846,16 +1172,16 @@
             findUser: function(username, password) {
                 const lowerUsername = username.toLowerCase();
                 if (password) {
-                    return this.users.find(user => user.username.toLowerCase() === lowerUsername && user.password === simpleHash(password));
+                    return this.users.find(user => user.usernameLower === lowerUsername && user.password === simpleHash(password));
                 }
-                return this.users.find(user => user.username.toLowerCase() === lowerUsername);
+                return this.users.find(user => user.usernameLower === lowerUsername);
             },
 
-            createUser: function(username, password) {
+            createUser: function(originalUsername, password) {
                 const newUser = {
-                    username: username.toLowerCase(),
+                    username: originalUsername,
+                    usernameLower: originalUsername.toLowerCase(),
                     password: simpleHash(password),
-                    balance: 0,
                     purchases: [],
                     createdAt: new Date().toISOString()
                 };
@@ -890,120 +1216,127 @@
             }
         };
 
-        // App State
-        let currentUser = null;
-        let currentProduct = null;
+        function setActiveSection(section) {
+            currentSection = section;
+            document.querySelectorAll('.sidebar-nav a').forEach(link => link.classList.remove('active'));
+            document.querySelector(`#nav${section.charAt(0).toUpperCase() + section.slice(1)}`).classList.add('active');
 
-        // DOM Elements
-        const authPage = document.getElementById('authPage');
-        const portalPage = document.getElementById('portalPage');
-        const loginForm = document.getElementById('loginForm');
-        const signupForm = document.getElementById('signupForm');
-        const showLogin = document.getElementById('showLogin');
-        const showSignup = document.getElementById('showSignup');
-        const switchToLogin = document.getElementById('switchToLogin');
-        const switchToSignup = document.getElementById('switchToSignup');
-        const loginBtn = document.getElementById('loginBtn');
-        const signupBtn = document.getElementById('signupBtn');
-        const logoutBtn = document.getElementById('logoutBtn');
-        const settingsBtn = document.getElementById('settingsBtn');
-        const productsGrid = document.getElementById('productsGrid');
-        const purchaseHistory = document.getElementById('purchaseHistory');
-        const welcomeMessage = document.getElementById('welcomeMessage');
-        const userAvatar = document.getElementById('userAvatar');
-        const userBalance = document.getElementById('userBalance');
-        const totalPurchases = document.getElementById('totalPurchases');
-        const accountAge = document.getElementById('accountAge');
-        const dashboardBalance = document.getElementById('dashboardBalance');
-        const searchInput = document.getElementById('searchInput');
-        const categoryFilter = document.getElementById('categoryFilter');
-        const sortFilter = document.getElementById('sortFilter');
-        const settingsModal = document.getElementById('settingsModal');
-        const closeSettingsModal = document.getElementById('closeSettingsModal');
-        const settingsUsername = document.getElementById('settingsUsername');
-        const settingsPassword = document.getElementById('settingsPassword');
-        const settingsConfirmPassword = document.getElementById('settingsConfirmPassword');
-        const topUpAmount = document.getElementById('topUpAmount');
-        const saveSettingsBtn = document.getElementById('saveSettingsBtn');
-        const settingsPasswordError = document.getElementById('settingsPasswordError');
-        const settingsConfirmPasswordError = document.getElementById('settingsConfirmPasswordError');
-        const topUpAmountError = document.getElementById('topUpAmountError');
-        const paymentModal = document.getElementById('paymentModal');
-        const closePaymentModal = document.getElementById('closePaymentModal');
-        const confirmPayment = document.getElementById('confirmPayment');
-        const btcAddress = document.getElementById('btcAddress');
-        const paymentAmount = document.getElementById('paymentAmount');
-        const paymentStatus = document.getElementById('paymentStatus');
+            // Hide all sections first
+            document.querySelector('.dashboard-section').style.display = 'none';
+            document.querySelector('.search-filter').style.display = 'none';
+            document.querySelector('.products-grid').style.display = 'none';
+            document.querySelector('.history-section').style.display = 'none';
 
-        // Form inputs
-        const loginUsername = document.getElementById('loginUsername');
-        const loginPassword = document.getElementById('loginPassword');
-        const signupUsername = document.getElementById('signupUsername');
-        const signupPassword = document.getElementById('signupPassword');
-        const confirmPassword = document.getElementById('confirmPassword');
-
-        // Error messages
-        const loginUsernameError = document.getElementById('loginUsernameError');
-        const loginPasswordError = document.getElementById('loginPasswordError');
-        const signupUsernameError = document.getElementById('signupUsernameError');
-        const signupPasswordError = document.getElementById('signupPasswordError');
-        const confirmPasswordError = document.getElementById('confirmPasswordError');
-
-        // Initialize
-        function init() {
-            const storedUser = localStorage.getItem('dzidzi_currentUser');
-            if (storedUser) {
-                currentUser = JSON.parse(storedUser);
-                showPortal();
-            } else {
-                showAuthPage();
+            // Show only the active section
+            if (section === 'dashboard') {
+                document.querySelector('.dashboard-section').style.display = 'block';
+            } else if (section === 'products') {
+                document.querySelector('.search-filter').style.display = 'flex';
+                document.querySelector('.products-grid').style.display = 'grid';
+                loadProducts();
+            } else if (section === 'history') {
+                document.querySelector('.history-section').style.display = 'block';
+                loadPurchaseHistory();
             }
-            setupEventListeners();
         }
 
-        function setupEventListeners() {
-            // Auth navigation
-            showLogin.addEventListener('click', () => {
-                authPage.classList.add('active');
-                portalPage.classList.remove('active');
-                showLoginForm();
+        function loadProducts() {
+            productsGrid.innerHTML = '';
+            const searchTerm = searchInput.value.toLowerCase();
+            const category = categoryFilter.value;
+            const sort = sortFilter.value;
+
+            let filteredProducts = DB.products.filter(product => {
+                const matchesSearch = product.title.toLowerCase().includes(searchTerm) || 
+                                   product.description.toLowerCase().includes(searchTerm);
+                const matchesCategory = category === 'all' || product.category === category;
+                return matchesSearch && matchesCategory;
             });
 
-            showSignup.addEventListener('click', () => {
-                authPage.classList.add('active');
-                portalPage.classList.remove('active');
-                showSignupForm();
+            filteredProducts.sort((a, b) => {
+                if (sort === 'price-asc') return a.price - b.price;
+                if (sort === 'price-desc') return b.price - a.price;
+                if (sort === 'name-asc') return a.title.localeCompare(b.title);
+                if (sort === 'name-desc') return b.title.localeCompare(a.title);
+                return 0;
             });
 
-            switchToLogin.addEventListener('click', showLoginForm);
-            switchToSignup.addEventListener('click', showSignupForm);
+            const userPurchases = DB.getUserPurchases(currentUser.username);
+            filteredProducts.forEach(product => {
+                const isPurchased = userPurchases.some(p => p.id === product.id);
+                const isOutOfStock = product.stock <= 0;
+                const productCard = document.createElement('div');
+                productCard.className = `product-card ${isOutOfStock ? 'out-of-stock' : ''}`;
+                
+                // Out of stock badge
+                if (isOutOfStock) {
+                    const outOfStockBadge = document.createElement('div');
+                    outOfStockBadge.className = 'out-of-stock-badge';
+                    outOfStockBadge.textContent = 'Out of Stock';
+                    productCard.appendChild(outOfStockBadge);
+                }
+                
+                productCard.innerHTML = `
+                    <div class="product-image">
+                        <img src="${product.image}" alt="${product.title}">
+                    </div>
+                    <div class="product-info">
+                        ${isPurchased ? '<span class="owned-badge">OWNED</span>' : ''}
+                        <h3 class="product-title">${product.title}</h3>
+                        <div class="product-price">${product.price} BTC</div>
+                        <p class="product-description">${product.description}</p>
+                        <p class="product-meta">Stock: ${product.stock} available</p>
+                        <button class="buy-btn ${isPurchased ? 'owned' : ''} ${isOutOfStock ? 'disabled' : ''}">Buy Now</button>
+                    </div>
+                `;
+                
+                productsGrid.appendChild(productCard);
+                
+                // Add event listener only if product is in stock
+                if (!isOutOfStock) {
+                    const buyButton = productCard.querySelector('.buy-btn');
+                    buyButton.addEventListener('click', () => handlePurchase(product));
+                }
+            });
 
-            // Form submissions
-            loginBtn.addEventListener('click', handleLogin);
-            signupBtn.addEventListener('click', handleSignup);
-            logoutBtn.addEventListener('click', handleLogout);
-            settingsBtn.addEventListener('click', showSettingsModal);
-            saveSettingsBtn.addEventListener('click', handleSettingsSave);
+            if (filteredProducts.length === 0) {
+                productsGrid.innerHTML = '<p>No products found.</p>';
+            }
+        }
 
-            // Search and filter
-            searchInput.addEventListener('input', loadProducts);
-            categoryFilter.addEventListener('change', loadProducts);
-            sortFilter.addEventListener('change', loadProducts);
+        function loadPurchaseHistory() {
+            purchaseHistory.innerHTML = '';
+            const userPurchases = DB.getUserPurchases(currentUser.username);
 
-            // Modals
-            closeSettingsModal.addEventListener('click', () => settingsModal.style.display = 'none');
-            closePaymentModal.addEventListener('click', () => paymentModal.style.display = 'none');
-            confirmPayment.addEventListener('click', completePayment);
+            if (userPurchases.length === 0) {
+                purchaseHistory.innerHTML = '<p>You have no purchases yet.</p>';
+                return;
+            }
 
-            window.addEventListener('click', (e) => {
-                if (e.target === settingsModal) settingsModal.style.display = 'none';
-                if (e.target === paymentModal) paymentModal.style.display = 'none';
+            userPurchases.forEach(purchase => {
+                const product = DB.products.find(p => p.id === purchase.id);
+                if (product) {
+                    const historyCard = document.createElement('div');
+                    historyCard.className = 'history-card';
+                    historyCard.innerHTML = `
+                        <h3>${product.title}</h3>
+                        <p>Purchased on: ${new Date(purchase.date).toLocaleDateString()}</p>
+                        <p>Price: ${product.price} BTC</p>
+                        <button class="buy-btn owned">Access Again</button>
+                    `;
+                    historyCard.querySelector('.buy-btn').addEventListener('click', () => {
+                        alert(`Accessing your purchased content: ${product.title}`);
+                    });
+                    purchaseHistory.appendChild(historyCard);
+                }
             });
         }
 
         function showAuthPage() {
             authPage.classList.add('active');
             portalPage.classList.remove('active');
+            sidebar.style.display = 'none';
+            authButtons.style.display = 'block';
             showLoginForm();
         }
 
@@ -1035,9 +1368,6 @@
             signupUsernameError.textContent = '';
             signupPasswordError.textContent = '';
             confirmPasswordError.textContent = '';
-            settingsPasswordError.textContent = '';
-            settingsConfirmPasswordError.textContent = '';
-            topUpAmountError.textContent = '';
         }
 
         function handleLogin() {
@@ -1073,7 +1403,11 @@
                 return;
             }
 
-            currentUser = { username: user.username, balance: user.balance, purchases: user.purchases, createdAt: user.createdAt };
+            currentUser = {
+                username: user.username,
+                purchases: user.purchases,
+                createdAt: user.createdAt
+            };
             localStorage.setItem('dzidzi_currentUser', JSON.stringify(currentUser));
             showPortal();
 
@@ -1125,7 +1459,11 @@
             }
 
             const user = DB.createUser(username, password);
-            currentUser = { username: user.username, balance: user.balance, purchases: user.purchases, createdAt: user.createdAt };
+            currentUser = {
+                username: user.username,
+                purchases: user.purchases,
+                createdAt: user.createdAt
+            };
             localStorage.setItem('dzidzi_currentUser', JSON.stringify(currentUser));
             showPortal();
 
@@ -1143,7 +1481,6 @@
             settingsUsername.value = currentUser.username;
             settingsPassword.value = '';
             settingsConfirmPassword.value = '';
-            topUpAmount.value = '';
             clearErrors();
             settingsModal.style.display = 'flex';
         }
@@ -1154,8 +1491,7 @@
             clearErrors();
 
             const password = settingsPassword.value.trim();
-            const confirm = settingsConfirmPassword.value.trim();
-            const topUp = parseFloat(topUpAmount.value);
+            const confirmPassword = settingsConfirmPassword.value.trim();
             let isValid = true;
 
             if (password && password.length < 6) {
@@ -1163,16 +1499,11 @@
                 isValid = false;
             }
 
-            if (password && !confirm) {
-                settingsConfirmPasswordError.textContent = 'Please confirm your password';
+            if (password && !confirmPassword) {
+                confirmPasswordError.textContent = 'Please confirm your password';
                 isValid = false;
-            } else if (password && password !== confirm) {
-                settingsConfirmPasswordError.textContent = 'Passwords do not match';
-                isValid = false;
-            }
-
-            if (topUpAmount.value && (isNaN(topUp) || topUp <= 0)) {
-                topUpAmountError.textContent = 'Please enter a valid amount';
+            } else if (password && password !== confirmPassword) {
+                confirmPasswordError.textContent = 'Passwords do not match';
                 isValid = false;
             }
 
@@ -1183,13 +1514,18 @@
             }
 
             const updates = {};
-            if (password) updates.password = simpleHash(password);
-            if (topUp) updates.balance = (currentUser.balance || 0) + topUp;
+            if (password) {
+                updates.password = simpleHash(password);
+            }
 
             if (Object.keys(updates).length > 0) {
                 const updatedUser = DB.updateUser(currentUser.username, updates);
                 if (updatedUser) {
-                    currentUser = { username: updatedUser.username, balance: updatedUser.balance, purchases: updatedUser.purchases, createdAt: updatedUser.createdAt };
+                    currentUser = {
+                        username: updatedUser.username,
+                        purchases: updatedUser.purchases,
+                        createdAt: updatedUser.createdAt
+                    };
                     localStorage.setItem('dzidzi_currentUser', JSON.stringify(currentUser));
                 }
             }
@@ -1200,146 +1536,294 @@
             saveSettingsBtn.textContent = 'Save Changes';
         }
 
+        function handlePurchase(product) {
+            if (!currentUser) {
+                showAuthPage();
+                return;
+            }
+
+            selectedProduct = product;
+            document.getElementById('paymentAmount').textContent = `${product.price} BTC`;
+            document.getElementById('paymentStatus').innerHTML = '';
+            document.getElementById('verifyPaymentBtn').disabled = false;
+            paymentModal.style.display = 'flex';
+        }
+
+        function verifyBitcoinPayment(address, amount, productId) {
+            document.getElementById('paymentStatus').innerHTML = '<p>Verifying payment, please wait...</p>';
+            document.getElementById('verifyPaymentBtn').disabled = true;
+            
+            // Use Blockchain.info API to check for transactions to the address
+            fetch(`https://blockchain.info/rawaddr/${address}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Error connecting to blockchain API');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Look for recent transactions that match our amount
+                    const satoshiAmount = Math.round(amount * 100000000); // Convert BTC to satoshis
+                    const currentTime = Math.floor(Date.now() / 1000);
+                    const oneHourAgo = currentTime - 3600;
+                    
+                    // Find matching transactions
+                    const matchingTx = data.txs.find(tx => {
+                        // Check if transaction is recent (within last hour)
+                        const txTime = tx.time;
+                        if (txTime < oneHourAgo) return false;
+                        
+                        // Check if any output matches our address and amount
+                        return tx.out.some(output => 
+                            output.addr === address && 
+                            Math.abs(output.value - satoshiAmount) < 100 // Allow small difference due to fees
+                        );
+                    });
+                    
+                    if (matchingTx) {
+                        // Payment verified
+                        document.getElementById('paymentStatus').innerHTML = 
+                            `<p class="payment-success">Payment verified! Transaction ID: ${matchingTx.hash}</p>`;
+                        
+                        // Complete the purchase
+                        completePurchase(productId);
+                    } else {
+                        // No matching payment found
+                        document.getElementById('paymentStatus').innerHTML = 
+                            `<p class="payment-error">No matching payment found. Please make sure you've sent the exact amount (${amount} BTC) to the correct address.</p>`;
+                        document.getElementById('verifyPaymentBtn').disabled = false;
+                    }
+                })
+                .catch(error => {
+                    document.getElementById('paymentStatus').innerHTML = 
+                        `<p class="payment-error">Error verifying payment: ${error.message}. Please try again in a few moments.</p>`;
+                    document.getElementById('verifyPaymentBtn').disabled = false;
+                });
+        }
+
+        function detectNewBrowser() {
+            // Get the client's IP address using a third-party service
+            fetch('https://api.ipify.org?format=json')
+                .then(response => response.json())
+                .then(data => {
+                    const currentIP = data.ip;
+                    const knownIPs = JSON.parse(localStorage.getItem('dzidzi_known_ips') || '[]');
+                    
+                    if (!knownIPs.includes(currentIP)) {
+                        // New IP detected, add to known IPs
+                        knownIPs.push(currentIP);
+                        localStorage.setItem('dzidzi_known_ips', JSON.stringify(knownIPs));
+                        
+                        // Clear any existing session for security
+                        if (currentUser) {
+                            handleLogout();
+                            alert('New device detected. Please log in again for security purposes.');
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.error('Error detecting IP:', error);
+                });
+        }
+
+        function completePurchase(productId) {
+            const purchaseDate = new Date().toISOString();
+            
+            // Add purchase to user's account
+            DB.addPurchase(currentUser.username, productId, purchaseDate);
+            currentUser.purchases.push({ id: productId, date: purchaseDate });
+            localStorage.setItem('dzidzi_currentUser', JSON.stringify(currentUser));
+            
+            // Get product details
+            const product = DB.products.find(p => p.id === productId);
+            
+            // Update UI
+            loadProducts();
+            loadPurchaseHistory();
+            
+            // Close payment modal
+            setTimeout(() => {
+                paymentModal.style.display = 'none';
+                
+                // Show product delivery confirmation
+                const confirmationModal = document.createElement('div');
+                confirmationModal.className = 'modal';
+                confirmationModal.style.display = 'flex';
+                confirmationModal.innerHTML = `
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title">Purchase Complete!</h3>
+                            <button class="close-modal">×</button>
+                        </div>
+                        <div class="delivery-info">
+                            <p class="success-message">Your purchase has been verified and the product is now available!</p>
+                            <div class="product-details">
+                                <h4>${product.title}</h4>
+                                <p>${product.description}</p>
+                                <p>Purchase ID: ${productId}-${Date.now().toString(36)}</p>
+                                <p>Purchase Date: ${new Date().toLocaleString()}</p>
+                            </div>
+                            <button class="access-btn">Access Your Product Now</button>
+                        </div>
+                    </div>
+                `;
+                
+                document.body.appendChild(confirmationModal);
+                
+                // Add event listeners for the confirmation modal
+                confirmationModal.querySelector('.close-modal').addEventListener('click', () => {
+                    confirmationModal.style.display = 'none';
+                    setTimeout(() => {
+                        confirmationModal.remove();
+                    }, 300);
+                });
+                
+                confirmationModal.querySelector('.access-btn').addEventListener('click', () => {
+                    confirmationModal.style.display = 'none';
+                    setTimeout(() => {
+                        confirmationModal.remove();
+                        // Show product access page or download link
+                        alert(`Accessing your purchased content: ${product.title}`);
+                    }, 300);
+                });
+                
+                // Click outside to close
+                window.addEventListener('click', function closeConfirmation(e) {
+                    if (e.target === confirmationModal) {
+                        confirmationModal.style.display = 'none';
+                        setTimeout(() => {
+                            confirmationModal.remove();
+                        }, 300);
+                        window.removeEventListener('click', closeConfirmation);
+                    }
+                });
+            }, 1000);
+        }
+
+        function copyBTCAddress() {
+            const btcAddress = document.getElementById('btcAddress').textContent;
+            navigator.clipboard.writeText(btcAddress).then(() => {
+                const copyBtn = document.querySelector('.copy-address');
+                copyBtn.textContent = 'Copied!';
+                setTimeout(() => {
+                    copyBtn.textContent = 'Copy Address';
+                }, 2000);
+            });
+        }
+
         function showPortal() {
+            if (!currentUser) {
+                showAuthPage();
+                return;
+            }
+
             authPage.classList.remove('active');
             portalPage.classList.add('active');
+            sidebar.style.display = 'block';
+            authButtons.style.display = 'none';
 
             welcomeMessage.textContent = `Welcome, ${currentUser.username}`;
             userAvatar.textContent = currentUser.username.charAt(0).toUpperCase();
-            userBalance.textContent = currentUser.balance.toFixed(8);
-            dashboardBalance.textContent = currentUser.balance.toFixed(8) + ' BTC';
-            totalPurchases.textContent = currentUser.purchases.length;
+            sidebarUsername.textContent = currentUser.username;
+            sidebarAvatar.textContent = currentUser.username.charAt(0).toUpperCase();
 
             const createdDate = new Date(currentUser.createdAt);
             const today = new Date();
             const accountDays = Math.floor((today - createdDate) / (1000 * 60 * 60 * 24));
             accountAge.textContent = `${accountDays} days`;
 
-            loadProducts();
-            loadPurchaseHistory();
+            setActiveSection(currentSection);
         }
 
-        function loadProducts() {
-            productsGrid.innerHTML = '';
-            const searchTerm = searchInput.value.toLowerCase();
-            const category = categoryFilter.value;
-            const sort = sortFilter.value;
-
-            let filteredProducts = DB.products.filter(product => {
-                const matchesSearch = product.title.toLowerCase().includes(searchTerm) || product.description.toLowerCase().includes(searchTerm);
-                const matchesCategory = category === 'all' || product.category === category;
-                return matchesSearch && matchesCategory;
-            });
-
-            filteredProducts.sort((a, b) => {
-                if (sort === 'price-asc') return a.price - b.price;
-                if (sort === 'price-desc') return b.price - a.price;
-                if (sort === 'name-asc') return a.title.localeCompare(b.title);
-                if (sort === 'name-desc') return b.title.localeCompare(a.title);
-                return 0;
-            });
-
-            const userPurchases = DB.getUserPurchases(currentUser.username);
-            filteredProducts.forEach(product => {
-                const isPurchased = userPurchases.some(p => p.id === product.id);
-                const productCard = document.createElement('div');
-                productCard.className = 'product-card';
-                productCard.innerHTML = `
-                    <div class="product-image">
-                        <img src="${product.image}" alt="${product.title}" ${isPurchased ? '' : 'class="locked-content"'}>
-                    </div>
-                    <div class="product-info">
-                        ${isPurchased ? '<span class="owned-badge">OWNED</span>' : ''}
-                        <h3 class="product-title">${product.title}</h3>
-                        <div class="product-price">${product.price} BTC</div>
-                        <p class="product-description">${product.description}</p>
-                        <p class="product-meta">Added: ${new Date(product.createdAt).toLocaleDateString()}</p>
-                        <button class="buy-btn ${isPurchased ? 'owned' : ''}" data-id="${product.id}">
-                            ${isPurchased ? 'Access Content' : 'Buy Now'}
-                        </button>
-                    </div>
-                `;
-                productsGrid.appendChild(productCard);
-
-                productCard.querySelector('.buy-btn').addEventListener('click', () => {
-                    if (isPurchased) {
-                        alert(`You now have full access to: ${product.title}`);
-                    } else {
-                        initiatePurchase(product);
-                    }
-                });
-            });
-
-            if (filteredProducts.length === 0) {
-                productsGrid.innerHTML = '<p>No products found.</p>';
-            }
-        }
-
-        function loadPurchaseHistory() {
-            purchaseHistory.innerHTML = '';
-            const userPurchases = DB.getUserPurchases(currentUser.username);
-
-            if (userPurchases.length === 0) {
-                purchaseHistory.innerHTML = '<p>You have no purchases yet.</p>';
-                return;
+        document.addEventListener('DOMContentLoaded', () => {
+            // Run IP detection on page load
+            detectNewBrowser();
+            
+            const storedUser = localStorage.getItem('dzidzi_currentUser');
+            if (storedUser) {
+                currentUser = JSON.parse(storedUser);
+                showPortal();
+            } else {
+                showAuthPage();
             }
 
-            userPurchases.forEach(purchase => {
-                const product = DB.products.find(p => p.id === purchase.id);
-                if (product) {
-                    const historyCard = document.createElement('div');
-                    historyCard.className = 'history-card';
-                    historyCard.innerHTML = `
-                        <h3>${product.title}</h3>
-                        <p>Purchased on: ${new Date(purchase.date).toLocaleDateString()}</p>
-                        <p>Price: ${product.price} BTC</p>
-                        <button class="buy-btn owned">Access Again</button>
-                    `;
-                    historyCard.querySelector('.buy-btn').addEventListener('click', () => {
-                        alert(`Accessing your purchased content: ${product.title}`);
-                    });
-                    purchaseHistory.appendChild(historyCard);
-                }
+            // Event listeners
+            loginBtn.addEventListener('click', handleLogin);
+            signupBtn.addEventListener('click', handleSignup);
+            logoutBtn.addEventListener('click', handleLogout);
+            showLogin.addEventListener('click', () => {
+                authPage.classList.add('active');
+                portalPage.classList.remove('active');
+                sidebar.style.display = 'none';
+                authButtons.style.display = 'block';
+                showLoginForm();
             });
-        }
+            showSignup.addEventListener('click', () => {
+                authPage.classList.add('active');
+                portalPage.classList.remove('active');
+                sidebar.style.display = 'none';
+                authButtons.style.display = 'block';
+                showSignupForm();
+            });
+            switchToLogin.addEventListener('click', showLoginForm);
+            switchToSignup.addEventListener('click', showSignupForm);
 
-        function initiatePurchase(product) {
-            currentProduct = product;
-            btcAddress.textContent = generateBitcoinAddress();
-            paymentAmount.textContent = `${product.price} BTC`;
-            paymentStatus.innerHTML = '<p>Waiting for payment confirmation...</p>';
-            paymentModal.style.display = 'flex';
-        }
+            // Navigation
+            navDashboard.addEventListener('click', (e) => {
+                e.preventDefault();
+                setActiveSection('dashboard');
+            });
+            navProducts.addEventListener('click', (e) => {
+                e.preventDefault();
+                setActiveSection('products');
+            });
+            navHistory.addEventListener('click', (e) => {
+                e.preventDefault();
+                setActiveSection('history');
+            });
+            navSettings.addEventListener('click', (e) => {
+                e.preventDefault();
+                showSettingsModal();
+            });
+            navLogout.addEventListener('click', (e) => {
+                e.preventDefault();
+                handleLogout();
+            });
 
-        function completePayment() {
-            paymentStatus.innerHTML = '<p class="payment-success">Payment confirmed! Unlocking your content...</p>';
-            confirmPayment.disabled = true;
+            // Modals
+            closeSettingsModal.addEventListener('click', () => settingsModal.style.display = 'none');
+            closePaymentModal.addEventListener('click', () => paymentModal.style.display = 'none');
+            window.addEventListener('click', (e) => {
+                if (e.target === settingsModal) settingsModal.style.display = 'none';
+                if (e.target === paymentModal) paymentModal.style.display = 'none';
+            });
 
-            setTimeout(() => {
-                DB.addPurchase(currentUser.username, currentProduct.id, new Date().toISOString());
-                currentUser.purchases.push({ id: currentProduct.id, date: new Date().toISOString() });
-                localStorage.setItem('dzidzi_currentUser', JSON.stringify(currentUser));
-
-                userBalance.textContent = currentUser.balance.toFixed(8);
+            // Search and filters
+            searchInput.addEventListener('input', loadProducts);
+            categoryFilter.addEventListener('change', () => {
+                sidebarCategoryFilter.value = categoryFilter.value;
                 loadProducts();
-                loadPurchaseHistory();
+            });
+            sortFilter.addEventListener('change', loadProducts);
+            sidebarCategoryFilter.addEventListener('change', () => {
+                categoryFilter.value = sidebarCategoryFilter.value;
+                loadProducts();
+            });
 
-                paymentModal.style.display = 'none';
-                confirmPayment.disabled = false;
-                alert(`Purchase complete! You now have access to: ${currentProduct.title}`);
-            }, 2000);
-        }
-
-        function generateBitcoinAddress() {
-            const chars = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
-            let result = 'bc1q';
-            for (let i = 0; i < 32; i++) {
-                result += chars.charAt(Math.floor(Math.random() * chars.length));
-            }
-            return result;
-        }
-
-        document.addEventListener('DOMContentLoaded', init);
+            // Dark mode
+            darkModeToggle.addEventListener('change', () => {
+                document.body.style.backgroundColor = darkModeToggle.checked ? '#333' : 'var(--background)';
+            });
+            
+            // Payment verification - use direct blockchain verification instead of Kraken
+            // This works without a server and fixes the "Failed to fetch" error
+            verifyPaymentBtn.addEventListener('click', () => {
+                const address = document.getElementById('btcAddress').textContent;
+                const amountText = document.getElementById('paymentAmount').textContent;
+                const amount = parseFloat(amountText.replace(' BTC', ''));
+                verifyBitcoinPayment(address, amount, selectedProduct.id);
+            });
+        });
     </script>
 </body>
 </html>
