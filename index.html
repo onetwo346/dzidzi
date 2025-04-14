@@ -37,17 +37,16 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
-            margin-left: var(--sidebar-width);
-            transition: margin-left 0.3s ease;
+            width: calc(100% - var(--sidebar-width));
+            transition: width 0.3s ease;
         }
 
         /* Mobile responsiveness */
         @media (max-width: 768px) {
             .container {
-                margin-left: 0;
-                padding: 15px;
                 width: 100%;
-                max-width: 100%;
+                margin: 0 auto;
+                padding: 15px;
             }
             
             .sidebar {
@@ -59,8 +58,6 @@
                 height: calc(100vh - 65px);
                 z-index: 1000;
                 width: 250px;
-                max-width: 80%;
-                overflow-y: auto;
                 background-color: var(--sidebar-bg);
                 box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
             }
@@ -68,99 +65,30 @@
             .sidebar.active {
                 transform: translateX(0);
             }
-            
-            .header-content {
-                padding: 0 15px;
-            }
-            
-            .product-grid {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            }
-            
-            .menu-toggle {
-                display: block;
-                font-size: 24px;
-                cursor: pointer;
-                color: white;
-                margin-right: 10px;
-                background: none;
-                border: none;
-                padding: 5px;
-            }
-            
-            .overlay {
-                display: none;
-                position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background-color: rgba(0, 0, 0, 0.5);
-                z-index: 998;
-            }
-            
-            .overlay.active {
-                display: block;
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 20px;
+                width: 100%;
             }
         }
-        
-        @media (max-width: 480px) {
+
+        @media (min-width: 769px) {
             .sidebar {
-                width: 85%;
-                max-width: 300px;
-                height: calc(100vh - 65px);
                 position: fixed;
                 top: 65px;
                 left: 0;
+                height: calc(100vh - 65px);
+                width: var(--sidebar-width);
+                background-color: var(--sidebar-bg);
+                box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
                 z-index: 1000;
-                overflow-y: auto;
             }
 
-            .container {
-                margin-left: 0;
-            }
-
-            .products-grid, .history-items, .dashboard-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .product-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .auth-container {
-                padding: 20px;
-                margin: 20px;
-            }
-            
-            .modal-content {
-                width: 90%;
-                padding: 15px;
-            }
-            
-            .payment-options {
-                flex-direction: column;
-            }
-            
-            .payment-option {
+            .products-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 25px;
                 width: 100%;
-                margin-bottom: 15px;
-            }
-            
-            .header-content {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                padding: 0 10px;
-            }
-            
-            .logo {
-                font-size: 20px;
-                margin: 0;
-            }
-            
-            .menu-toggle {
-                margin-right: 0;
             }
         }
 
@@ -541,67 +469,36 @@
 
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 25px;
-            margin-bottom: 40px;
+            padding: 20px 0;
+            width: 100%;
         }
 
         .product-card {
-            background-color: white;
-            border-radius: 12px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            position: relative;
-        }
-
-        .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
-        }
-        
-        .out-of-stock-badge {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: var(--error);
-            color: white;
-            padding: 5px 10px;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: bold;
-            z-index: 10;
-        }
-        
-        .product-card.out-of-stock .product-image {
-            opacity: 0.7;
-        }
-        
-        .product-card.out-of-stock .buy-button {
-            background-color: #ccc;
-            cursor: not-allowed;
+            transition: transform 0.2s;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            width: 100%;
         }
 
         .product-image {
+            width: 100%;
             height: 200px;
-            position: relative;
             overflow: hidden;
+            position: relative;
         }
 
         .product-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.3s ease;
-        }
-
-        .product-image img.locked-content {
-            filter: blur(8px);
-            user-select: none;
-        }
-
-        .product-card:hover .product-image img {
-            transform: scale(1.05);
+            transition: transform 0.3s;
         }
 
         .product-info {
@@ -840,17 +737,16 @@
             }
 
             .header-content {
-                flex-direction: column;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
                 text-align: center;
+                padding: 0 10px;
             }
 
             .auth-buttons {
-                margin-top: 10px;
-            }
-
-            .auth-buttons button {
-                margin-left: 0;
-                margin-right: 10px;
+                margin-top: 0;
+                display: flex;
             }
 
             .portal-header {
@@ -1066,7 +962,7 @@
             </div>
             <div class="payment-info">
                 <p>Please send the exact amount to complete your purchase:</p>
-                <img src="btcqr.jpg" alt="BTC QR Code" class="btc-qr-code">
+                <img src="/dzidzi/btcqr.jpg" alt="BTC QR Code" class="btc-qr-code">
                 <p>BTC Address:</p>
                 <div class="btc-address" id="btcAddress">39S361eEA2JJDwSdFwGH1HnA79KWvYzURk</div>
                 <button class="copy-address" onclick="copyBTCAddress()">Copy Address</button>
@@ -1170,7 +1066,7 @@
                     description: 'Exclusive high-resolution digital artwork from renowned artists. Includes 50 unique pieces with commercial use license.',
                     price: 0.05,
                     category: 'art',
-                    image: 'https://source.unsplash.com/random/600x400/?digital-art',
+                    image: 'https://source.unsplash.com/featured/600x400/?digital-art',
                     createdAt: '2025-01-01',
                     stock: 10
                 },
@@ -1180,7 +1076,7 @@
                     description: 'Master modern web development with this comprehensive course covering React, Node.js, and blockchain integration.',
                     price: 0.1,
                     category: 'education',
-                    image: 'https://source.unsplash.com/random/600x400/?coding',
+                    image: 'https://source.unsplash.com/featured/600x400/?coding',
                     createdAt: '2025-02-01',
                     stock: 5
                 },
@@ -1190,7 +1086,7 @@
                     description: 'Royalty-free music tracks for your projects. 20 high-quality tracks in various genres with unlimited usage.',
                     price: 0.03,
                     category: 'music',
-                    image: 'https://source.unsplash.com/random/600x400/?music',
+                    image: 'https://source.unsplash.com/featured/600x400/?music',
                     createdAt: '2025-03-01',
                     stock: 4
                 },
@@ -1200,7 +1096,7 @@
                     description: 'Collection of 10 best-selling e-books on entrepreneurship, productivity, and personal development.',
                     price: 0.02,
                     category: 'books',
-                    image: 'https://source.unsplash.com/random/600x400/?books',
+                    image: 'https://source.unsplash.com/featured/600x400/?books',
                     createdAt: '2025-04-01',
                     stock: 3
                 },
@@ -1210,7 +1106,7 @@
                     description: 'Premium 3D models for game development and animation. Includes characters, environments, and props.',
                     price: 0.15,
                     category: '3d',
-                    image: 'https://source.unsplash.com/random/600x400/?3d-model',
+                    image: 'https://source.unsplash.com/featured/600x400/?3d-model',
                     createdAt: '2025-05-01',
                     stock: 20
                 },
@@ -1220,7 +1116,7 @@
                     description: 'Professional Lightroom presets to enhance your photography workflow. 50 unique presets for various styles.',
                     price: 0.04,
                     category: 'photography',
-                    image: 'https://source.unsplash.com/random/600x400/?photography',
+                    image: 'https://source.unsplash.com/featured/600x400/?photography',
                     createdAt: '2025-06-01',
                     stock: 10
                 }
@@ -1233,11 +1129,19 @@
             findUser: function(username, password) {
                 if (!username) return null;
                 const lowerUsername = username.toLowerCase();
-                if (password) {
-                    const hashedPassword = simpleHash(password);
-                    return this.users.find(user => user.usernameLower === lowerUsername && user.password === hashedPassword);
-                }
-                return this.users.find(user => user.usernameLower === lowerUsername);
+                
+                // Find user by username (case-insensitive)
+                const user = this.users.find(user => 
+                    (user.usernameLower && user.usernameLower === lowerUsername) || 
+                    user.username.toLowerCase() === lowerUsername
+                );
+                
+                // If no password provided, just return the user if found
+                if (!password) return user;
+                
+                // If password is provided, check both
+                const hashedPassword = simpleHash(password);
+                return user && user.password === hashedPassword ? user : null;
             },
 
             createUser: function(originalUsername, password) {
@@ -1710,6 +1614,17 @@
                 });
         }
 
+        function copyBTCAddress() {
+            const btcAddress = document.getElementById('btcAddress').textContent;
+            navigator.clipboard.writeText(btcAddress).then(() => {
+                const copyBtn = document.querySelector('.copy-address');
+                copyBtn.textContent = 'Copied!';
+                setTimeout(() => {
+                    copyBtn.textContent = 'Copy Address';
+                }, 2000);
+            });
+        }
+
         function detectNewBrowser() {
             // Get the client's IP address using a third-party service
             fetch('https://api.ipify.org?format=json')
@@ -1809,15 +1724,20 @@
             }, 1000);
         }
 
-        function copyBTCAddress() {
-            const btcAddress = document.getElementById('btcAddress').textContent;
-            navigator.clipboard.writeText(btcAddress).then(() => {
-                const copyBtn = document.querySelector('.copy-address');
-                copyBtn.textContent = 'Copied!';
-                setTimeout(() => {
-                    copyBtn.textContent = 'Copy Address';
-                }, 2000);
-            });
+        function checkExistingSession() {
+            const storedUser = localStorage.getItem('dzidzi_currentUser');
+            if (storedUser) {
+                try {
+                    currentUser = JSON.parse(storedUser);
+                    showPortal();
+                } catch (error) {
+                    console.error('Error parsing stored user:', error);
+                    localStorage.removeItem('dzidzi_currentUser');
+                    showAuthPage();
+                }
+            } else {
+                showAuthPage();
+            }
         }
 
         function showPortal() {
@@ -1844,7 +1764,7 @@
             setActiveSection(currentSection);
         }
 
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', function() {
             // Reset users database to fix any corrupted data
             DB.users = DB.resetUsersDatabase();
             
@@ -1870,19 +1790,19 @@
             const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('overlay');
 
-            menuToggle.addEventListener('click', () => {
+            menuToggle.addEventListener('click', function() {
                 sidebar.classList.toggle('active');
                 overlay.classList.toggle('active');
             });
 
-            overlay.addEventListener('click', () => {
+            overlay.addEventListener('click', function() {
                 sidebar.classList.remove('active');
                 overlay.classList.remove('active');
             });
 
             // Close sidebar when clicking a menu item on mobile
             document.querySelectorAll('.sidebar-nav a').forEach(link => {
-                link.addEventListener('click', (e) => {
+                link.addEventListener('click', function(e) {
                     e.preventDefault();
                     if (window.innerWidth <= 768) {
                         sidebar.classList.remove('active');
@@ -1909,14 +1829,14 @@
             loginBtn.addEventListener('click', handleLogin);
             signupBtn.addEventListener('click', handleSignup);
             logoutBtn.addEventListener('click', handleLogout);
-            showLogin.addEventListener('click', () => {
+            showLogin.addEventListener('click', function() {
                 authPage.classList.add('active');
                 portalPage.classList.remove('active');
                 sidebar.style.display = 'none';
                 authButtons.style.display = 'block';
                 showLoginForm();
             });
-            showSignup.addEventListener('click', () => {
+            showSignup.addEventListener('click', function() {
                 authPage.classList.add('active');
                 portalPage.classList.remove('active');
                 sidebar.style.display = 'none';
@@ -1927,33 +1847,37 @@
             switchToSignup.addEventListener('click', showSignupForm);
 
             // Modals
-            closeSettingsModal.addEventListener('click', () => settingsModal.style.display = 'none');
-            closePaymentModal.addEventListener('click', () => paymentModal.style.display = 'none');
-            window.addEventListener('click', (e) => {
+            closeSettingsModal.addEventListener('click', function() {
+                settingsModal.style.display = 'none';
+            });
+            closePaymentModal.addEventListener('click', function() {
+                paymentModal.style.display = 'none';
+            });
+            window.addEventListener('click', function(e) {
                 if (e.target === settingsModal) settingsModal.style.display = 'none';
                 if (e.target === paymentModal) paymentModal.style.display = 'none';
             });
 
             // Search and filters
             searchInput.addEventListener('input', loadProducts);
-            categoryFilter.addEventListener('change', () => {
+            categoryFilter.addEventListener('change', function() {
                 sidebarCategoryFilter.value = categoryFilter.value;
                 loadProducts();
             });
             sortFilter.addEventListener('change', loadProducts);
-            sidebarCategoryFilter.addEventListener('change', () => {
+            sidebarCategoryFilter.addEventListener('change', function() {
                 categoryFilter.value = sidebarCategoryFilter.value;
                 loadProducts();
             });
 
             // Dark mode
-            darkModeToggle.addEventListener('change', () => {
+            darkModeToggle.addEventListener('change', function() {
                 document.body.style.backgroundColor = darkModeToggle.checked ? '#333' : 'var(--background)';
             });
             
             // Payment verification - use direct blockchain verification instead of Kraken
             // This works without a server and fixes the "Failed to fetch" error
-            verifyPaymentBtn.addEventListener('click', () => {
+            verifyPaymentBtn.addEventListener('click', function() {
                 const address = document.getElementById('btcAddress').textContent;
                 const amountText = document.getElementById('paymentAmount').textContent;
                 const amount = parseFloat(amountText.replace(' BTC', ''));
@@ -1961,29 +1885,7 @@
             });
 
             // Add a button to clear all data and reset
-            const resetButton = document.createElement('button');
-            resetButton.textContent = 'Reset All Data';
-            resetButton.style.position = 'fixed';
-            resetButton.style.bottom = '10px';
-            resetButton.style.right = '10px';
-            resetButton.style.zIndex = '9999';
-            resetButton.style.padding = '8px 12px';
-            resetButton.style.backgroundColor = '#ff3333';
-            resetButton.style.color = 'white';
-            resetButton.style.border = 'none';
-            resetButton.style.borderRadius = '4px';
-            resetButton.style.cursor = 'pointer';
-            
-            resetButton.addEventListener('click', function() {
-                if (confirm('This will delete all user accounts and reset the application. Are you sure?')) {
-                    localStorage.removeItem('dzidzi_users');
-                    localStorage.removeItem('dzidzi_currentUser');
-                    alert('All data has been reset. The page will now reload.');
-                    location.reload();
-                }
-            });
-            
-            document.body.appendChild(resetButton);
+            // Removed the reset button code
         });
     </script>
 </body>
