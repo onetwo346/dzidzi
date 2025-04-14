@@ -34,42 +34,50 @@
         }
 
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
             padding: 20px;
             width: calc(100% - var(--sidebar-width));
             transition: width 0.3s ease;
+            margin-left: var(--sidebar-width);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            width: 100%;
+            max-width: none;
+            margin: 0;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.2s;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            width: 100%;
         }
 
         /* Mobile responsiveness */
         @media (max-width: 768px) {
             .container {
                 width: 100%;
-                margin: 0 auto;
+                margin-left: 0;
                 padding: 15px;
             }
             
-            .sidebar {
-                transform: translateX(-100%);
-                transition: transform 0.3s ease;
-                position: fixed;
-                top: 65px;
-                left: 0;
-                height: calc(100vh - 65px);
-                z-index: 1000;
-                width: 250px;
-                background-color: var(--sidebar-bg);
-                box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-            }
-            
-            .sidebar.active {
-                transform: translateX(0);
-            }
-
             .products-grid {
-                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-                gap: 20px;
-                width: 100%;
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 15px;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             }
         }
 
@@ -86,7 +94,7 @@
             }
 
             .products-grid {
-                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
                 gap: 25px;
                 width: 100%;
             }
@@ -442,18 +450,16 @@
 
         .search-filter {
             display: flex;
-            flex-wrap: wrap;
+            align-items: center;
             gap: 15px;
-            margin-bottom: 30px;
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+            width: 100%;
+            flex-wrap: wrap;
         }
 
         .search-filter input,
         .search-filter select {
-            padding: 10px;
+            padding: 8px 12px;
             border: 1px solid var(--border);
             border-radius: 4px;
             font-size: 14px;
@@ -461,30 +467,23 @@
             min-width: 200px;
         }
 
-        .search-filter input:focus,
-        .search-filter select:focus {
-            outline: none;
-            border-color: var(--primary);
+        .search-filter select {
+            background-color: white;
+            cursor: pointer;
         }
 
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            padding: 20px 0;
-            width: 100%;
-        }
-
-        .product-card {
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            transition: transform 0.2s;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            width: 100%;
+        @media (max-width: 768px) {
+            .search-filter {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 10px;
+            }
+            
+            .search-filter input,
+            .search-filter select {
+                width: 100%;
+                min-width: 100%;
+            }
         }
 
         .product-image {
