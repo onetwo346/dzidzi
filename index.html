@@ -98,6 +98,11 @@
                 gap: 25px;
                 width: 100%;
             }
+            
+            /* Hide menu toggle on desktop */
+            .menu-toggle {
+                display: none;
+            }
         }
 
         header {
@@ -167,6 +172,29 @@
             box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
             z-index: 999;
             display: none;
+            height: calc(100vh - 65px); /* Make sidebar extend to bottom of page */
+            overflow-y: auto; /* Allow scrolling if content is too long */
+        }
+        
+        /* Add styles for active sidebar on mobile */
+        .sidebar.active {
+            display: block;
+        }
+        
+        /* Add styles for overlay */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 998;
+            display: none;
+        }
+        
+        .overlay.active {
+            display: block;
         }
 
         .sidebar .user-profile {
@@ -724,7 +752,8 @@
 
         @media (max-width: 768px) {
             .sidebar {
-                width: 200px;
+                width: 250px;
+                height: calc(100vh - 65px); /* Ensure it extends to bottom on mobile */
             }
 
             .container {
@@ -759,6 +788,14 @@
 
             .search-filter {
                 flex-direction: column;
+            }
+            
+            /* Add menu toggle button styles */
+            .menu-toggle {
+                display: block;
+                cursor: pointer;
+                font-size: 24px;
+                color: white;
             }
         }
     </style>
@@ -1327,7 +1364,8 @@
         function showAuthPage() {
             authPage.classList.add('active');
             portalPage.classList.remove('active');
-            sidebar.style.display = 'none';
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
             authButtons.style.display = 'block';
             showLoginForm();
         }
@@ -1747,9 +1785,16 @@
 
             authPage.classList.remove('active');
             portalPage.classList.add('active');
-            sidebar.style.display = 'block';
+            
+            // Only show sidebar automatically on desktop
+            if (window.innerWidth > 768) {
+                sidebar.classList.add('active');
+            } else {
+                sidebar.classList.remove('active');
+            }
+            
+            overlay.classList.remove('active');
             authButtons.style.display = 'none';
-
             welcomeMessage.textContent = `Welcome, ${currentUser.username}`;
             userAvatar.textContent = currentUser.username.charAt(0).toUpperCase();
             sidebarUsername.textContent = currentUser.username;
@@ -1799,17 +1844,20 @@
                 overlay.classList.remove('active');
             });
 
-            // Close sidebar when clicking a menu item on mobile
+            // Close sidebar when clicking a menu item on mobile only
             document.querySelectorAll('.sidebar-nav a').forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
+                    
+                    // Get the section name from the link id (navDashboard -> dashboard)
+                    const sectionName = link.id.replace('nav', '').toLowerCase();
+                    
+                    // Only close sidebar on mobile devices
                     if (window.innerWidth <= 768) {
                         sidebar.classList.remove('active');
                         overlay.classList.remove('active');
                     }
                     
-                    // Get the section name from the link id (navDashboard -> dashboard)
-                    const sectionName = link.id.replace('nav', '').toLowerCase();
                     if (sectionName === 'settings') {
                         showSettingsModal();
                     } else if (sectionName === 'logout') {
@@ -1820,25 +1868,19 @@
                 });
             });
 
-            // Form submissions
-            document.getElementById('loginFormElement').addEventListener('submit', handleLogin);
-            document.getElementById('signupFormElement').addEventListener('submit', handleSignup);
-            
-            // Event listeners
-            loginBtn.addEventListener('click', handleLogin);
-            signupBtn.addEventListener('click', handleSignup);
-            logoutBtn.addEventListener('click', handleLogout);
             showLogin.addEventListener('click', function() {
                 authPage.classList.add('active');
                 portalPage.classList.remove('active');
-                sidebar.style.display = 'none';
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
                 authButtons.style.display = 'block';
                 showLoginForm();
             });
             showSignup.addEventListener('click', function() {
                 authPage.classList.add('active');
                 portalPage.classList.remove('active');
-                sidebar.style.display = 'none';
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
                 authButtons.style.display = 'block';
                 showSignupForm();
             });
