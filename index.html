@@ -51,6 +51,14 @@
             .sidebar {
                 transform: translateX(-100%);
                 transition: transform 0.3s ease;
+                position: fixed;
+                top: 65px;
+                left: 0;
+                height: calc(100vh - 65px);
+                z-index: 1000;
+                width: 80%;
+                max-width: 300px;
+                overflow-y: auto;
             }
             
             .sidebar.active {
@@ -63,6 +71,29 @@
             
             .product-grid {
                 grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .menu-toggle {
+                display: block;
+                font-size: 24px;
+                cursor: pointer;
+                color: white;
+                margin-right: 10px;
+            }
+            
+            .overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 998;
+            }
+            
+            .overlay.active {
+                display: block;
             }
         }
         
@@ -820,6 +851,7 @@
 <body>
     <header>
         <div class="container header-content">
+            <div class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></div>
             <div class="logo">DZIDZI</div>
             <div class="auth-buttons" id="authButtons">
                 <button id="showLogin">Login</button>
@@ -859,6 +891,8 @@
             <input type="checkbox" id="darkModeToggle">
         </div>
     </div>
+
+    <div class="overlay" id="overlay"></div>
 
     <div class="container">
         <div id="authPage" class="page active">
@@ -1089,15 +1123,15 @@
             for (let i = 0; i < str.length; i++) {
                 const char = str.charCodeAt(i);
                 hash = ((hash << 5) - hash) + char;
-                hash = hash & hash;
+                hash = hash & hash; // Convert to 32bit integer
             }
-            return hash.toString();
+            return hash.toString(16);
         }
 
         function sanitizeInput(str) {
-            const div = document.createElement('div');
-            div.textContent = str;
-            return div.innerHTML.replace(/[<>&"]/g, '');
+            if (!str) return '';
+            // Remove HTML tags and trim whitespace
+            return str.replace(/<[^>]*>?/gm, '').trim();
         }
 
         const DB = {
@@ -1170,9 +1204,11 @@
             },
 
             findUser: function(username, password) {
+                if (!username) return null;
                 const lowerUsername = username.toLowerCase();
                 if (password) {
-                    return this.users.find(user => user.usernameLower === lowerUsername && user.password === simpleHash(password));
+                    const hashedPassword = simpleHash(password);
+                    return this.users.find(user => user.usernameLower === lowerUsername && user.password === hashedPassword);
                 }
                 return this.users.find(user => user.usernameLower === lowerUsername);
             },
@@ -1395,6 +1431,7 @@
                 return;
             }
 
+            // Try to find the user with case-insensitive username
             const user = DB.findUser(username, password);
             if (!user) {
                 loginUsernameError.textContent = 'Invalid username or password';
@@ -1404,7 +1441,7 @@
             }
 
             currentUser = {
-                username: user.username,
+                username: user.username, // Use the original case from the database
                 purchases: user.purchases,
                 createdAt: user.createdAt
             };
@@ -1431,9 +1468,13 @@
             } else if (username.length < 4) {
                 signupUsernameError.textContent = 'Username must be at least 4 characters';
                 isValid = false;
-            } else if (DB.findUser(username)) {
-                signupUsernameError.textContent = 'Username already taken';
-                isValid = false;
+            } else {
+                // Check for duplicate username (case-insensitive)
+                const existingUser = DB.findUser(username);
+                if (existingUser) {
+                    signupUsernameError.textContent = 'Username already taken';
+                    isValid = false;
+                }
             }
 
             if (!password) {
@@ -1746,6 +1787,31 @@
             } else {
                 showAuthPage();
             }
+
+            // Mobile menu toggle
+            const menuToggle = document.getElementById('menuToggle');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+
+            menuToggle.addEventListener('click', () => {
+                sidebar.classList.toggle('active');
+                overlay.classList.toggle('active');
+            });
+
+            overlay.addEventListener('click', () => {
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
+            });
+
+            // Close sidebar when clicking a menu item on mobile
+            document.querySelectorAll('.sidebar-nav a').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (window.innerWidth <= 768) {
+                        sidebar.classList.remove('active');
+                        overlay.classList.remove('active');
+                    }
+                });
+            });
 
             // Event listeners
             loginBtn.addEventListener('click', handleLogin);
