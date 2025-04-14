@@ -1922,6 +1922,15 @@
             switchToLogin.addEventListener('click', showLoginForm);
             switchToSignup.addEventListener('click', showSignupForm);
 
+            // Form submissions
+            document.getElementById('loginFormElement').addEventListener('submit', handleLogin);
+            document.getElementById('signupFormElement').addEventListener('submit', handleSignup);
+            
+            // Event listeners for auth buttons
+            loginBtn.addEventListener('click', handleLogin);
+            signupBtn.addEventListener('click', handleSignup);
+            logoutBtn.addEventListener('click', handleLogout);
+
             // Modals
             closeSettingsModal.addEventListener('click', function() {
                 settingsModal.style.display = 'none';
