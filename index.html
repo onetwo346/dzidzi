@@ -847,7 +847,6 @@
             <div class="user-avatar" id="sidebarAvatar">U</div>
             <div class="user-details">
                 <h3 id="sidebarUsername">Username</h3>
-                <p>Balance: <span id="sidebarBalance">0</span> BTC</p>
             </div>
         </div>
         <div class="sidebar-nav">
@@ -937,7 +936,6 @@
                     <div class="user-avatar" id="userAvatar">U</div>
                     <div class="user-details">
                         <h2 id="welcomeMessage">Welcome, User</h2>
-                        <p>Your balance: <span id="userBalance">0</span> BTC</p>
                     </div>
                 </div>
                 <div>
@@ -958,11 +956,6 @@
                         <i class="fas fa-calendar-alt"></i>
                         <h3>Account Age</h3>
                         <p id="accountAge">0 days</p>
-                    </div>
-                    <div class="dashboard-card">
-                        <i class="fas fa-wallet"></i>
-                        <h3>Balance</h3>
-                        <p id="dashboardBalance">0 BTC</p>
                     </div>
                 </div>
             </div>
@@ -1063,16 +1056,13 @@
         const purchaseHistory = document.getElementById('purchaseHistory');
         const welcomeMessage = document.getElementById('welcomeMessage');
         const userAvatar = document.getElementById('userAvatar');
-        const userBalance = document.getElementById('userBalance');
         const totalPurchases = document.getElementById('totalPurchases');
         const accountAge = document.getElementById('accountAge');
-        const dashboardBalance = document.getElementById('dashboardBalance');
         const searchInput = document.getElementById('searchInput');
         const categoryFilter = document.getElementById('categoryFilter');
         const sortFilter = document.getElementById('sortFilter');
         const sidebarAvatar = document.getElementById('sidebarAvatar');
         const sidebarUsername = document.getElementById('sidebarUsername');
-        const sidebarBalance = document.getElementById('sidebarBalance');
         const sidebarCategoryFilter = document.getElementById('sidebarCategoryFilter');
         const darkModeToggle = document.getElementById('darkModeToggle');
         const navDashboard = document.getElementById('navDashboard');
@@ -1230,14 +1220,30 @@
                 },
                 {
                     id: 'prod14',
-                    title: 'Visa Gift Card',
+                    title: 'green dot Gift Card',
                     description: 'Visa gift card with $200 balance. Can be used anywhere Visa is accepted.',
+                    price: 200,
+                    category: 'giftcard',
+                    image: 'greendot.jpg',
+                    createdAt: '2025-07-01',
+                    stock: 5
+                },
+
+
+                {
+                    id: 'prod16',
+                    title: 'itunes Gift Card',
+                    description: 'itunes gift card with $50balance. Can be used anywhere Visa is accepted.',
                     price: 200,
                     category: 'giftcard',
                     image: 'https://source.unsplash.com/featured/600x400/?visa',
                     createdAt: '2025-07-01',
                     stock: 5
-                }
+                },
+                
+                
+
+
             ],
 
             saveUsers: function() {
