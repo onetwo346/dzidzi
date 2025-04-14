@@ -860,12 +860,13 @@
         <div class="quick-filter">
             <select id="sidebarCategoryFilter">
                 <option value="all">All Categories</option>
-                <option value="art">Digital Art</option>
-                <option value="education">Education</option>
-                <option value="music">Music</option>
-                <option value="books">Books</option>
-                <option value="3d">3D Models</option>
-                <option value="photography">Photography</option>
+                <option value="rdp">remote desktop protocol logs</option>
+                <option value="bank accounts">bank logs</option>
+                <option value="vpn">vpn logs</option>
+                <option value="photography">Hot sexy models</option>
+                <option value="giftcard">Gift Cards</option>
+                <option value="email">Email Logs</option>
+                <option value="dating">Dating Websites logs</option>
             </select>
         </div>
         <div class="dark-mode-toggle">
@@ -976,6 +977,9 @@
                     <option value="books">Books</option>
                     <option value="3d">3D Models</option>
                     <option value="photography">Photography</option>
+                    <option value="giftcard">Gift Cards</option>
+                    <option value="email">Email Accounts</option>
+                    <option value="dating">Dating Websites</option>
                 </select>
                 <select id="sortFilter">
                     <option value="price-asc">Price: Low to High</option>
@@ -1027,11 +1031,11 @@
             </div>
             <div class="payment-info">
                 <p>Please send the exact amount to complete your purchase:</p>
-                <img src="/dzidzi/btcqr.jpg" alt="BTC QR Code" class="btc-qr-code">
+                <img src="btcqr.jpg" alt="BTC QR Code" class="btc-qr-code">
                 <p>BTC Address:</p>
                 <div class="btc-address" id="btcAddress">39S361eEA2JJDwSdFwGH1HnA79KWvYzURk</div>
                 <button class="copy-address" onclick="copyBTCAddress()">Copy Address</button>
-                <p>Amount to Send: <span class="payment-amount" id="paymentAmount">0 BTC</span></p>
+                <p>Amount to Send: <span class="payment-amount" id="paymentAmount">$0</span></p>
                 <div id="paymentStatus"></div>
                 <p class="payment-note">* After sending the payment, click the button below to verify your transaction.</p>
                 <button id="verifyPaymentBtn" class="verify-payment-btn">I've Sent the Payment</button>
@@ -1184,6 +1188,16 @@
                     image: 'https://source.unsplash.com/featured/600x400/?photography',
                     createdAt: '2025-06-01',
                     stock: 10
+                },
+                {
+                    id: 'prod7',
+                    title: 'vanilla card',
+                    description: 'vanilla giftcard.',
+                    price: 100,
+                    category: 'giftcard',
+                    image: 'vanilla.jpg',
+                    createdAt: '2025-06-01',
+                    stock: 2
                 }
             ],
 
@@ -1341,7 +1355,7 @@
                     <div class="product-info">
                         ${isPurchased ? '<span class="owned-badge">OWNED</span>' : ''}
                         <h3 class="product-title">${product.title}</h3>
-                        <div class="product-price">${product.price} BTC</div>
+                        <div class="product-price">$${product.price}</div>
                         <p class="product-description">${product.description}</p>
                         <p class="product-meta">Stock: ${product.stock} available</p>
                         <button class="buy-btn ${isPurchased ? 'owned' : ''} ${isOutOfStock ? 'disabled' : ''}">Buy Now</button>
@@ -1379,7 +1393,7 @@
                     historyCard.innerHTML = `
                         <h3>${product.title}</h3>
                         <p>Purchased on: ${new Date(purchase.date).toLocaleDateString()}</p>
-                        <p>Price: ${product.price} BTC</p>
+                        <p>Price: $${product.price}</p>
                         <button class="buy-btn owned">Access Again</button>
                     `;
                     historyCard.querySelector('.buy-btn').addEventListener('click', () => {
@@ -1622,7 +1636,8 @@
             }
 
             selectedProduct = product;
-            document.getElementById('paymentAmount').textContent = `${product.price} BTC`;
+            // Display all prices in dollars
+            document.getElementById('paymentAmount').textContent = `$${product.price}`;
             document.getElementById('paymentStatus').innerHTML = '';
             document.getElementById('verifyPaymentBtn').disabled = false;
             paymentModal.style.display = 'flex';
@@ -1973,7 +1988,7 @@
             verifyPaymentBtn.addEventListener('click', function() {
                 const address = document.getElementById('btcAddress').textContent;
                 const amountText = document.getElementById('paymentAmount').textContent;
-                const amount = parseFloat(amountText.replace(' BTC', ''));
+                const amount = parseFloat(amountText.replace('$', ''));
                 verifyBitcoinPayment(address, amount, selectedProduct.id);
             });
 
