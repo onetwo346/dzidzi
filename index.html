@@ -1140,13 +1140,16 @@
         const confirmPasswordError = document.getElementById('confirmPasswordError');
 
         function simpleHash(str) {
+            if (!str) return '';
+            // Use a more consistent hashing approach
             let hash = 0;
             for (let i = 0; i < str.length; i++) {
                 const char = str.charCodeAt(i);
                 hash = ((hash << 5) - hash) + char;
                 hash = hash & hash; // Convert to 32bit integer
             }
-            return hash.toString(16);
+            // Convert to hex string and ensure it's consistent across devices
+            return Math.abs(hash).toString(16);
         }
 
         function sanitizeInput(str) {
@@ -1229,7 +1232,14 @@
                 const lowerUsername = username.toLowerCase();
                 if (password) {
                     const hashedPassword = simpleHash(password);
-                    return this.users.find(user => user.usernameLower === lowerUsername && user.password === hashedPassword);
+                    console.log('Looking for user:', lowerUsername);
+                    console.log('With hashed password:', hashedPassword);
+                    console.log('Available users:', this.users);
+                    
+                    return this.users.find(user => {
+                        console.log('Checking user:', user.usernameLower, 'with password hash:', user.password);
+                        return user.usernameLower === lowerUsername && user.password === hashedPassword;
+                    });
                 }
                 return this.users.find(user => user.usernameLower === lowerUsername);
             },
