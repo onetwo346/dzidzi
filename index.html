@@ -971,15 +971,13 @@
                 <input type="text" id="searchInput" placeholder="Search products...">
                 <select id="categoryFilter">
                     <option value="all">All Categories</option>
-                    <option value="art">Digital Art</option>
-                    <option value="education">Education</option>
-                    <option value="music">Music</option>
-                    <option value="books">Books</option>
-                    <option value="3d">3D Models</option>
-                    <option value="photography">Photography</option>
+                    <option value="rdp">remote desktop protocol logs</option>
+                    <option value="bank accounts">bank logs</option>
+                    <option value="vpn">vpn logs</option>
+                    <option value="photography">Hot sexy models</option>
                     <option value="giftcard">Gift Cards</option>
-                    <option value="email">Email Accounts</option>
-                    <option value="dating">Dating Websites</option>
+                    <option value="email">Email Logs</option>
+                    <option value="dating">Dating Websites logs</option>
                 </select>
                 <select id="sortFilter">
                     <option value="price-asc">Price: Low to High</option>
@@ -1130,74 +1128,115 @@
             users: JSON.parse(localStorage.getItem('dzidzi_users')) || [],
             products: [
                 {
-                    id: 'prod1',
-                    title: 'Premium Digital Art Collection',
-                    description: 'Exclusive high-resolution digital artwork from renowned artists. Includes 50 unique pieces with commercial use license.',
-                    price: 0.05,
-                    category: 'art',
-                    image: 'https://source.unsplash.com/featured/600x400/?digital-art',
-                    createdAt: '2025-01-01',
-                    stock: 10
-                },
-                {
-                    id: 'prod2',
-                    title: 'Advanced Coding Course',
-                    description: 'Master modern web development with this comprehensive course covering React, Node.js, and blockchain integration.',
-                    price: 0.1,
-                    category: 'education',
-                    image: 'https://source.unsplash.com/featured/600x400/?coding',
-                    createdAt: '2025-02-01',
-                    stock: 5
-                },
-                {
-                    id: 'prod3',
-                    title: 'Exclusive Music Pack',
-                    description: 'Royalty-free music tracks for your projects. 20 high-quality tracks in various genres with unlimited usage.',
-                    price: 0.03,
-                    category: 'music',
-                    image: 'https://source.unsplash.com/featured/600x400/?music',
-                    createdAt: '2025-03-01',
-                    stock: 4
-                },
-                {
-                    id: 'prod4',
-                    title: 'E-book Bundle',
-                    description: 'Collection of 10 best-selling e-books on entrepreneurship, productivity, and personal development.',
-                    price: 0.02,
-                    category: 'books',
-                    image: 'https://source.unsplash.com/featured/600x400/?books',
-                    createdAt: '2025-04-01',
-                    stock: 3
-                },
-                {
-                    id: 'prod5',
-                    title: '3D Model Assets',
-                    description: 'Premium 3D models for game development and animation. Includes characters, environments, and props.',
-                    price: 0.15,
-                    category: '3d',
-                    image: 'https://source.unsplash.com/featured/600x400/?3d-model',
-                    createdAt: '2025-05-01',
-                    stock: 20
-                },
-                {
                     id: 'prod6',
-                    title: 'Photography Presets',
-                    description: 'Professional Lightroom presets to enhance your photography workflow. 50 unique presets for various styles.',
-                    price: 0.04,
+                    title: 'Premium Model Photos',
+                    description: 'Exclusive high-quality model photoshoot collection. Professional photography with full usage rights.',
+                    price: 75,
                     category: 'photography',
-                    image: 'https://source.unsplash.com/featured/600x400/?photography',
+                    image: 'https://source.unsplash.com/featured/600x400/?model',
                     createdAt: '2025-06-01',
                     stock: 10
                 },
                 {
                     id: 'prod7',
-                    title: 'vanilla card',
-                    description: 'vanilla giftcard.',
+                    title: 'Vanilla Gift Card',
+                    description: 'Vanilla gift card with $100 balance. Ready to use online or in stores.',
                     price: 100,
                     category: 'giftcard',
                     image: 'vanilla.jpg',
                     createdAt: '2025-06-01',
                     stock: 2
+                },
+                {
+                    id: 'prod8',
+                    title: 'RDP Premium Access',
+                    description: 'Remote desktop protocol premium access with admin privileges. High-speed connection with 24/7 availability.',
+                    price: 150,
+                    category: 'rdp',
+                    image: 'https://source.unsplash.com/featured/600x400/?server',
+                    createdAt: '2025-06-05',
+                    stock: 5
+                },
+                {
+                    id: 'prod9',
+                    title: 'Bank Account Info Pack',
+                    description: 'Comprehensive bank account information package with detailed access logs and verification data.',
+                    price: 200,
+                    category: 'bank accounts',
+                    image: 'https://source.unsplash.com/featured/600x400/?bank',
+                    createdAt: '2025-06-10',
+                    stock: 3
+                },
+                {
+                    id: 'prod10',
+                    title: 'VPN Premium Subscription',
+                    description: 'High-security VPN subscription with complete access logs. Multiple server locations and unlimited bandwidth.',
+                    price: 120,
+                    category: 'vpn',
+                    image: 'https://source.unsplash.com/featured/600x400/?security',
+                    createdAt: '2025-06-15',
+                    stock: 8
+                },
+                {
+                    id: 'prod11',
+                    title: 'Germany Email Access Package',
+                    description: 'Complete email account access package with full logs and recovery information.',
+                    price: 80,
+                    category: 'email',
+                    image: 'https://source.unsplash.com/featured/600x400/?email',
+                    createdAt: '2025-06-20',
+                    stock: 6
+                },
+               
+                {
+                    id: 'prod15',
+                    title: 'USA Email Access Package',
+                    description: 'Complete email account access package with full logs and recovery information.',
+                    price: 50,
+                    category: 'email',
+                    image: 'https://source.unsplash.com/featured/600x400/?email',
+                    createdAt: '2025-06-20',
+                    stock: 6
+                },
+
+
+
+
+
+
+
+
+
+
+                {
+                    id: 'prod12',
+                    title: 'benaughty',
+                    description: 'Full access to premium dating website accounts with complete logs and messaging history.',
+                    price: 25,
+                    category: 'dating',
+                    image: 'https://source.unsplash.com/featured/600x400/?dating',
+                    createdAt: '2025-06-25',
+                    stock: 4
+                },
+                {
+                    id: 'prod13',
+                    title: 'iwantu',
+                    description: 'Full access to premium dating website accounts with complete logs and messaging history.',
+                    price: 10,
+                    category: 'dating',
+                    image: 'https://source.unsplash.com/featured/600x400/?dating',
+                    createdAt: '2025-06-25',
+                    stock: 1
+                },
+                {
+                    id: 'prod14',
+                    title: 'Visa Gift Card',
+                    description: 'Visa gift card with $200 balance. Can be used anywhere Visa is accepted.',
+                    price: 200,
+                    category: 'giftcard',
+                    image: 'https://source.unsplash.com/featured/600x400/?visa',
+                    createdAt: '2025-07-01',
+                    stock: 5
                 }
             ],
 
