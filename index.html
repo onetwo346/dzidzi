@@ -1140,16 +1140,15 @@
         const confirmPasswordError = document.getElementById('confirmPasswordError');
 
         function simpleHash(str) {
+            // Simple but consistent hashing function
             if (!str) return '';
-            // Use a more consistent hashing approach
+            
+            // Use a basic but consistent approach
             let hash = 0;
             for (let i = 0; i < str.length; i++) {
-                const char = str.charCodeAt(i);
-                hash = ((hash << 5) - hash) + char;
-                hash = hash & hash; // Convert to 32bit integer
+                hash += str.charCodeAt(i);
             }
-            // Convert to hex string and ensure it's consistent across devices
-            return Math.abs(hash).toString(16);
+            return hash.toString();
         }
 
         function sanitizeInput(str) {
@@ -1232,14 +1231,7 @@
                 const lowerUsername = username.toLowerCase();
                 if (password) {
                     const hashedPassword = simpleHash(password);
-                    console.log('Looking for user:', lowerUsername);
-                    console.log('With hashed password:', hashedPassword);
-                    console.log('Available users:', this.users);
-                    
-                    return this.users.find(user => {
-                        console.log('Checking user:', user.usernameLower, 'with password hash:', user.password);
-                        return user.usernameLower === lowerUsername && user.password === hashedPassword;
-                    });
+                    return this.users.find(user => user.usernameLower === lowerUsername && user.password === hashedPassword);
                 }
                 return this.users.find(user => user.usernameLower === lowerUsername);
             },
@@ -1280,6 +1272,32 @@
             getUserPurchases: function(username) {
                 const user = this.findUser(username);
                 return user ? user.purchases : [];
+            },
+
+            resetUsersDatabase: function() {
+                // Get current users
+                const currentUsers = JSON.parse(localStorage.getItem('dzidzi_users')) || [];
+                
+                // Create a new array with fixed user data
+                const fixedUsers = currentUsers.map(user => {
+                    // Rehash the password if it exists
+                    if (user.password) {
+                        // We don't have the original password, so we'll keep the hash
+                        // but make sure the username is properly stored
+                        return {
+                            username: user.username,
+                            usernameLower: user.username.toLowerCase(),
+                            password: user.password,
+                            purchases: user.purchases || [],
+                            createdAt: user.createdAt || new Date().toISOString()
+                        };
+                    }
+                    return user;
+                });
+                
+                // Save the fixed users
+                localStorage.setItem('dzidzi_users', JSON.stringify(fixedUsers));
+                return fixedUsers;
             }
         };
 
@@ -1823,6 +1841,9 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
+            // Reset users database to fix any corrupted data
+            DB.users = DB.resetUsersDatabase();
+            
             // Run IP detection on page load
             detectNewBrowser();
             
@@ -1934,6 +1955,31 @@
                 const amount = parseFloat(amountText.replace(' BTC', ''));
                 verifyBitcoinPayment(address, amount, selectedProduct.id);
             });
+
+            // Add a button to clear all data and reset
+            const resetButton = document.createElement('button');
+            resetButton.textContent = 'Reset All Data';
+            resetButton.style.position = 'fixed';
+            resetButton.style.bottom = '10px';
+            resetButton.style.right = '10px';
+            resetButton.style.zIndex = '9999';
+            resetButton.style.padding = '8px 12px';
+            resetButton.style.backgroundColor = '#ff3333';
+            resetButton.style.color = 'white';
+            resetButton.style.border = 'none';
+            resetButton.style.borderRadius = '4px';
+            resetButton.style.cursor = 'pointer';
+            
+            resetButton.addEventListener('click', function() {
+                if (confirm('This will delete all user accounts and reset the application. Are you sure?')) {
+                    localStorage.removeItem('dzidzi_users');
+                    localStorage.removeItem('dzidzi_currentUser');
+                    alert('All data has been reset. The page will now reload.');
+                    location.reload();
+                }
+            });
+            
+            document.body.appendChild(resetButton);
         });
     </script>
 </body>
