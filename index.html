@@ -15,19 +15,23 @@
             --error: #d63031;
             --background: #f8f9fd;
             --border: #e0e0e0;
-            --sidebar-bg: #ffffff;
+            --sidebar-bg: rgba(255, 255, 255, 0.8);
             --sidebar-width: 250px;
+            --glass-bg: rgba(255, 255, 255, 0.25);
+            --backdrop-filter: blur(10px);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: all 0.3s ease;
         }
 
         body {
             background-color: var(--background);
+            background-image: radial-gradient(circle at 50% 50%, rgba(108, 92, 231, 0.1) 0%, rgba(108, 92, 231, 0.05) 50%, transparent 100%);
             color: var(--dark);
             line-height: 1.6;
             overflow-x: hidden;
@@ -36,14 +40,13 @@
         .container {
             padding: 20px;
             width: calc(100% - var(--sidebar-width));
-            transition: width 0.3s ease;
             margin-left: var(--sidebar-width);
         }
 
         .products-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
+            gap: 25px;
             width: 100%;
             max-width: none;
             margin: 0;
@@ -51,14 +54,20 @@
 
         .product-card {
             background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
             overflow: hidden;
-            transition: transform 0.2s;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             display: flex;
             flex-direction: column;
             height: 100%;
             width: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(108, 92, 231, 0.2);
         }
 
         /* Mobile responsiveness */
@@ -89,7 +98,9 @@
                 height: calc(100vh - 65px);
                 width: var(--sidebar-width);
                 background-color: var(--sidebar-bg);
-                box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+                backdrop-filter: var(--backdrop-filter);
+                box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+                border-right: 1px solid rgba(255, 255, 255, 0.5);
                 z-index: 1000;
             }
 
@@ -106,10 +117,10 @@
         }
 
         header {
-            background-color: var(--primary);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             color: white;
             padding: 15px 0;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 20px rgba(108, 92, 231, 0.3);
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -127,25 +138,29 @@
 
         .logo {
             font-size: 24px;
-            font-weight: bold;
+            font-weight: 800;
             letter-spacing: 1px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
 
         .auth-buttons button {
-            background-color: white;
+            background: white;
             color: var(--primary);
             border: none;
-            padding: 8px 16px;
-            border-radius: 4px;
+            padding: 10px 20px;
+            border-radius: 30px;
             cursor: pointer;
             margin: 5px 5px 5px 10px;
             font-weight: 600;
+            box-shadow: 0 4px 10px rgba(108, 92, 231, 0.2);
             transition: all 0.3s ease;
         }
 
         .auth-buttons button:hover {
-            background-color: var(--secondary);
+            transform: translateY(-2px);
+            background: var(--secondary);
             color: white;
+            box-shadow: 0 6px 15px rgba(108, 92, 231, 0.3);
         }
 
         .page {
@@ -201,28 +216,18 @@
             display: flex;
             align-items: center;
             margin-bottom: 20px;
+            padding: 15px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
         }
 
-        .sidebar .user-avatar {
-            width: 40px;
-            height: 40px;
-            background-color: var(--primary);
-            color: white;
+        .sidebar .user-profile img {
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
             margin-right: 10px;
-        }
-
-        .sidebar .user-details h3 {
-            font-size: 16px;
-        }
-
-        .sidebar .user-details p {
-            font-size: 12px;
-            color: #666;
+            object-fit: cover;
         }
 
         .sidebar-nav {
@@ -231,8 +236,8 @@
 
         .sidebar-nav a {
             display: block;
-            padding: 10px;
             color: var(--dark);
+            padding: 10px 15px;
             text-decoration: none;
             border-radius: 4px;
             margin-bottom: 5px;
@@ -254,15 +259,217 @@
 
         .sidebar .quick-filter select {
             width: 100%;
-            padding: 8px;
+            padding: 10px;
             border: 1px solid var(--border);
             border-radius: 4px;
+            background-color: white;
         }
 
-        .sidebar .dark-mode-toggle {
+        /* Chat Support Widget */
+        .chat-support {
+            position: fixed;
+            bottom: 40px;
+            left: 0;
+            margin-top: 0;
+            z-index: 1001;
+            width: 350px;
+            max-width: 90vw;
+            user-select: none;
+            display: none;
+        }
+
+        .chat-support.minimized .chat-icon {
+            display: block;
+        }
+
+        .chat-support.minimized .chat-window {
+            display: none;
+        }
+
+        .chat-icon {
+            background-color: var(--primary);
+            color: white;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
-            gap: 10px;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.4);
+            transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+            animation: pulse 3s infinite ease-in-out;
+        }
+
+        .chat-icon:hover {
+            transform: scale(1.1);
+            background-color: var(--secondary);
+            box-shadow: 0 8px 20px rgba(108, 92, 231, 0.6);
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 5px 15px rgba(108, 92, 231, 0.4); }
+            50% { box-shadow: 0 5px 15px rgba(108, 92, 231, 0.2); }
+            100% { box-shadow: 0 5px 15px rgba(108, 92, 231, 0.4); }
+        }
+
+        .chat-window {
+            position: absolute;
+            left: 0;
+            top: 65px;
+            width: 100%;
+            background: rgba(255,255,255,0.95);
+            box-shadow: 0 8px 32px 0 rgba(31,38,135,0.37);
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            transition: box-shadow 0.3s;
+            cursor: grab;
+        }
+
+        .chat-window:active {
+            cursor: grabbing;
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 700;
+            font-size: 16px;
+            box-shadow: 0 2px 10px rgba(108, 92, 231, 0.3);
+        }
+
+        .chat-minimize {
+            cursor: pointer;
+            font-size: 22px;
+            transition: transform 0.2s ease;
+        }
+
+        .chat-minimize:hover {
+            transform: scale(1.2);
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 15px 20px;
+            overflow-y: auto;
+            background-color: rgba(248, 249, 253, 0.9);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-message {
+            margin-bottom: 12px;
+            padding: 10px 15px;
+            border-radius: 12px;
+            max-width: 85%;
+            font-size: 14px;
+            line-height: 1.4;
+            animation: fadeInMessage 0.3s ease-out;
+        }
+
+        @keyframes fadeInMessage {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .chat-message.received {
+            background-color: #e9ecef;
+            color: var(--dark);
+            align-self: flex-start;
+            border-bottom-left-radius: 0;
+        }
+
+        .chat-message.sent {
+            background-color: var(--primary);
+            color: white;
+            margin-left: auto;
+            align-self: flex-end;
+            border-bottom-right-radius: 0;
+        }
+
+        .chat-input {
+            padding: 15px 20px;
+            border-top: 1px solid rgba(108, 92, 231, 0.1);
+            display: flex;
+            background-color: white;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 1px solid rgba(108, 92, 231, 0.2);
+            border-radius: 25px;
+            outline: none;
+            margin-right: 10px;
+            font-size: 14px;
+            transition: border-color 0.2s ease;
+        }
+
+        .chat-input input:focus {
+            border-color: var(--primary);
+        }
+
+        .chat-send {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 0 3px 10px rgba(108, 92, 231, 0.3);
+        }
+
+        .chat-send:hover {
+            background-color: var(--secondary);
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.5);
+        }
+
+        /* Event Calendar/Countdown Timer */
+        .event-countdown {
+            margin-bottom: 20px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .event-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 10px 15px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .event-content {
+            padding: 15px;
+            text-align: center;
+        }
+
+        .countdown-timer {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary);
+            margin-top: 10px;
+            letter-spacing: 1px;
+        }
+
+        .countdown-label {
+            font-size: 14px;
+            color: var(--dark);
+            margin-top: 5px;
         }
 
         .auth-container {
@@ -843,16 +1050,19 @@
     </header>
 
     <div class="sidebar" id="sidebar">
-        <div class="user-profile">
-            <div class="user-avatar" id="sidebarAvatar">U</div>
-            <div class="user-details">
-                <h3 id="sidebarUsername">Username</h3>
+        <div class="event-countdown">
+            <div class="event-header">Upcoming Sale</div>
+            <div class="event-content">
+                <p>Big Spring Discount</p>
+                <div class="countdown-timer" id="countdownTimer">3d 12h 45m 10s</div>
+                <div class="countdown-label">Until 50% Off Launch</div>
             </div>
         </div>
-        <div class="sidebar-nav">
+        <div class="sidebar-nav" id="sidebarNav">
             <a href="#" id="navDashboard" class="active">Dashboard</a>
             <a href="#" id="navProducts">Products</a>
             <a href="#" id="navHistory">Purchase History</a>
+            <a href="#" id="navSupport">Customer Support</a>
             <a href="#" id="navSettings">Settings</a>
             <a href="#" id="navLogout">Logout</a>
         </div>
@@ -863,6 +1073,7 @@
                 <option value="bank accounts">bank logs</option>
                 <option value="vpn">vpn logs</option>
                 <option value="photography">Hot sexy models</option>
+                <option value="Fulls">Fulls</option>
                 <option value="giftcard">Gift Cards</option>
                 <option value="email">Email Logs</option>
                 <option value="dating">Dating Websites logs</option>
@@ -1070,6 +1281,7 @@
         const navHistory = document.getElementById('navHistory');
         const navSettings = document.getElementById('navSettings');
         const navLogout = document.getElementById('navLogout');
+        const navSupport = document.getElementById('navSupport');
         const settingsModal = document.getElementById('settingsModal');
         const closeSettingsModal = document.getElementById('closeSettingsModal');
         const settingsUsername = document.getElementById('settingsUsername');
@@ -1901,6 +2113,10 @@
             setActiveSection(currentSection);
         }
 
+        window.onload = function() {
+            checkExistingSession();
+        };
+
         document.addEventListener('DOMContentLoaded', function() {
             // Reset users database to fix any corrupted data
             DB.users = DB.resetUsersDatabase();
@@ -2038,6 +2254,363 @@
             // Add a button to clear all data and reset
             // Removed the reset button code
         });
+        
+        function updateCountdown() {
+            const targetDate = new Date('2025-04-20T00:00:00');
+            const now = new Date();
+            const diff = targetDate - now;
+            
+            if (diff <= 0) {
+                document.getElementById('countdownTimer').textContent = 'Event Started!';
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            
+            document.getElementById('countdownTimer').textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+        }
+        
+        setInterval(updateCountdown, 1000);
+
+        // Chat support functionality
+        (function() {
+            const chatIcon = document.getElementById('chatIcon');
+            const chatWindow = document.getElementById('chatWindow');
+            const chatSupport = document.getElementById('chatSupport');
+            const chatMinimize = document.getElementById('chatMinimize');
+            const chatSend = document.getElementById('chatSend');
+            const chatInput = document.getElementById('chatInput');
+            const chatMessages = document.getElementById('chatMessages');
+            const chatHeader = document.getElementById('chatHeader');
+            const navSupport = document.getElementById('navSupport');
+
+            // Hide chat by default
+            chatSupport.style.display = 'none';
+
+            // Add click handler for support nav link
+            navSupport.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Hide all sections first
+                document.querySelector('.dashboard-section').style.display = 'none';
+                document.querySelector('.search-filter').style.display = 'none';
+                document.querySelector('.products-grid').style.display = 'none';
+                document.querySelector('.history-section').style.display = 'none';
+                
+                // Show chat support
+                chatSupport.style.display = 'block';
+                chatWindow.style.display = 'flex';
+                chatSupport.classList.remove('minimized');
+                
+                // Update active nav
+                document.querySelectorAll('.sidebar-nav a').forEach(link => {
+                    link.classList.remove('active');
+                });
+                navSupport.classList.add('active');
+            });
+
+            // Minimize chat
+            chatMinimize.addEventListener('click', function() {
+                chatWindow.style.display = 'none';
+                chatSupport.classList.add('minimized');
+                
+                // Return to dashboard
+                setActiveSection('dashboard');
+            });
+
+            // Open chat when icon is clicked
+            chatIcon.addEventListener('click', function() {
+                chatWindow.style.display = 'flex';
+                chatSupport.classList.remove('minimized');
+            });
+
+            // Enhanced chatbot logic
+            const supportPatterns = [
+                /help|support|problem|issue|trouble|contact|customer|representative|agent|reach out|talk to/i,
+                /product.*(not working|broken|problem|issue|refund|replace|return|defect|defective|damaged|missing)/i,
+                /order.*(problem|issue|not received|missing|wrong|incorrect)/i,
+                /speak.*(person|human|agent|representative)/i,
+                /email/i
+            ];
+            const casualPatterns = [
+                /hi|hello|hey|good (morning|afternoon|evening|day)/i,
+                /how are you/i,
+                /what'?s up|wassup|sup/i,
+                /thank(s| you)?/i,
+                /bye|goodbye|see you|later/i
+            ];
+            const responses = [
+                "I'm here to help! Please describe your issue.",
+                "Can you provide more details about your problem?",
+                "I'm happy to assist you!",
+                "Let me know how I can help you today.",
+                "Feel free to ask any questions about our products or services."
+            ];
+            const casualResponses = [
+                "Hello! How can I assist you today?",
+                "Hi there! Need any help?",
+                "Hey! I'm here if you need anything.",
+                "You're welcome!",
+                "Goodbye! If you need more help, just open the chat again."
+            ];
+
+            function handleChatSend() {
+                const messageText = chatInput.value.trim();
+                if (!messageText) return;
+                
+                const message = document.createElement('div');
+                message.className = 'chat-message sent';
+                message.textContent = messageText;
+                message.style.cssText = 'margin-bottom: 12px; padding: 10px 15px; border-radius: 12px; max-width: 85%; font-size: 14px; line-height: 1.4; background-color: var(--primary); color: white; margin-left: auto; align-self: flex-end; border-bottom-right-radius: 0;';
+                
+                chatMessages.appendChild(message);
+                chatInput.value = '';
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                
+                setTimeout(function() {
+                    const response = document.createElement('div');
+                    response.className = 'chat-message received';
+                    response.style.cssText = 'margin-bottom: 12px; padding: 10px 15px; border-radius: 12px; max-width: 85%; font-size: 14px; line-height: 1.4; background-color: #e9ecef; color: var(--dark); align-self: flex-start; border-bottom-left-radius: 0;';
+                    
+                    // Check for support patterns
+                    if (supportPatterns.some(pat => pat.test(messageText))) {
+                        response.innerHTML = `It looks like you need customer support. Please email us at <a href=\"mailto:cosmoscoderr@gmail.com\" style=\"color:#3b82f6;\">cosmoscoderr@gmail.com</a> and we'll assist you as soon as possible!`;
+                    } else if (casualPatterns.some(pat => pat.test(messageText))) {
+                        response.textContent = casualResponses[Math.floor(Math.random() * casualResponses.length)];
+                    } else {
+                        response.textContent = responses[Math.floor(Math.random() * responses.length)];
+                    }
+                    
+                    chatMessages.appendChild(response);
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                }, 700);
+            }
+
+            chatSend.addEventListener('click', handleChatSend);
+            chatInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') handleChatSend();
+            });
+
+            // Draggable chat window functionality
+            let isDragging = false;
+            let currentX = 0;
+            let currentY = 0;
+            let initialX;
+            let initialY;
+
+            chatHeader.addEventListener('mousedown', startDragging);
+            document.addEventListener('mousemove', drag);
+            document.addEventListener('mouseup', stopDragging);
+
+            function startDragging(e) {
+                isDragging = true;
+                initialX = e.clientX - currentX;
+                initialY = e.clientY - currentY;
+                chatWindow.style.transition = 'none';
+            }
+            
+            function drag(e) {
+                if (isDragging) {
+                    e.preventDefault();
+                    currentX = e.clientX - initialX;
+                    currentY = e.clientY - initialY;
+                    chatWindow.style.left = currentX + 'px';
+                    chatWindow.style.top = currentY + 'px';
+                }
+            }
+            
+            function stopDragging() {
+                isDragging = false;
+                chatWindow.style.transition = '';
+            }
+            
+            // Initialize position
+            chatWindow.style.left = '0px';
+            chatWindow.style.top = '65px';
+        })();
+    </script>
+    <!-- Chat Support Widget -->
+    <div class="chat-support minimized" id="chatSupport" style="position: fixed; bottom: 40px; left: 0; z-index: 1001; width: 350px; max-width: 90vw; display: none;">
+        <div class="chat-icon" id="chatIcon" tabindex="0" style="background-color: var(--primary); color: white; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 5px 15px rgba(108, 92, 231, 0.4); transition: transform 0.3s ease;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+        </div>
+        <div class="chat-window" id="chatWindow" style="display: none; position: absolute; width: 100%; background: rgba(255,255,255,0.95); box-shadow: 0 8px 32px 0 rgba(31,38,135,0.37); border-radius: 16px; display: flex; flex-direction: column; transition: box-shadow 0.3s; cursor: grab;">
+            <div class="chat-header" id="chatHeader" style="background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); color: white; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; font-weight: 700; font-size: 16px; box-shadow: 0 2px 10px rgba(108, 92, 231, 0.3); cursor: grab;">
+                <span>Customer Support</span>
+                <span class="chat-minimize" id="chatMinimize" style="cursor:pointer; font-size: 22px;">−</span>
+            </div>
+            <div class="chat-messages" id="chatMessages" style="padding: 20px; height: 250px; overflow-y: auto; background-color: rgba(248, 249, 253, 0.9); display: flex; flex-direction: column;">
+                <div class="chat-message received" style="margin-bottom: 12px; padding: 10px 15px; border-radius: 12px; max-width: 85%; font-size: 14px; line-height: 1.4; background-color: #e9ecef; color: var(--dark); align-self: flex-start; border-bottom-left-radius: 0;">Hello! How can we help you today?</div>
+            </div>
+            <div class="chat-input" style="padding: 15px 20px; border-top: 1px solid rgba(108, 92, 231, 0.1); display: flex; background-color: white;">
+                <input type="text" id="chatInput" placeholder="Type your message..." style="flex: 1; padding: 10px 15px; border: 1px solid rgba(108, 92, 231, 0.2); border-radius: 25px; outline: none; margin-right: 10px; font-size: 14px; transition: border-color 0.2s ease;">
+                <button class="chat-send" id="chatSend" style="background-color: var(--primary); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease; box-shadow: 0 3px 10px rgba(108, 92, 231, 0.3);">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- End Chat Support Widget -->
+    <script>
+        // Standalone chat support functionality
+        (function() {
+            const chatIcon = document.getElementById('chatIcon');
+            const chatWindow = document.getElementById('chatWindow');
+            const chatSupport = document.getElementById('chatSupport');
+            const chatMinimize = document.getElementById('chatMinimize');
+            const chatSend = document.getElementById('chatSend');
+            const chatInput = document.getElementById('chatInput');
+            const chatMessages = document.getElementById('chatMessages');
+            const chatHeader = document.getElementById('chatHeader');
+            const navSupport = document.getElementById('navSupport');
+
+            // Hide chat by default
+            chatSupport.style.display = 'none';
+
+            // Add click handler for support nav link
+            navSupport.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Hide all sections first
+                document.querySelector('.dashboard-section').style.display = 'none';
+                document.querySelector('.search-filter').style.display = 'none';
+                document.querySelector('.products-grid').style.display = 'none';
+                document.querySelector('.history-section').style.display = 'none';
+                
+                // Show chat support
+                chatSupport.style.display = 'block';
+                chatWindow.style.display = 'flex';
+                chatSupport.classList.remove('minimized');
+                
+                // Update active nav
+                document.querySelectorAll('.sidebar-nav a').forEach(link => {
+                    link.classList.remove('active');
+                });
+                navSupport.classList.add('active');
+            });
+
+            // Minimize chat
+            chatMinimize.addEventListener('click', function() {
+                chatWindow.style.display = 'none';
+                chatSupport.classList.add('minimized');
+                
+                // Return to dashboard
+                setActiveSection('dashboard');
+            });
+
+            // Open chat when icon is clicked
+            chatIcon.addEventListener('click', function() {
+                chatWindow.style.display = 'flex';
+                chatSupport.classList.remove('minimized');
+            });
+
+            // Enhanced chatbot logic
+            const supportPatterns = [
+                /help|support|problem|issue|trouble|contact|customer|representative|agent|reach out|talk to/i,
+                /product.*(not working|broken|problem|issue|refund|replace|return|defect|defective|damaged|missing)/i,
+                /order.*(problem|issue|not received|missing|wrong|incorrect)/i,
+                /speak.*(person|human|agent|representative)/i,
+                /email/i
+            ];
+            const casualPatterns = [
+                /hi|hello|hey|good (morning|afternoon|evening|day)/i,
+                /how are you/i,
+                /what'?s up|wassup|sup/i,
+                /thank(s| you)?/i,
+                /bye|goodbye|see you|later/i
+            ];
+            const responses = [
+                "I'm here to help! Please describe your issue.",
+                "Can you provide more details about your problem?",
+                "I'm happy to assist you!",
+                "Let me know how I can help you today.",
+                "Feel free to ask any questions about our products or services."
+            ];
+            const casualResponses = [
+                "Hello! How can I assist you today?",
+                "Hi there! Need any help?",
+                "Hey! I'm here if you need anything.",
+                "You're welcome!",
+                "Goodbye! If you need more help, just open the chat again."
+            ];
+
+            function handleChatSend() {
+                const messageText = chatInput.value.trim();
+                if (!messageText) return;
+                
+                const message = document.createElement('div');
+                message.className = 'chat-message sent';
+                message.textContent = messageText;
+                message.style.cssText = 'margin-bottom: 12px; padding: 10px 15px; border-radius: 12px; max-width: 85%; font-size: 14px; line-height: 1.4; background-color: var(--primary); color: white; margin-left: auto; align-self: flex-end; border-bottom-right-radius: 0;';
+                
+                chatMessages.appendChild(message);
+                chatInput.value = '';
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                
+                setTimeout(function() {
+                    const response = document.createElement('div');
+                    response.className = 'chat-message received';
+                    response.style.cssText = 'margin-bottom: 12px; padding: 10px 15px; border-radius: 12px; max-width: 85%; font-size: 14px; line-height: 1.4; background-color: #e9ecef; color: var(--dark); align-self: flex-start; border-bottom-left-radius: 0;';
+                    
+                    // Check for support patterns
+                    if (supportPatterns.some(pat => pat.test(messageText))) {
+                        response.innerHTML = `It looks like you need customer support. Please email us at <a href=\"mailto:cosmoscoderr@gmail.com\" style=\"color:#3b82f6;\">cosmoscoderr@gmail.com</a> and we'll assist you as soon as possible!`;
+                    } else if (casualPatterns.some(pat => pat.test(messageText))) {
+                        response.textContent = casualResponses[Math.floor(Math.random() * casualResponses.length)];
+                    } else {
+                        response.textContent = responses[Math.floor(Math.random() * responses.length)];
+                    }
+                    
+                    chatMessages.appendChild(response);
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                }, 700);
+            }
+
+            chatSend.addEventListener('click', handleChatSend);
+            chatInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') handleChatSend();
+            });
+
+            // Draggable chat window functionality
+            let isDragging = false;
+            let currentX = 0;
+            let currentY = 0;
+            let initialX;
+            let initialY;
+
+            chatHeader.addEventListener('mousedown', startDragging);
+            document.addEventListener('mousemove', drag);
+            document.addEventListener('mouseup', stopDragging);
+
+            function startDragging(e) {
+                isDragging = true;
+                initialX = e.clientX - currentX;
+                initialY = e.clientY - currentY;
+                chatWindow.style.transition = 'none';
+            }
+            
+            function drag(e) {
+                if (isDragging) {
+                    e.preventDefault();
+                    currentX = e.clientX - initialX;
+                    currentY = e.clientY - initialY;
+                    chatWindow.style.left = currentX + 'px';
+                    chatWindow.style.top = currentY + 'px';
+                }
+            }
+            
+            function stopDragging() {
+                isDragging = false;
+                chatWindow.style.transition = '';
+            }
+            
+            // Initialize position
+            chatWindow.style.left = '0px';
+            chatWindow.style.top = '65px';
+        })();
     </script>
 </body>
 </html>
