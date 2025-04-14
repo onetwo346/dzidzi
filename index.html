@@ -46,6 +46,8 @@
             .container {
                 margin-left: 0;
                 padding: 15px;
+                width: 100%;
+                max-width: 100%;
             }
             
             .sidebar {
@@ -56,9 +58,11 @@
                 left: 0;
                 height: calc(100vh - 65px);
                 z-index: 1000;
-                width: 80%;
-                max-width: 300px;
+                width: 250px;
+                max-width: 80%;
                 overflow-y: auto;
+                background-color: var(--sidebar-bg);
+                box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
             }
             
             .sidebar.active {
