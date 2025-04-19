@@ -82,6 +82,51 @@
                 grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
                 gap: 15px;
             }
+            
+            /* Sidebar as mobile drawer */
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 80vw;
+                max-width: 320px;
+                height: 100vh;
+                background: var(--sidebar-bg);
+                backdrop-filter: var(--backdrop-filter);
+                box-shadow: 2px 0 16px rgba(0,0,0,0.15);
+                z-index: 2000;
+                transform: translateX(-100%);
+                transition: transform 0.3s cubic-bezier(.4,0,.2,1);
+                display: block;
+                padding: 24px 16px 16px 16px;
+            }
+            .sidebar.active {
+                transform: translateX(0);
+            }
+            .sidebar .user-profile { margin-bottom: 18px; }
+            .overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                background: rgba(0,0,0,0.35);
+                z-index: 1999;
+            }
+            .overlay.active {
+                display: block;
+            }
+            .menu-toggle {
+                display: block;
+                cursor: pointer;
+                font-size: 28px;
+                color: var(--primary);
+                background: none;
+                border: none;
+                margin-right: 10px;
+                z-index: 2100;
+            }
         }
 
         @media (min-width: 1200px) {
@@ -269,7 +314,7 @@
         .chat-support { position: fixed; bottom: 40px; left: 40px; z-index: 1001; display: flex; flex-direction: column; align-items: flex-start; }
         .chat-icon { background: #4f8cff; color: #fff; border-radius: 50%; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; font-size: 2rem; box-shadow: 0 2px 12px rgba(0,0,0,0.1); cursor: pointer; transition: box-shadow 0.2s; margin-bottom: 12px; }
         .chat-icon:hover { box-shadow: 0 4px 24px rgba(0,0,0,0.2); }
-        .chat-window { width: 320px; background: #fff; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.18); display: flex; flex-direction: column; overflow: hidden; margin-bottom: 8px; margin-left: 0; margin-bottom: 0; margin-top: 0; position: relative; bottom: auto; left: auto; }
+        .chat-window { width: 320px; background: #fff; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.18); display: flex; flex-direction: column; overflow: hidden; margin-bottom: 8px; }
         .chat-header { background: #4f8cff; color: #fff; padding: 12px 16px; font-weight: 600; display: flex; justify-content: space-between; align-items: center; position: relative; }
         .chat-minimize, .chat-close { cursor: pointer; font-size: 1.2rem; margin-left: 12px; }
         .chat-close { font-size: 1.5rem; color: #fff; margin-left: auto; margin-right: 8px; }
@@ -880,13 +925,50 @@
                 color: white;
             }
         }
+
+        /* Product Details Modal Styles */
+        .modal#productDetailsModal .modal-content {
+            max-width: 480px;
+            width: 95%;
+            padding: 32px 24px 24px 24px;
+            box-shadow: 0 8px 40px rgba(108,92,231,0.12);
+            background: rgba(255,255,255,0.93);
+            backdrop-filter: blur(12px);
+            border-radius: 14px;
+            animation: modalFadeIn 0.4s cubic-bezier(.4,0,.2,1);
+        }
+        .modal#productDetailsModal .modal-header {
+            border-bottom: 1px solid #eee;
+            margin-bottom: 18px;
+        }
+        .modal#productDetailsModal .close-modal {
+            color: #a29bfe;
+            background: transparent;
+            font-size: 28px;
+            border-radius: 50%;
+            transition: background 0.2s;
+        }
+        .modal#productDetailsModal .close-modal:hover {
+            background: #f0f0ff;
+        }
+        .product-modal-body {
+            text-align: left;
+        }
+        @media (max-width: 600px) {
+            .modal#productDetailsModal .modal-content {
+                padding: 18px 6px 16px 6px;
+                max-width: 98vw;
+            }
+        }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
     <header>
-        <div class="container header-content">
-            <div class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></div>
+        <div class="header-content">
+            <button class="menu-toggle" id="menuToggle" aria-label="Open sidebar" style="display:none;">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            </button>
             <div class="logo">DZIDZI</div>
             <div class="auth-buttons" id="authButtons">
                 <button id="showLogin">Login</button>
@@ -894,6 +976,8 @@
             </div>
         </div>
     </header>
+
+    <div class="overlay" id="overlay"></div>
 
     <div class="sidebar" id="sidebar">
         <div class="event-countdown">
@@ -929,8 +1013,6 @@
             <input type="checkbox" id="darkModeToggle">
         </div>
     </div>
-
-    <div class="overlay" id="overlay"></div>
 
     <div class="container">
         <div id="authPage" class="page active">
@@ -1086,6 +1168,22 @@
                 <div id="paymentStatus"></div>
                 <p class="payment-note">* After sending the payment, click the button below to verify your transaction.</p>
                 <button id="verifyPaymentBtn" class="verify-payment-btn">I've Sent the Payment</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="productDetailsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modalProductTitle">Product Details</h3>
+                <button class="close-modal" id="closeProductDetailsModal">×</button>
+            </div>
+            <div class="product-modal-body">
+                <img id="modalProductImage" src="" alt="Product Image" style="width:100%;max-width:320px;border-radius:12px;box-shadow:0 4px 20px rgba(108,92,231,0.08);margin-bottom:18px;">
+                <p id="modalProductDescription" style="font-size:16px;margin-bottom:12px;"></p>
+                <p><strong>Category:</strong> <span id="modalProductCategory"></span></p>
+                <p><strong>Price:</strong> $<span id="modalProductPrice"></span></p>
+                <p><strong>Stock:</strong> <span id="modalProductStock"></span></p>
             </div>
         </div>
     </div>
@@ -1802,6 +1900,7 @@
                 const isOutOfStock = product.stock <= 0;
                 const productCard = document.createElement('div');
                 productCard.className = `product-card ${isOutOfStock ? 'out-of-stock' : ''}`;
+                productCard.setAttribute('data-id', product.id);
                 
                 // Out of stock badge
                 if (isOutOfStock) {
@@ -2478,83 +2577,6 @@
             // Removed the reset button code
         });
         
-        function updateCountdown() {
-            const targetDate = new Date('2025-04-20T00:00:00');
-            const now = new Date();
-            const diff = targetDate - now;
-            
-            if (diff <= 0) {
-                document.getElementById('countdownTimer').textContent = 'Event Started!';
-                return;
-            }
-
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-            
-            document.getElementById('countdownTimer').textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-        }
-        
-        setInterval(updateCountdown, 1000);
-
-        // Chat support functionality
-        (function() {
-            const chatIcon = document.getElementById('chatIcon');
-            const chatWindow = document.getElementById('chatWindow');
-            const chatSupport = document.getElementById('chatSupport');
-            const chatMinimize = document.getElementById('chatMinimize');
-            const chatClose = document.getElementById('chatClose');
-            const chatSend = document.getElementById('chatSend');
-            const chatInput = document.getElementById('chatInput');
-            const chatMessages = document.getElementById('chatMessages');
-            const chatHeader = document.getElementById('chatHeader');
-
-            // Show chat by default
-            chatSupport.style.display = 'block';
-
-            // Show chat window when icon is clicked
-            chatIcon.onclick = () => {
-                chatWindow.style.display = 'flex';
-                chatSupport.classList.remove('minimized');
-                chatSupport.classList.remove('hidden'); // Always show when icon is clicked
-                chatWindow.style.left = '0px';
-                chatWindow.style.top = '0px'; // Always open just above the icon
-            };
-            // Minimize chat window
-            chatMinimize.onclick = () => {
-                chatWindow.style.display = 'none';
-                chatSupport.classList.add('minimized');
-            };
-            // Close chat widget
-            chatClose.onclick = () => {
-                chatWindow.style.display = 'none';
-                chatSupport.classList.add('hidden');
-                chatSupport.classList.add('minimized'); // Ensure minimized state is also set
-            };
-            // Send message
-            chatSend.onclick = sendMessage;
-            chatInput.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter') sendMessage();
-            });
-            function sendMessage() {
-                const text = chatInput.value.trim();
-                if (!text) return;
-                appendMessage(text, true);
-                chatInput.value = '';
-                setTimeout(() => appendMessage('Support is not available right now, please leave a message.'), 700);
-            }
-            function appendMessage(text, sent = false) {
-                const msg = document.createElement('div');
-                msg.className = 'chat-message' + (sent ? ' sent' : '');
-                msg.textContent = text;
-                chatMessages.appendChild(msg);
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-            }
-            // --- End Chat Support Widget Logic ---
-        })();
-        
-        // Only show chat when user is logged in (portalPage is visible)
         function updateChatVisibility() {
             if (window.getComputedStyle(document.getElementById('portalPage')).display !== 'none') {
                 document.getElementById('chatSupport').classList.remove('hidden');
@@ -2655,6 +2677,53 @@
             // Initialize position
             chatWindow.style.left = '0px';
             chatWindow.style.top = '65px';
+    </script>
+    <script>
+        const productDetailsModal = document.getElementById('productDetailsModal');
+        const closeProductDetailsModal = document.getElementById('closeProductDetailsModal');
+        const modalProductTitle = document.getElementById('modalProductTitle');
+        const modalProductImage = document.getElementById('modalProductImage');
+        const modalProductDescription = document.getElementById('modalProductDescription');
+        const modalProductCategory = document.getElementById('modalProductCategory');
+        const modalProductPrice = document.getElementById('modalProductPrice');
+        const modalProductStock = document.getElementById('modalProductStock');
+
+        function showProductDetailsModal(product) {
+            modalProductTitle.textContent = product.title;
+            modalProductImage.src = product.image;
+            modalProductImage.alt = product.title;
+            modalProductDescription.textContent = product.description;
+            modalProductCategory.textContent = product.category;
+            modalProductPrice.textContent = product.price;
+            modalProductStock.textContent = product.stock;
+            productDetailsModal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+        function closeProductModal() {
+            productDetailsModal.style.display = 'none';
+            document.body.style.overflow = '';
+        }
+        closeProductDetailsModal.onclick = closeProductModal;
+        window.addEventListener('click', function(e) {
+            if (e.target === productDetailsModal) closeProductModal();
+        });
+        // --- Attach to product cards ---
+        const originalLoadProducts = loadProducts;
+        loadProducts = function() {
+            originalLoadProducts.apply(this, arguments);
+            // Attach modal event to product cards
+            const cards = document.querySelectorAll('.product-card');
+            cards.forEach(card => {
+                card.addEventListener('click', function(e) {
+                    // Prevent buy button click from opening modal
+                    if (e.target.classList.contains('buy-btn')) return;
+                    const productId = card.getAttribute('data-id');
+                    const product = DB.products.find(p => p.id === productId);
+                    if (product) showProductDetailsModal(product);
+                });
+            });
+        };
+        // --- End Product Details Modal Logic ---
     </script>
 </body>
 </html>
