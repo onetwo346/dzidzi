@@ -156,8 +156,6 @@
             }
             
             /* Hide menu toggle on desktop */
-            /* Hide menu toggle on mobile */
-            
             .menu-toggle {
                 display: none;
             }
@@ -1972,6 +1970,10 @@
             sidebar.classList.remove('active');
             overlay.classList.remove('active');
             authButtons.style.display = 'block';
+            // Hide menu toggle button on auth page (login/signup)
+            if (window.innerWidth <= 768) {
+                document.getElementById('menuToggle').style.display = 'none';
+            }
             showLoginForm();
         }
 
@@ -2408,6 +2410,10 @@
             
             overlay.classList.remove('active');
             authButtons.style.display = 'none';
+            // Show menu toggle button on portal page (mobile)
+            if (window.innerWidth <= 768) {
+                document.getElementById('menuToggle').style.display = 'block';
+            }
             welcomeMessage.textContent = `Welcome, ${currentUser.username}`;
             userAvatar.textContent = currentUser.username.charAt(0).toUpperCase();
             sidebarUsername.textContent = currentUser.username;
