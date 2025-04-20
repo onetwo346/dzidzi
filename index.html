@@ -1064,7 +1064,9 @@
                                 </div>
                                 <button type="submit" id="loginBtn" class="pro-btn-gradient">Login</button>
                             </form>
-                            <div class="auth-switch">Don't have an account? <a id="switchToSignup">Sign up</a></div>
+                            <div class="auth-switch" style="margin-bottom: 0.5em; margin-top: 0.5em; text-align: center;">
+                                Don't have an account? <a id="switchToSignup">Sign up</a>
+                            </div>
                         </div>
                         <div id="signupForm" class="auth-form" style="display: none;">
                             <h2>Create Your Account</h2>
@@ -1092,7 +1094,9 @@
                                 </div>
                                 <button type="submit" id="signupBtn" class="pro-btn-gradient">Sign Up</button>
                             </form>
-                            <div class="auth-switch">Already have an account? <a id="switchToLogin">Login</a></div>
+                            <div class="auth-switch" style="margin-bottom: 0.5em; margin-top: 0.5em; text-align: center;">
+                                Already have an account? <a id="switchToLogin">Login</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -3083,6 +3087,12 @@
                 font-size: 0.98rem;
                 padding: 10px 8px;
             }
+            .auth-switch {
+                font-size: 0.92rem;
+                margin-bottom: 0.5em;
+                margin-top: 0.5em;
+                text-align: center;
+            }
         }
         @media (max-width: 450px) {
             .pro-auth-card {
@@ -3096,6 +3106,12 @@
             }
             .pro-hero-section {
                 padding: 0 1vw;
+            }
+            .auth-switch {
+                font-size: 0.90rem;
+                margin-bottom: 0.5em;
+                margin-top: 0.5em;
+                text-align: center;
             }
         }
     </style>
