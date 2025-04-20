@@ -327,16 +327,16 @@
         .chat-support.minimized .chat-window { display: none !important; }
         .chat-support.hidden { display: none !important; }
 
-        .event-countdown {
-            margin-bottom: 20px;
+        .admin-announcement {
             background-color: white;
             border-radius: 12px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
             overflow: hidden;
             border: 1px solid rgba(255, 255, 255, 0.5);
+            margin-bottom: 20px;
         }
 
-        .event-header {
+        .admin-announcement-header {
             background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             color: white;
             padding: 10px 15px;
@@ -344,12 +344,12 @@
             text-align: center;
         }
 
-        .event-content {
+        .admin-announcement-content {
             padding: 15px;
             text-align: center;
         }
 
-        .countdown-timer {
+        .admin-announcement-timer {
             font-size: 24px;
             font-weight: bold;
             color: var(--primary);
@@ -357,7 +357,7 @@
             letter-spacing: 1px;
         }
 
-        .countdown-label {
+        .admin-announcement-label {
             font-size: 14px;
             color: var(--dark);
             margin-top: 5px;
@@ -978,12 +978,13 @@
     <div class="overlay" id="overlay"></div>
 
     <div class="sidebar" id="sidebar">
-        <div class="event-countdown">
-            <div class="event-header">Upcoming Sale</div>
-            <div class="event-content">
-                <p>Big Spring Discount</p>
-                <div class="countdown-timer" id="countdownTimer">3d 12h 45m 10s</div>
-                <div class="countdown-label">Until 50% Off Launch</div>
+        <!-- Admin Announcement Box: Update message/timer as needed -->
+        <div class="admin-announcement">
+            <div class="admin-announcement-header">Announcement</div>
+            <div class="admin-announcement-content">
+                <p><b>Website Launch Countdown</b></p>
+                <div class="admin-announcement-timer" id="countdownTimer">3d 12h 45m 10s</div>
+                <div class="admin-announcement-label">Until Website Goes Live</div>
             </div>
         </div>
         <div class="sidebar-nav" id="sidebarNav">
@@ -1179,9 +1180,14 @@
             <div class="product-modal-body">
                 <img id="modalProductImage" src="" alt="Product Image" style="width:100%;max-width:320px;border-radius:12px;box-shadow:0 4px 20px rgba(108,92,231,0.08);margin-bottom:18px;">
                 <p id="modalProductDescription" style="font-size:16px;margin-bottom:12px;"></p>
-                <p><strong>Category:</strong> <span id="modalProductCategory"></span></p>
-                <p><strong>Price:</strong> $<span id="modalProductPrice"></span></p>
-                <p><strong>Stock:</strong> <span id="modalProductStock"></span></p>
+                <p><strong>CATEGORY:</strong> <span id="modalProductCategory"></span></p>
+                <p><strong>PRICE:</strong> $<span id="modalProductPrice"></span></p>
+                <p><strong>STOCK:</strong> <span id="modalProductStock"></span></p>
+                <div id="datingFields" style="display:none; margin-bottom: 8px;">
+                  <p><strong>AGE:</strong> <span id="modalProductAge"></span></p>
+                  <p><strong>GENDER:</strong> <span id="modalProductGender"></span></p>
+                  <p><strong>LOCATION:</strong> <span id="modalProductLocation"></span></p>
+                </div>
             </div>
         </div>
     </div>
@@ -1309,7 +1315,8 @@
                     category: 'photography',
                     image: 'https://source.unsplash.com/featured/600x400/?model',
                     createdAt: '2025-06-01',
-                    stock: 10
+                    stock: 10,
+                    details: 'https://yourvideolink.com/model-collection'
                 },
                 {
                     id: 'prod7',
@@ -1319,7 +1326,8 @@
                     category: 'giftcard',
                     image: 'vanilla.jpg',
                     createdAt: '2025-06-01',
-                    stock: 2
+                    stock: 2,
+                    details: 'SCRATCH-CODE-1234-5678-9012'
                 },
                 {
                     id: 'prod8',
@@ -1329,7 +1337,8 @@
                     category: 'rdp',
                     image: 'rdp.jpg',
                     createdAt: '2025-06-05',
-                    stock: 5
+                    stock: 5,
+                    details: 'user:rdp_user, pass:rdp_pass123'
                 },
                 {
                     id: 'prod9',
@@ -1339,7 +1348,8 @@
                     category: 'bank accounts',
                     image: 'boa.jpg',
                     createdAt: '2025-06-10',
-                    stock: 3
+                    stock: 3,
+                    details: 'user:boa_user, pass:boa_pass123'
                 },
                 {
                     id: 'prod10',
@@ -1349,7 +1359,8 @@
                     category: 'vpn',
                     image: 'nord.jpg',
                     createdAt: '2025-06-15',
-                    stock: 8
+                    stock: 8,
+                    details: 'user:nordvpn_user, pass:nordvpn_pass123'
                 },
                 {
                     id: 'prod11',
@@ -1359,7 +1370,8 @@
                     category: 'email',
                     image: 'germ.jpg',
                     createdAt: '2025-06-20',
-                    stock: 6
+                    stock: 6,
+                    details: 'user:germ_user, pass:germ_pass123'
                 },
                
                 {
@@ -1370,7 +1382,8 @@
                     category: 'email',
                     image: 'usa.jpg',
                     createdAt: '2025-06-20',
-                    stock: 6
+                    stock: 6,
+                    details: 'user:usa_user, pass:usa_pass123'
                 },
 
 
@@ -1382,7 +1395,11 @@
                     category: 'dating',
                     image: 'bn.jpg',
                     createdAt: '2025-06-25',
-                    stock: 4
+                    stock: 4,
+                    age: 34,
+                    gender: 'Female',
+                    location: 'New York, NY',
+                    details: 'user:benaughty_user, pass:benaughty_pass123'
                 },
                 {
                     id: 'prod13',
@@ -1392,7 +1409,11 @@
                     category: 'dating',
                     image: 'iw.jpg',
                     createdAt: '2025-06-25',
-                    stock: 1
+                    stock: 1,
+                    age: 36,
+                    gender: 'Female',
+                    location: 'Los Angeles, CA',
+                    details: 'user:iwantu_user, pass:iwantu_pass123'
                 },
                 {
                     id: 'prod14',
@@ -1402,7 +1423,8 @@
                     category: 'giftcard',
                     image: 'greendot.jpg',
                     createdAt: '2025-07-01',
-                    stock: 5
+                    stock: 5,
+                    details: 'SCRATCH-CODE-1234-5678-9012'
                 },
                 {
                     id: 'prod16',
@@ -1412,7 +1434,8 @@
                     category: 'giftcard',
                     image: 'itunes.jpg',
                     createdAt: '2025-07-01',
-                    stock: 5
+                    stock: 5,
+                    details: 'SCRATCH-CODE-1234-5678-9012'
                 },
 
 
@@ -1424,7 +1447,8 @@
                     category: 'giftcard',
                     image: 'amazon.png',
                     createdAt: '2025-07-15',
-                    stock: 10
+                    stock: 10,
+                    details: 'SCRATCH-CODE-1234-5678-9012'
                 },
                 {
                     id: 'giftcard02',
@@ -1434,7 +1458,8 @@
                     category: 'giftcard',
                     image: 'steam.jpg',
                     createdAt: '2025-07-15',
-                    stock: 8
+                    stock: 8,
+                    details: 'SCRATCH-CODE-1234-5678-9012'
                 },
                 {
                     id: 'giftcard03',
@@ -1444,7 +1469,8 @@
                     category: 'giftcard',
                     image: 'play.jpg',
                     createdAt: '2025-07-15',
-                    stock: 7
+                    stock: 7,
+                    details: 'SCRATCH-CODE-1234-5678-9012'
                 },
                 {
                     id: 'giftcard04',
@@ -1454,7 +1480,8 @@
                     category: 'giftcard',
                     image: 'netflix.jpg',
                     createdAt: '2025-07-15',
-                    stock: 5
+                    stock: 5,
+                    details: 'SCRATCH-CODE-1234-5678-9012'
                 },
                 {
                     id: 'giftcard05',
@@ -1464,7 +1491,8 @@
                     category: 'giftcard',
                     image: 'spotify.jpg',
                     createdAt: '2025-07-15',
-                    stock: 9
+                    stock: 9,
+                    details: 'SCRATCH-CODE-1234-5678-9012'
                 },
                 {
                     id: 'giftcard06',
@@ -1474,7 +1502,8 @@
                     category: 'giftcard',
                     image: 'uber.jpg',
                     createdAt: '2025-07-15',
-                    stock: 6
+                    stock: 6,
+                    details: 'SCRATCH-CODE-1234-5678-9012'
                 },
                 {
                     id: 'giftcard07',
@@ -1484,7 +1513,8 @@
                     category: 'giftcard',
                     image: 'playstay.jpg',
                     createdAt: '2025-07-15',
-                    stock: 4
+                    stock: 4,
+                    details: 'SCRATCH-CODE-1234-5678-9012'
                 },
                 {
                     id: 'giftcard08',
@@ -1494,7 +1524,8 @@
                     category: 'giftcard',
                     image: 'app.jpg',
                     createdAt: '2025-07-15',
-                    stock: 8
+                    stock: 8,
+                    details: 'SCRATCH-CODE-1234-5678-9012'
                 },
                 {
                     id: 'giftcard09',
@@ -1504,7 +1535,8 @@
                     category: 'giftcard',
                     image: 'ebay.jpg',
                     createdAt: '2025-07-15',
-                    stock: 10
+                    stock: 10,
+                    details: 'SCRATCH-CODE-1234-5678-9012'
                 },
                 {
                     id: 'giftcard10',
@@ -1514,7 +1546,8 @@
                     category: 'giftcard',
                     image: 'walmart.jpg',
                     createdAt: '2025-07-15',
-                    stock: 12
+                    stock: 12,
+                    details: 'SCRATCH-CODE-1234-5678-9012'
                 },
                 {
                     id: 'giftcard11',
@@ -1524,7 +1557,8 @@
                     category: 'giftcard',
                     image: 'target.jpg',
                     createdAt: '2025-07-16',
-                    stock: 7
+                    stock: 7,
+                    details: 'SCRATCH-CODE-1234-5678-9012'
                 },
                 {
                     id: 'giftcard12',
@@ -1534,7 +1568,8 @@
                     category: 'giftcard',
                     image: 'best.jpg',
                     createdAt: '2025-07-16',
-                    stock: 6
+                    stock: 6,
+                    details: 'SCRATCH-CODE-1234-5678-9012'
                 },
                 {
                     id: 'giftcard13',
@@ -1544,7 +1579,8 @@
                     category: 'giftcard',
                     image: 'star.jpg',
                     createdAt: '2025-07-16',
-                    stock: 10
+                    stock: 10,
+                    details: 'SCRATCH-CODE-1234-5678-9012'
                 },
                 {
                     id: 'giftcard14',
@@ -1554,7 +1590,8 @@
                     category: 'giftcard',
                     image: 'home.jpg',
                     createdAt: '2025-07-16',
-                    stock: 5
+                    stock: 5,
+                    details: 'SCRATCH-CODE-1234-5678-9012'
                 },
                 {
                     id: 'giftcard15',
@@ -1564,7 +1601,8 @@
                     category: 'giftcard',
                     image: 'nike.jpg',
                     createdAt: '2025-07-16',
-                    stock: 9
+                    stock: 9,
+                    details: 'SCRATCH-CODE-1234-5678-9012'
                 },
                 {
                     id: 'giftcard16',
@@ -1574,7 +1612,8 @@
                     category: 'giftcard',
                     image: 'addidas.jpg',
                     createdAt: '2025-07-16',
-                    stock: 8
+                    stock: 8,
+                    details: 'SCRATCH-CODE-1234-5678-9012'
                 },
                 
                 {
@@ -1585,7 +1624,8 @@
                     category: 'giftcard',
                     image: 'seph.jpg',
                     createdAt: '2025-07-16',
-                    stock: 7
+                    stock: 7,
+                    details: 'SCRATCH-CODE-1234-5678-9012'
                 },
                 {
                     id: 'giftcard20',
@@ -1595,7 +1635,8 @@
                     category: 'giftcard',
                     image: 'ubereats.jpg',
                     createdAt: '2025-07-16',
-                    stock: 0
+                    stock: 0,
+                    details: 'SCRATCH-CODE-1234-5678-9012'
                 },
                 // --- START: NEW PRODUCTS ---
                 {
@@ -1608,7 +1649,10 @@
                     details: "user:pof_user, pass:pof_pass123",
                     sold: false,
                     createdAt: '2025-07-10',
-                    stock: 3
+                    stock: 3,
+                    age: 38,
+                    gender: 'Female',
+                    location: 'Chicago, IL'
                 },
                 {
                     id: 'prod18',
@@ -1620,7 +1664,10 @@
                     details: "user:tinder_user, pass:tinder_pass123",
                     sold: false,
                     createdAt: '2025-07-10',
-                    stock: 2
+                    stock: 2,
+                    age: 40,
+                    gender: 'Female',
+                    location: 'San Diego, CA'
                 },
                 {
                     id: 'prod19',
@@ -1632,7 +1679,10 @@
                     details: "user:eharmony_user, pass:eharmony_pass123",
                     sold: false,
                     createdAt: '2025-07-10',
-                    stock: 1
+                    stock: 1,
+                    age: 42,
+                    gender: 'Female',
+                    location: 'Houston, TX'
                 },
                 {
                     id: 'prod20',
@@ -1654,7 +1704,8 @@
                     category: 'giftcard',
                     image: 'mastercard.jpg',
                     createdAt: '2025-07-10',
-                    stock: 5
+                    stock: 5,
+                    details: 'SCRATCH-CODE-1234-5678-9012'
                 },
                 // --- END: NEW PRODUCTS ---
                 {
@@ -1665,7 +1716,11 @@
                     category: 'dating',
                     image: 'match.jpg',
                     createdAt: '2025-07-10',
-                    stock: 2
+                    stock: 2,
+                    age: 44,
+                    gender: 'Female',
+                    location: 'Phoenix, AZ',
+                    details: 'user:match_user, pass:match_pass123'
                 },
                 {
                     id: 'prod23',
@@ -1675,7 +1730,11 @@
                     category: 'dating',
                     image: 'ok.jpg',
                     createdAt: '2025-07-10',
-                    stock: 3
+                    stock: 3,
+                    age: 39,
+                    gender: 'Female',
+                    location: 'Philadelphia, PA',
+                    details: 'user:okcupid_user, pass:okcupid_pass123'
                 },
                 {
                     id: 'prod24',
@@ -1685,7 +1744,11 @@
                     category: 'dating',
                     image: 'bumble.jpg',
                     createdAt: '2025-07-10',
-                    stock: 2
+                    stock: 2,
+                    age: 37,
+                    gender: 'Female',
+                    location: 'San Jose, CA',
+                    details: 'user:bumble_user, pass:bumble_pass123'
                 },
                 {
                     id: 'prod25',
@@ -1695,7 +1758,11 @@
                     category: 'dating',
                     image: 'hg.jpg',
                     createdAt: '2025-07-10',
-                    stock: 2
+                    stock: 2,
+                    age: 41,
+                    gender: 'Female',
+                    location: 'Austin, TX',
+                    details: 'user:hinge_user, pass:hinge_pass123'
                 },
                 {
                     id: 'prod26',
@@ -1705,7 +1772,11 @@
                     category: 'dating',
                     image: 'zk.jpg',
                     createdAt: '2025-07-10',
-                    stock: 2
+                    stock: 2,
+                    age: 35,
+                    gender: 'Female',
+                    location: 'Jacksonville, FL',
+                    details: 'user:zoosk_user, pass:zoosk_pass123'
                 },
                 {
                     id: 'prod27',
@@ -1715,7 +1786,11 @@
                     category: 'dating',
                     image: 'badoo.jpg',
                     createdAt: '2025-07-10',
-                    stock: 2
+                    stock: 2,
+                    age: 43,
+                    gender: 'Female',
+                    location: 'San Francisco, CA',
+                    details: 'user:badoo_user, pass:badoo_pass123'
                 },
                 {
                     id: 'prod28',
@@ -1725,7 +1800,11 @@
                     category: 'dating',
                     image: 'cmb.jpg',
                     createdAt: '2025-07-10',
-                    stock: 2
+                    stock: 2,
+                    age: 38,
+                    gender: 'Female',
+                    location: 'Indianapolis, IN',
+                    details: 'user:cmb_user, pass:cmb_pass123'
                 },
                 {
                     id: 'prod29',
@@ -1735,7 +1814,11 @@
                     category: 'dating',
                     image: 'cm.jpg',
                     createdAt: '2025-07-10',
-                    stock: 2
+                    stock: 2,
+                    age: 40,
+                    gender: 'Female',
+                    location: 'San Antonio, TX',
+                    details: 'user:cm_user, pass:cm_pass123'
                 },
                 {
                     id: 'prod30',
@@ -1745,7 +1828,11 @@
                     category: 'dating',
                     image: 'her.jpg',
                     createdAt: '2025-07-10',
-                    stock: 2
+                    stock: 2,
+                    age: 30,
+                    gender: 'Female',
+                    location: 'North Carolina, NC',
+                    details: 'user:her_user, pass:her_pass123'
                 },
                 {
                     id: 'prod31',
@@ -1755,7 +1842,11 @@
                     category: 'dating',
                     image: 'elite.jpg',
                     createdAt: '2025-07-10',
-                    stock: 2
+                    stock: 2,
+                    age: 36,
+                    gender: 'Female',
+                    location: 'New York, NY',
+                    details: 'user:elite_user, pass:elite_pass123'
                 },
             ],
 
@@ -2294,85 +2385,6 @@
                 });
         }
 
-        function completePurchase(productId) {
-            const purchaseDate = new Date().toISOString();
-            
-            // Add purchase to user's account
-            DB.addPurchase(currentUser.username, productId, purchaseDate);
-            currentUser.purchases.push({ id: productId, date: purchaseDate });
-            localStorage.setItem('dzidzi_currentUser', JSON.stringify(currentUser));
-            
-            // Get product details
-            const product = DB.products.find(p => p.id === productId);
-            
-            // Update UI
-            loadProducts();
-            loadPurchaseHistory();
-            
-            // Close payment modal
-            setTimeout(() => {
-                paymentModal.style.display = 'none';
-                document.body.style.overflow = '';
-                
-                // Show product delivery confirmation
-                const confirmationModal = document.createElement('div');
-                confirmationModal.className = 'modal';
-                confirmationModal.style.display = 'flex';
-                confirmationModal.innerHTML = `
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h3 class="modal-title">Purchase Complete!</h3>
-                            <button class="close-modal">×</button>
-                        </div>
-                        <div class="delivery-info">
-                            <p class="success-message">Your purchase has been verified and the product is now available!</p>
-                            <div class="product-details">
-                                <h4>${product.title}</h4>
-                                <p>${product.description}</p>
-                                <p>Purchase ID: ${productId}-${Date.now().toString(36)}</p>
-                                <p>Purchase Date: ${new Date().toLocaleString()}</p>
-                            </div>
-                            <button class="access-btn">Access Your Product Now</button>
-                        </div>
-                    </div>
-                `;
-                
-                document.body.appendChild(confirmationModal);
-                document.body.style.overflow = 'hidden';
-                
-                // Add event listeners for the confirmation modal
-                confirmationModal.querySelector('.close-modal').addEventListener('click', () => {
-                    confirmationModal.style.display = 'none';
-                    document.body.style.overflow = '';
-                    setTimeout(() => {
-                        confirmationModal.remove();
-                    }, 300);
-                });
-                
-                confirmationModal.querySelector('.access-btn').addEventListener('click', () => {
-                    confirmationModal.style.display = 'none';
-                    document.body.style.overflow = '';
-                    setTimeout(() => {
-                        confirmationModal.remove();
-                        // Show product access page or download link
-                        alert(`Accessing your purchased content: ${product.title}`);
-                    }, 300);
-                });
-                
-                // Click outside to close
-                window.addEventListener('click', function closeConfirmation(e) {
-                    if (e.target === confirmationModal) {
-                        confirmationModal.style.display = 'none';
-                        document.body.style.overflow = '';
-                        setTimeout(() => {
-                            confirmationModal.remove();
-                        }, 300);
-                        window.removeEventListener('click', closeConfirmation);
-                    }
-                });
-            }, 1000);
-        }
-
         function checkExistingSession() {
             const storedUser = localStorage.getItem('dzidzi_currentUser');
             const lastSection = localStorage.getItem('dzidzi_lastSection');
@@ -2595,7 +2607,6 @@
         // Also check on navigation
         setInterval(updateChatVisibility, 500);
     </script>
-    <!-- Chat Support Widget -->
     <script>
         const chatIcon = document.getElementById('chatIcon');
         const chatWindow = document.getElementById('chatWindow');
@@ -2638,51 +2649,66 @@
                 if (!text) return;
                 appendMessage(text, true);
                 chatInput.value = '';
-                setTimeout(() => appendMessage('Support is not available right now, please leave a message.'), 700);
+                setTimeout(() => chatbotRespond(text), 700);
             }
-            function appendMessage(text, sent = false) {
+
+            function chatbotRespond(userInput) {
+                const input = userInput.trim().toLowerCase();
+                let response = '';
+                // Simple state tracking for better conversation
+                if (!window.chatState) window.chatState = {};
+                // Greeting
+                if (/^(hi|hello|hey|good (morning|afternoon|evening|day))/.test(input)) {
+                    response = 'Hello! How can I help you today?';
+                    window.chatState = {};
+                } else if (/how are you/.test(input)) {
+                    response = "I'm just a bot, but I'm here to help. What can I assist you with?";
+                } else if (/problem|issue|support|help|trouble/.test(input)) {
+                    response = 'I understand you have an issue. Can you tell me more about what kind of problem you are experiencing?';
+                    window.chatState.awaitingProblemDetails = true;
+                } else if (window.chatState.awaitingProblemDetails) {
+                    response = 'Thank you for sharing more. Would you like help from an admin or do you want to describe your issue further?';
+                    window.chatState.awaitingProblemDetails = false;
+                    window.chatState.awaitingAdminRequest = true;
+                } else if (/order|purchase/.test(input)) {
+                    response = 'Is your question about a recent order or purchase? Please provide your order number or more details.';
+                    window.chatState.awaitingOrderDetails = true;
+                } else if (window.chatState.awaitingOrderDetails) {
+                    response = 'Thank you for providing your order details. How can I assist you with this order? (For refund/return, please specify)';
+                    window.chatState.awaitingOrderDetails = false;
+                } else if (/refund|return/.test(input)) {
+                    response = 'For refund or return requests, please provide your order details.';
+                    window.chatState.awaitingOrderDetails = true;
+                } else if (/contact|admin|representative|human|agent|email/.test(input) || window.chatState.awaitingAdminRequest && /yes|admin|contact|email|representative|human|agent/.test(input)) {
+                    response = 'You can reach the admin directly at <a href="mailto:comoscoderr@gmail.com" style="color:#4f8cff;text-decoration:underline;">comoscoderr@gmail.com</a>.';
+                    window.chatState = {};
+                } else if (/thank(s| you)?/.test(input)) {
+                    response = "You're welcome! If you need anything else, just let me know.";
+                    window.chatState = {};
+                } else if (/bye|goodbye|see you|later/.test(input)) {
+                    response = 'Goodbye! Have a great day.';
+                    window.chatState = {};
+                } else {
+                    if (window.chatState.awaitingAdminRequest) {
+                        response = 'Would you like to contact the admin? Reply yes if so.';
+                    } else {
+                        response = "I'm here to help with any questions or issues. You can ask about orders, refunds, or describe your problem.";
+                    }
+                }
+                appendMessage(response, false, true);
+            }
+
+            function appendMessage(text, sent = false, isHtml = false) {
                 const msg = document.createElement('div');
                 msg.className = 'chat-message' + (sent ? ' sent' : '');
-                msg.textContent = text;
+                if (isHtml) {
+                    msg.innerHTML = text;
+                } else {
+                    msg.textContent = text;
+                }
                 chatMessages.appendChild(msg);
                 chatMessages.scrollTop = chatMessages.scrollHeight;
             }
-            // Draggable chat window functionality
-            let isDragging = false;
-            let currentX = 0;
-            let currentY = 0;
-            let initialX;
-            let initialY;
-
-            chatHeader.addEventListener('mousedown', startDragging);
-            document.addEventListener('mousemove', drag);
-            document.addEventListener('mouseup', stopDragging);
-
-            function startDragging(e) {
-                isDragging = true;
-                initialX = e.clientX - currentX;
-                initialY = e.clientY - currentY;
-                chatWindow.style.transition = 'none';
-            }
-            
-            function drag(e) {
-                if (isDragging) {
-                    e.preventDefault();
-                    currentX = e.clientX - initialX;
-                    currentY = e.clientY - initialY;
-                    chatWindow.style.left = currentX + 'px';
-                    chatWindow.style.top = currentY + 'px';
-                }
-            }
-            
-            function stopDragging() {
-                isDragging = false;
-                chatWindow.style.transition = '';
-            }
-            
-            // Initialize position
-            chatWindow.style.left = '0px';
-            chatWindow.style.top = '65px';
     </script>
     <script>
         const productDetailsModal = document.getElementById('productDetailsModal');
@@ -2693,6 +2719,10 @@
         const modalProductCategory = document.getElementById('modalProductCategory');
         const modalProductPrice = document.getElementById('modalProductPrice');
         const modalProductStock = document.getElementById('modalProductStock');
+        const modalProductAge = document.getElementById('modalProductAge');
+        const modalProductGender = document.getElementById('modalProductGender');
+        const modalProductLocation = document.getElementById('modalProductLocation');
+        const datingFields = document.getElementById('datingFields');
 
         function showProductDetailsModal(product) {
             modalProductTitle.textContent = product.title;
@@ -2702,6 +2732,18 @@
             modalProductCategory.textContent = product.category;
             modalProductPrice.textContent = product.price;
             modalProductStock.textContent = product.stock;
+            // Dating fields logic
+            if (product.category === 'dating') {
+                datingFields.style.display = 'block';
+                modalProductAge.textContent = product.age || '';
+                modalProductGender.textContent = product.gender || '';
+                modalProductLocation.textContent = product.location || '';
+            } else {
+                datingFields.style.display = 'none';
+                modalProductAge.textContent = '';
+                modalProductGender.textContent = '';
+                modalProductLocation.textContent = '';
+            }
             productDetailsModal.style.display = 'flex';
             document.body.style.overflow = 'hidden';
         }
@@ -2730,6 +2772,29 @@
             });
         };
         // --- End Product Details Modal Logic ---
+    </script>
+    <script>
+        // --- Website Launch Countdown ---
+        // Set your launch date here (YYYY-MM-DDTHH:MM:SS format)
+        const launchDate = new Date('2025-04-25T00:00:00'); // Example: April 25, 2025
+        function updateLaunchCountdown() {
+            const now = new Date();
+            const diff = launchDate - now;
+            const timerElem = document.getElementById('countdownTimer');
+            if (!timerElem) return;
+            if (diff <= 0) {
+                timerElem.textContent = 'Website Launched!';
+                return;
+            }
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            timerElem.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+        }
+        setInterval(updateLaunchCountdown, 1000);
+        updateLaunchCountdown();
+        // --- End Website Launch Countdown ---
     </script>
 </body>
 </html>
