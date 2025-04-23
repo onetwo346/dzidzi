@@ -37,13 +37,13 @@
             overflow-x: hidden;
         }
 
-        .container {
+        .a {
             padding: 20px;
             width: calc(100% - var(--sidebar-width));
             margin-left: var(--sidebar-width);
         }
 
-        .products-grid {
+        .b {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 25px;
@@ -52,7 +52,7 @@
             margin: 0;
         }
 
-        .product-card {
+        .c {
             background: white;
             border-radius: 16px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
@@ -65,26 +65,26 @@
             border: 1px solid rgba(255, 255, 255, 0.5);
         }
 
-        .product-card:hover {
+        .c:hover {
             transform: translateY(-5px);
             box-shadow: 0 12px 40px rgba(108, 92, 231, 0.2);
         }
 
         /* Mobile responsiveness */
         @media (max-width: 768px) {
-            .container {
+            .a {
                 width: 100%;
                 margin-left: 0;
                 padding: 15px;
             }
             
-            .products-grid {
+            .b {
                 grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
                 gap: 15px;
             }
             
             /* Sidebar as mobile drawer */
-            .sidebar {
+            .d {
                 position: fixed;
                 top: 0;
                 left: 0;
@@ -100,11 +100,11 @@
                 display: block;
                 padding: 24px 16px 16px 16px;
             }
-            .sidebar.active {
+            .d.e {
                 transform: translateX(0);
             }
-            .sidebar .user-profile { margin-bottom: 18px; }
-            .overlay {
+            .d .f { margin-bottom: 18px; }
+            .g {
                 display: none;
                 position: fixed;
                 top: 0;
@@ -114,10 +114,10 @@
                 background: rgba(0,0,0,0.35);
                 z-index: 1999;
             }
-            .overlay.active {
+            .g.e {
                 display: block;
             }
-            .menu-toggle {
+            .h {
                 display: block;
                 cursor: pointer;
                 font-size: 28px;
@@ -130,13 +130,13 @@
         }
 
         @media (min-width: 1200px) {
-            .products-grid {
+            .b {
                 grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             }
         }
 
         @media (min-width: 769px) {
-            .sidebar {
+            .d {
                 position: fixed;
                 top: 65px;
                 left: 0;
@@ -149,14 +149,14 @@
                 z-index: 1000;
             }
 
-            .products-grid {
+            .b {
                 grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
                 gap: 25px;
                 width: 100%;
             }
             
             /* Hide menu toggle on desktop */
-            .menu-toggle {
+            .h {
                 display: none;
             }
         }
@@ -182,10 +182,31 @@
         }
 
         .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo img {
+            height: 48px;
+            width: 48px;
+            border-radius: 12px;
+            object-fit: cover;
+            box-shadow: 0 2px 8px rgba(108,92,231,0.15);
+            background: white;
+            padding: 2px;
+            max-width: 14vw;
+            max-height: 14vw;
+            min-width: 36px;
+            min-height: 36px;
+        }
+
+        .logo span {
             font-size: 24px;
             font-weight: 800;
             letter-spacing: 1px;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            color: inherit;
         }
 
         .auth-buttons button {
@@ -218,11 +239,11 @@
             to { opacity: 1; }
         }
 
-        .active {
+        .e {
             display: block;
         }
 
-        .sidebar {
+        .d {
             width: var(--sidebar-width);
             background-color: var(--sidebar-bg);
             position: fixed;
@@ -237,12 +258,12 @@
         }
         
         /* Add styles for active sidebar on mobile */
-        .sidebar.active {
+        .d.e {
             display: block;
         }
         
         /* Add styles for overlay */
-        .overlay {
+        .g {
             position: fixed;
             top: 0;
             left: 0;
@@ -253,11 +274,11 @@
             display: none;
         }
         
-        .overlay.active {
+        .g.e {
             display: block;
         }
 
-        .sidebar .user-profile {
+        .d .f {
             display: flex;
             align-items: center;
             margin-bottom: 20px;
@@ -267,7 +288,7 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
         }
 
-        .sidebar .user-profile img {
+        .d .f img {
             width: 50px;
             height: 50px;
             border-radius: 50%;
@@ -293,16 +314,16 @@
             background-color: var(--light);
         }
 
-        .sidebar-nav a.active {
+        .sidebar-nav a.e {
             background-color: var(--primary);
             color: white;
         }
 
-        .sidebar .quick-filter {
+        .d .quick-filter {
             margin-bottom: 20px;
         }
 
-        .sidebar .quick-filter select {
+        .d .quick-filter select {
             width: 100%;
             padding: 10px;
             border: 1px solid var(--border);
@@ -878,16 +899,16 @@
                 line-height: 1.5;
             }
             
-            .sidebar {
+            .d {
                 width: 250px;
                 height: calc(100vh - 65px); /* Ensure it extends to bottom on mobile */
             }
 
-            .container {
+            .a {
                 margin-left: 0;
             }
 
-            .products-grid, .history-items, .dashboard-grid {
+            .b, .history-items, .dashboard-grid {
                 grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             }
 
@@ -918,7 +939,7 @@
             }
             
             /* Add menu toggle button styles */
-            .menu-toggle {
+            .h {
                 display: block;
                 cursor: pointer;
                 font-size: 24px;
@@ -966,8 +987,11 @@
 <body>
     <header>
         <div class="header-content">
-            <button class="menu-toggle" id="menuToggle" aria-label="Open sidebar">&#9776;</button>
-            <div class="logo">DZIDZI</div>
+            <button class="h" id="menuToggle" aria-label="Open sidebar">&#9776;</button>
+            <div class="logo" style="display: flex; align-items: center; gap: 12px;">
+                <img src="dzilo.jpg" alt="DZIDZI Logo" style="height: 48px; width: 48px; border-radius: 12px; object-fit: cover; box-shadow: 0 2px 8px rgba(108,92,231,0.15); background: white; padding: 2px; max-width: 14vw; max-height: 14vw; min-width: 36px; min-height: 36px;" loading="lazy">
+                <span style="font-size: 24px; font-weight: 800; letter-spacing: 1px; text-shadow: 0 2px 4px rgba(0,0,0,0.2); color: inherit;">DZIDZI</span>
+            </div>
             <div class="auth-buttons" id="authButtons">
                 <button id="showLogin">Login</button>
                 <button id="showSignup">Sign Up</button>
@@ -975,20 +999,19 @@
         </div>
     </header>
 
-    <div class="overlay" id="overlay"></div>
+    <div class="g" id="overlay"></div>
 
-    <div class="sidebar" id="sidebar">
+    <div class="d" id="sidebar">
         <!-- Admin Announcement Box: Update message/timer as needed -->
         <div class="admin-announcement">
-            <div class="admin-announcement-header">Announcement</div>
+            <div class="admin-announcement-header">Wassup Guys!</div>
             <div class="admin-announcement-content">
-                <p><b>Website Launch Countdown</b></p>
-                <div class="admin-announcement-timer" id="countdownTimer">3d 12h 45m 10s</div>
-                <div class="admin-announcement-label">Until Website Goes Live</div>
+                <p><b>Welcome to DZIDZI Marketplace 🎉</b></p>
+                <div class="admin-announcement-label">Enjoy exclusive digital products with instant delivery. Check back daily for new updates and deals!</div>
             </div>
         </div>
         <div class="sidebar-nav" id="sidebarNav">
-            <a href="#" id="navDashboard" class="active">Dashboard</a>
+            <a href="#" id="navDashboard" class="e">Dashboard</a>
             <a href="#" id="navProducts">Products</a>
             <a href="#" id="navHistory">Purchase History</a>
             <a href="#" id="navSettings">Settings</a>
@@ -1013,8 +1036,8 @@
         </div>
     </div>
 
-    <div class="container">
-        <div id="authPage" class="page active">
+    <div class="a">
+        <div id="authPage" class="page e">
             <div class="pro-auth-outer">
                 <div class="pro-auth-inner">
                     <div class="pro-hero-section">
@@ -1102,7 +1125,6 @@
                 </div>
             </div>
         </div>
-
         <div id="portalPage" class="page">
             <div class="portal-header">
                 <div class="user-info">
@@ -1140,6 +1162,7 @@
                     <option value="rdp">remote desktop protocol logs</option>
                     <option value="bank accounts">bank logs</option>
                     <option value="vpn">vpn logs</option>
+                    <option value="tuts">tutorials</option>
                     <option value="photography">Hot sexy models</option>
                     <option value="giftcard">Gift Cards</option>
                     <option value="email">Email Logs</option>
@@ -1154,7 +1177,7 @@
             </div>
 
             <h2 class="section-title">Exclusive Products</h2>
-            <div class="products-grid" id="productsGrid"></div>
+            <div class="b" id="productsGrid"></div>
 
             <div class="history-section">
                 <h2 class="section-title">Your Purchase History</h2>
@@ -1884,6 +1907,149 @@
                     location: 'New York, NY',
                     details: 'user:elite_user, pass:elite_pass123'
                 },
+                {
+                    id: 'tuts01',
+                    title: 'Ultimate Crypto Trading Tutorials Bundle',
+                    description: 'Comprehensive PDF bundle covering beginner to advanced crypto trading strategies, risk management, and chart analysis. Includes bonus cheat sheets.',
+                    price: 45,
+                    category: 'tuts',
+                    image: 'pdf_crypto_tuts.jpg',
+                    createdAt: '2025-07-20',
+                    stock: 20,
+                    details: 'downloads/crypto_trading_tutorials.pdf'
+                },
+                {
+                    id: 'tuts02',
+                    title: 'Social Media Monetization Mastery',
+                    description: 'Step-by-step PDF tutorials on how to build, grow, and monetize Instagram, TikTok, and YouTube channels. Includes case studies and growth hacks.',
+                    price: 35,
+                    category: 'tuts',
+                    image: 'pdf_social_tuts.jpg',
+                    createdAt: '2025-07-20',
+                    stock: 15,
+                    details: 'downloads/social_media_monetization.pdf'
+                },
+                {
+                    id: 'tutorials01',
+                    title: 'Full Web Development Bootcamp PDFs',
+                    description: 'All-in-one PDF bundle: HTML, CSS, JavaScript, React, Node.js, and deployment. Perfect for beginners and intermediates. Includes code samples.',
+                    price: 60,
+                    category: 'tutorials',
+                    image: 'pdf_webdev_tuts.jpg',
+                    createdAt: '2025-07-20',
+                    stock: 25,
+                    details: 'downloads/webdev_bootcamp.pdf'
+                },
+                {
+                    id: 'tutorials02',
+                    title: 'Hacking & Cybersecurity Essentials',
+                    description: 'PDF tutorials on ethical hacking, penetration testing, and cybersecurity fundamentals. Includes labs, checklists, and tools overview.',
+                    price: 55,
+                    category: 'tutorials',
+                    image: 'pdf_hacking_tuts.jpg',
+                    createdAt: '2025-07-20',
+                    stock: 18,
+                    details: 'downloads/hacking_essentials.pdf'
+                },
+                {
+                    id: 'tuts03',
+                    title: 'Passive Income with Crypto: Step-by-Step PDF Guide',
+                    description: 'Learn how to generate passive income through staking, lending, and yield farming. Includes top platforms and risk tips.',
+                    price: 28,
+                    category: 'tuts',
+                    image: 'pdf_crypto_income.jpg',
+                    createdAt: '2025-07-21',
+                    stock: 18,
+                    details: 'downloads/passive_income_crypto.pdf'
+                },
+                {
+                    id: 'tuts04',
+                    title: 'AI Tools for Online Hustlers (PDF Bundle)',
+                    description: 'Discover the latest AI tools for content creation, automation, and business growth. Includes tutorials and workflow templates.',
+                    price: 32,
+                    category: 'tuts',
+                    image: 'pdf_ai_tools.jpg',
+                    createdAt: '2025-07-21',
+                    stock: 25,
+                    details: 'downloads/ai_tools_online_hustle.pdf'
+                },
+                {
+                    id: 'tuts05',
+                    title: 'Forex Trading Secrets: PDF MegaPack',
+                    description: 'Advanced forex strategies, money management, and live case studies in one PDF bundle. Suitable for all levels.',
+                    price: 40,
+                    category: 'tuts',
+                    image: 'pdf_forex_secrets.jpg',
+                    createdAt: '2025-07-21',
+                    stock: 20,
+                    details: 'downloads/forex_trading_secrets.pdf'
+                },
+                {
+                    id: 'tuts06',
+                    title: 'Ultimate Dropshipping PDF Bundle',
+                    description: 'Master dropshipping with this PDF set: niche selection, supplier contacts, marketing, and automation hacks.',
+                    price: 38,
+                    category: 'tuts',
+                    image: 'pdf_dropshipping.jpg',
+                    createdAt: '2025-07-21',
+                    stock: 22,
+                    details: 'downloads/dropshipping_ultimate.pdf'
+                },
+                {
+                    id: 'tuts07',
+                    title: 'Instagram Automation Mastery PDF',
+                    description: 'Step-by-step guide to automating Instagram growth and engagement using bots and AI tools. Includes scripts and safety tips.',
+                    price: 30,
+                    category: 'tuts',
+                    image: 'pdf_insta_automation.jpg',
+                    createdAt: '2025-07-22',
+                    stock: 16,
+                    details: 'downloads/instagram_automation.pdf'
+                },
+                {
+                    id: 'tuts08',
+                    title: 'YouTube Channel Growth Blueprint',
+                    description: 'Comprehensive PDF for building, optimizing, and monetizing YouTube channels. Includes SEO, thumbnails, and viral strategies.',
+                    price: 36,
+                    category: 'tuts',
+                    image: 'pdf_youtube_growth.jpg',
+                    createdAt: '2025-07-22',
+                    stock: 14,
+                    details: 'downloads/youtube_growth_blueprint.pdf'
+                },
+                {
+                    id: 'tuts09',
+                    title: 'E-Commerce Facebook Ads Bible',
+                    description: 'A PDF mega-guide to mastering Facebook Ads for e-commerce, dropshipping, and digital products. Includes ad copy templates.',
+                    price: 34,
+                    category: 'tuts',
+                    image: 'pdf_fb_ads.jpg',
+                    createdAt: '2025-07-22',
+                    stock: 19,
+                    details: 'downloads/facebook_ads_bible.pdf'
+                },
+                {
+                    id: 'tuts10',
+                    title: 'Ultimate Fiverr Seller Guide',
+                    description: 'PDF covering everything from gig setup to client management, upselling, and Fiverr SEO. For new and experienced sellers.',
+                    price: 27,
+                    category: 'tuts',
+                    image: 'pdf_fiverr_guide.jpg',
+                    createdAt: '2025-07-22',
+                    stock: 18,
+                    details: 'downloads/fiverr_seller_guide.pdf'
+                },
+                {
+                    id: 'tuts11',
+                    title: 'Crypto Security & Wallet Management',
+                    description: 'PDF tutorial bundle on safely storing, transferring, and managing crypto assets. Includes cold/hot wallet best practices.',
+                    price: 24,
+                    category: 'tuts',
+                    image: 'pdf_crypto_security.jpg',
+                    createdAt: '2025-07-22',
+                    stock: 21,
+                    details: 'downloads/crypto_security_wallets.pdf'
+                },
             ],
 
             saveUsers: function() {
@@ -1974,15 +2140,15 @@
         };
 
         function setActiveSection(section) {
-            currentSection = section;
             localStorage.setItem('dzidzi_lastSection', section);
-            document.querySelectorAll('.sidebar-nav a').forEach(link => link.classList.remove('active'));
-            document.querySelector(`#nav${section.charAt(0).toUpperCase() + section.slice(1)}`).classList.add('active');
+            currentSection = section;
+            document.querySelectorAll('.sidebar-nav a').forEach(link => link.classList.remove('e'));
+            document.querySelector(`#nav${section.charAt(0).toUpperCase() + section.slice(1)}`).classList.add('e');
 
             // Hide all sections first
             document.querySelector('.dashboard-section').style.display = 'none';
             document.querySelector('.search-filter').style.display = 'none';
-            document.querySelector('.products-grid').style.display = 'none';
+            document.querySelector('.b').style.display = 'none';
             document.querySelector('.history-section').style.display = 'none';
 
             // Show only the active section
@@ -1990,7 +2156,7 @@
                 document.querySelector('.dashboard-section').style.display = 'block';
             } else if (section === 'products') {
                 document.querySelector('.search-filter').style.display = 'flex';
-                document.querySelector('.products-grid').style.display = 'grid';
+                document.querySelector('.b').style.display = 'grid';
                 loadProducts();
             } else if (section === 'history') {
                 document.querySelector('.history-section').style.display = 'block';
@@ -2024,7 +2190,7 @@
                 const isPurchased = userPurchases.some(p => p.id === product.id);
                 const isOutOfStock = product.stock <= 0;
                 const productCard = document.createElement('div');
-                productCard.className = `product-card ${isOutOfStock ? 'out-of-stock' : ''}`;
+                productCard.className = `c ${isOutOfStock ? 'out-of-stock' : ''}`;
                 productCard.setAttribute('data-id', product.id);
                 
                 // Out of stock badge
@@ -2092,10 +2258,10 @@
         }
 
         function showAuthPage() {
-            authPage.classList.add('active');
-            portalPage.classList.remove('active');
-            sidebar.classList.remove('active');
-            overlay.classList.remove('active');
+            authPage.classList.add('e');
+            portalPage.classList.remove('e');
+            sidebar.classList.remove('e');
+            overlay.classList.remove('e');
             authButtons.style.display = 'block';
             // Hide menu toggle button on auth page (login/signup)
             if (window.innerWidth <= 768) {
@@ -2446,17 +2612,17 @@
                 return;
             }
 
-            authPage.classList.remove('active');
-            portalPage.classList.add('active');
+            authPage.classList.remove('e');
+            portalPage.classList.add('e');
             
             // Only show sidebar automatically on desktop
             if (window.innerWidth > 768) {
-                sidebar.classList.add('active');
+                sidebar.classList.add('e');
             } else {
-                sidebar.classList.remove('active');
+                sidebar.classList.remove('e');
             }
             
-            overlay.classList.remove('active');
+            overlay.classList.remove('e');
             authButtons.style.display = 'none';
             // Show menu toggle button on portal page (mobile)
             if (window.innerWidth <= 768) {
@@ -2520,13 +2686,13 @@
             const overlay = document.getElementById('overlay');
 
             menuToggle.addEventListener('click', function() {
-                sidebar.classList.toggle('active');
-                overlay.classList.toggle('active');
+                sidebar.classList.toggle('e');
+                overlay.classList.toggle('e');
             });
 
             overlay.addEventListener('click', function() {
-                sidebar.classList.remove('active');
-                overlay.classList.remove('active');
+                sidebar.classList.remove('e');
+                overlay.classList.remove('e');
             });
 
             // Close sidebar when clicking a menu item on mobile only
@@ -2539,8 +2705,8 @@
                     
                     // Only close sidebar on mobile devices
                     if (window.innerWidth <= 768) {
-                        sidebar.classList.remove('active');
-                        overlay.classList.remove('active');
+                        sidebar.classList.remove('e');
+                        overlay.classList.remove('e');
                     }
                     
                     if (sectionName === 'settings') {
@@ -2554,18 +2720,18 @@
             });
 
             showLogin.addEventListener('click', function() {
-                authPage.classList.add('active');
-                portalPage.classList.remove('active');
-                sidebar.classList.remove('active');
-                overlay.classList.remove('active');
+                authPage.classList.add('e');
+                portalPage.classList.remove('e');
+                sidebar.classList.remove('e');
+                overlay.classList.remove('e');
                 authButtons.style.display = 'block';
                 showLoginForm();
             });
             showSignup.addEventListener('click', function() {
-                authPage.classList.add('active');
-                portalPage.classList.remove('active');
-                sidebar.classList.remove('active');
-                overlay.classList.remove('active');
+                authPage.classList.add('e');
+                portalPage.classList.remove('e');
+                sidebar.classList.remove('e');
+                overlay.classList.remove('e');
                 authButtons.style.display = 'block';
                 showSignupForm();
             });
@@ -2716,7 +2882,7 @@
                     response = 'For refund or return requests, please provide your order details.';
                     window.chatState.awaitingOrderDetails = true;
                 } else if (/contact|admin|representative|human|agent|email/.test(input) || window.chatState.awaitingAdminRequest && /yes|admin|contact|email|representative|human|agent/.test(input)) {
-                    response = 'You can reach the admin directly at <a href="mailto:comoscoderr@gmail.com" style="color:#4f8cff;text-decoration:underline;">comoscoderr@gmail.com</a>.';
+                    response = 'You can reach the admin directly at <a href="mailto:support@dzidzi.lat" style="color:#4f8cff;text-decoration:underline;">support@dzidzi.lat</a>.';
                     window.chatState = {};
                 } else if (/thank(s| you)?/.test(input)) {
                     response = "You're welcome! If you need anything else, just let me know.";
@@ -2796,7 +2962,7 @@
         loadProducts = function() {
             originalLoadProducts.apply(this, arguments);
             // Attach modal event to product cards
-            const cards = document.querySelectorAll('.product-card');
+            const cards = document.querySelectorAll('.c');
             cards.forEach(card => {
                 card.addEventListener('click', function(e) {
                     // Prevent buy button click from opening modal
@@ -3018,7 +3184,7 @@
         }
         @media (max-width: 450px) {
             .pro-auth-card {
-                padding: 12px 2vw 10px 2vw;
+                padding: 12px 1vw 10px 1vw;
             }
             .pro-title {
                 font-size: 1.02rem;
