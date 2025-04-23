@@ -19,6 +19,9 @@
             --sidebar-width: 250px;
             --glass-bg: rgba(255, 255, 255, 0.25);
             --backdrop-filter: blur(10px);
+            --font-size-base: clamp(1rem, 2vw, 1.25rem);
+            --font-size-lg: clamp(1.25rem, 3vw, 2rem);
+            --font-size-xl: clamp(2rem, 5vw, 3rem);
         }
 
         * {
@@ -35,6 +38,9 @@
             color: var(--dark);
             line-height: 1.6;
             overflow-x: hidden; /* Prevent horizontal scroll on all browsers */
+            font-size: var(--font-size-base);
+            font-family: 'Inter', Arial, sans-serif;
+            line-height: 1.6;
         }
 
         .a {
@@ -63,6 +69,7 @@
             height: 100%;
             width: 100%;
             border: 1px solid rgba(255, 255, 255, 0.5);
+            padding: clamp(1rem, 2vw, 2rem);
         }
 
         .c:hover {
@@ -139,7 +146,7 @@
             .pro-auth-card {
                 padding: 12px 2vw 10px 2vw !important;
                 border-radius: 14px;
-                box-shadow: 0 2px 10px rgba(108, 92, 231, 0.09);
+                box-shadow: 0 2px 10px rgba(108,92,231,0.09);
             }
             .pro-title {
                 font-size: 1.1rem;
@@ -263,6 +270,8 @@
             font-weight: 600;
             box-shadow: 0 4px 10px rgba(108, 92, 231, 0.2);
             transition: all 0.3s ease;
+            min-height: 44px;
+            min-width: 44px;
         }
 
         .auth-buttons button:hover {
@@ -292,7 +301,7 @@
             position: fixed;
             top: 65px;
             left: 0;
-            padding: 20px;
+            padding: clamp(1rem, 2vw, 2rem);
             box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
             z-index: 999;
             display: none;
@@ -1022,6 +1031,37 @@
             .modal#productDetailsModal .modal-content {
                 padding: 18px 6px 16px 6px;
                 max-width: 98vw;
+            }
+        }
+
+        h1, .header-title {
+            font-size: var(--font-size-xl);
+        }
+        h2, .section-title {
+            font-size: var(--font-size-lg);
+        }
+        .sidebar, .card, .button, p, li, a, label, input, textarea {
+            font-size: var(--font-size-base);
+        }
+        /* Ensure minimum clickable size for buttons */
+        .button {
+            min-height: 44px;
+            min-width: 44px;
+        }
+        /* Responsive card adjustments */
+        .card {
+            padding: clamp(1rem, 2vw, 2rem);
+        }
+        /* Responsive sidebar */
+        .sidebar {
+            padding: clamp(1rem, 2vw, 2rem);
+        }
+        /* Make sure all text is always readable */
+        @media (max-width: 600px) {
+            :root {
+                --font-size-base: clamp(1rem, 4vw, 1.1rem);
+                --font-size-lg: clamp(1.1rem, 6vw, 1.5rem);
+                --font-size-xl: clamp(1.5rem, 10vw, 2rem);
             }
         }
     </style>
