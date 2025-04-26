@@ -3384,5 +3384,163 @@
             }
         });
     </script>
+    <script>
+        // Fix for mobile viewport and form display
+        function fixMobileViewport() {
+            // Get the viewport height
+            let vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+            
+            // Ensure the form is fully visible
+            const signupForm = document.getElementById('signupForm');
+            const loginForm = document.getElementById('loginForm');
+            
+            if (signupForm) {
+                signupForm.style.minHeight = 'auto';
+                signupForm.style.height = 'auto';
+                signupForm.style.overflow = 'visible';
+            }
+            
+            if (loginForm) {
+                loginForm.style.minHeight = 'auto';
+                loginForm.style.height = 'auto';
+                loginForm.style.overflow = 'visible';
+            }
+        }
+
+        // Initial call
+        fixMobileViewport();
+
+        // Update on resize and orientation change
+        window.addEventListener('resize', fixMobileViewport);
+        window.addEventListener('orientationchange', fixMobileViewport);
+
+        // Handle form switching
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginForm = document.getElementById('loginForm');
+            const signupForm = document.getElementById('signupForm');
+            const switchToSignup = document.getElementById('switchToSignup');
+            const switchToLogin = document.getElementById('switchToLogin');
+
+            if (switchToSignup) {
+                switchToSignup.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    loginForm.style.display = 'none';
+                    signupForm.style.display = 'block';
+                    // Ensure the signup form is visible
+                    window.scrollTo(0, 0);
+                    setTimeout(() => {
+                        signupForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 100);
+                });
+            }
+
+            if (switchToLogin) {
+                switchToLogin.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    signupForm.style.display = 'none';
+                    loginForm.style.display = 'block';
+                    window.scrollTo(0, 0);
+                });
+            }
+
+            // Fix for mobile input fields
+            const inputs = document.querySelectorAll('input');
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    // Prevent zooming on focus
+                    document.body.style.zoom = 1;
+                    
+                    // Scroll the input into view with padding
+                    setTimeout(() => {
+                        const rect = this.getBoundingClientRect();
+                        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                        const targetY = rect.top + scrollTop - 100; // 100px padding
+                        window.scrollTo({
+                            top: targetY,
+                            behavior: 'smooth'
+                        });
+                    }, 300);
+                });
+
+                // Fix for Edge and Chrome
+                if (navigator.userAgent.match(/Edge|Chrome/i)) {
+                    input.style.height = '44px';
+                    input.style.lineHeight = '44px';
+                    input.style.padding = '0 12px';
+                    input.style.marginBottom = '10px';
+                }
+            });
+        });
+
+        // Prevent form cut-off on submit
+        document.addEventListener('submit', function(e) {
+            if (e.target.matches('form')) {
+                e.preventDefault();
+                const form = e.target;
+                
+                // Ensure the form is fully visible
+                form.style.height = 'auto';
+                form.style.overflow = 'visible';
+                
+                // Scroll to top of form
+                window.scrollTo(0, 0);
+                form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    </script>
+    <style>
+        /* Additional mobile fixes */
+        @media (max-width: 768px) {
+            .pro-auth-card {
+                min-height: auto !important;
+                height: auto !important;
+                overflow: visible !important;
+                margin-bottom: 50px !important;
+                padding-bottom: 30px !important;
+            }
+
+            .auth-form {
+                min-height: auto !important;
+                height: auto !important;
+                overflow: visible !important;
+            }
+
+            #signupForm {
+                padding-bottom: 50px !important;
+            }
+
+            .form-group {
+                margin-bottom: 20px !important;
+            }
+
+            input {
+                font-size: 16px !important; /* Prevent zoom on iOS */
+            }
+        }
+    </style>
+    <script>
+        // Update the form switching logic
+        document.getElementById('switchToSignup').addEventListener('click', function(e) {
+            e.preventDefault();
+            const loginForm = document.getElementById('loginForm');
+            const signupForm = document.getElementById('signupForm');
+            
+            loginForm.style.display = 'none';
+            signupForm.style.display = 'block';
+            
+            // Force reflow
+            void signupForm.offsetWidth;
+            
+            // Add visible class
+            signupForm.classList.add('visible');
+            
+            // Ensure the form is in view
+            setTimeout(() => {
+                window.scrollTo(0, 0);
+                signupForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
+        });
+    </script>
 </body>
 </html>
