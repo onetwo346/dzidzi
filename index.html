@@ -1100,7 +1100,7 @@
                         </div>
                         <div class="pro-hero-content">
                             <h1 class="pro-title">DZIDZI Marketplace</h1>
-                            <p class="pro-subtitle">BRA NA B3 T) DI33 WO P3.</p>
+                            <p class="pro-subtitle">Virtual Market</p>
                             <ul class="pro-feature-list">
                                 <li><i class="fas fa-shield-alt"></i> Secure & Private</li>
                                 <li><i class="fas fa-bolt"></i> Instant Delivery</li>
@@ -3318,5 +3318,71 @@
             }
         }
     </style>
+    <script>
+        // Fix for mobile viewport issues
+        function fixMobileViewport() {
+            let vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+        }
+
+        // Initial call
+        fixMobileViewport();
+
+        // Update on resize
+        window.addEventListener('resize', fixMobileViewport);
+        window.addEventListener('orientationchange', fixMobileViewport);
+
+        // Fix for Edge and Chrome mobile input issues
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputs = document.querySelectorAll('input[type="text"], input[type="password"], input[type="email"]');
+            
+            inputs.forEach(input => {
+                // Prevent zoom on focus in iOS
+                input.addEventListener('focus', function() {
+                    window.scrollTo(0, 0);
+                    document.body.scrollTop = 0;
+                });
+
+                // Fix for Edge mobile input
+                if (navigator.userAgent.match(/Edge/i)) {
+                    input.style.height = '44px';
+                    input.style.padding = '10px 12px';
+                }
+
+                // Fix for Chrome mobile input
+                if (navigator.userAgent.match(/Chrome/i)) {
+                    input.style.height = '44px';
+                    input.style.padding = '10px 12px';
+                }
+            });
+
+            // Ensure form is visible and properly positioned
+            const form = document.querySelector('.pro-auth-card');
+            if (form) {
+                form.style.position = 'relative';
+                form.style.zIndex = '1';
+            }
+        });
+
+        // Handle form submission and prevent cut-off
+        document.addEventListener('submit', function(e) {
+            if (e.target.matches('form')) {
+                e.preventDefault();
+                const form = e.target;
+                const submitButton = form.querySelector('button[type="submit"]');
+                
+                if (submitButton) {
+                    submitButton.disabled = true;
+                    submitButton.style.opacity = '0.7';
+                }
+
+                // Scroll to top of form to ensure visibility
+                form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                
+                // Your form submission logic here
+                // ...
+            }
+        });
+    </script>
 </body>
 </html>
