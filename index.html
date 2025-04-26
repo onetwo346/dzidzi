@@ -2,29 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0, viewport-fit=cover">
-    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="theme-color" content="#6c5ce7">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>DZIDZI - Exclusive Digital Marketplace</title>
-    <!-- Preload critical fonts -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" as="style">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Font face declarations with swap */
-        @font-face {
-            font-family: 'Inter';
-            font-style: normal;
-            font-weight: 400;
-            font-display: swap;
-            src: url(https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiA.woff2) format('woff2');
-            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-        }
-
-        /* Ensure proper viewport height on mobile */
         :root {
-            --vh: 1vh;
             --primary: #6c5ce7;
             --secondary: #a29bfe;
             --dark: #2d3436;
@@ -38,25 +26,17 @@
             --sidebar-width: 250px;
             --glass-bg: rgba(255, 255, 255, 0.25);
             --backdrop-filter: blur(10px);
-            --safe-area-inset-bottom: env(safe-area-inset-bottom);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            transition: all 0.3s ease;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
             text-rendering: optimizeLegibility;
-            transition: all 0.3s ease;
-        }
-
-        html {
-            -webkit-text-size-adjust: 100%;
-            text-size-adjust: 100%;
-            touch-action: manipulation;
         }
 
         body {
@@ -65,69 +45,9 @@
             color: var(--dark);
             line-height: 1.6;
             overflow-x: hidden;
-            font-weight: 400;
             min-height: 100vh;
-            min-height: -webkit-fill-available;
-            padding-bottom: var(--safe-area-inset-bottom);
-            -webkit-overflow-scrolling: touch;
-        }
-
-        /* Mobile-first media queries */
-        @media screen and (max-width: 768px) {
-            .a {
-                width: 100%;
-                margin-left: 0;
-                padding: 15px;
-                padding-bottom: calc(15px + var(--safe-area-inset-bottom));
-            }
-            
-            .b {
-                grid-template-columns: 1fr;
-                gap: 15px;
-                padding: 0 10px;
-            }
-            
-            .c {
-                margin-bottom: 10px;
-                -webkit-transform: translateZ(0);
-                transform: translateZ(0);
-                backface-visibility: hidden;
-            }
-
-            .header-content {
-                padding: 0 15px;
-            }
-
-            .logo span {
-                font-size: 20px; /* Fixed size for mobile */
-                white-space: nowrap;
-            }
-
-            .auth-buttons button {
-                padding: 8px 16px;
-                font-size: 14px;
-                margin: 4px;
-            }
-
-            /* Prevent text scaling */
-            body, input, textarea, button {
-                -webkit-text-size-adjust: none;
-            }
-        }
-
-        /* Fix for notched phones */
-        @supports (padding: max(0px)) {
-            body {
-                padding-left: max(0px, env(safe-area-inset-left));
-                padding-right: max(0px, env(safe-area-inset-right));
-                padding-bottom: max(0px, env(safe-area-inset-bottom));
-            }
-        }
-
-        /* Fix for iOS momentum scrolling */
-        .d {
-            -webkit-overflow-scrolling: touch;
-            overscroll-behavior-y: contain;
+            display: flex;
+            flex-direction: column;
         }
 
         .a {
@@ -156,6 +76,12 @@
             height: 100%;
             width: 100%;
             border: 1px solid rgba(255, 255, 255, 0.5);
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            perspective: 1000;
+            -webkit-perspective: 1000;
         }
 
         .c:hover {
@@ -163,92 +89,78 @@
             box-shadow: 0 12px 40px rgba(108, 92, 231, 0.2);
         }
 
-        /* Sidebar as mobile drawer */
-        .d {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 85vw;
-            max-width: 99vw;
-            min-width: 0;
-            height: 100vh;
-            background: var(--sidebar-bg);
-            -webkit-backdrop-filter: var(--backdrop-filter);
-            backdrop-filter: var(--backdrop-filter);
-            box-shadow: 2px 0 16px rgba(0,0,0,0.15);
-            z-index: 2000;
-            transform: translateX(-100%);
-            transition: transform 0.3s cubic-bezier(.4,0,.2,1);
-            display: block;
-            padding: 24px 8px 16px 8px;
-        }
-        .d.e {
-            transform: translateX(0);
-        }
-        .g {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(0,0,0,0.35);
-            z-index: 1999;
-        }
-        .g.e {
-            display: block;
-        }
-        .h {
-            display: block;
-            cursor: pointer;
-            font-size: 28px;
-            color: var(--primary);
-            background: none;
-            border: none;
-            margin-right: 10px;
-            z-index: 2100;
-        }
-        .pro-auth-inner,
-        .pro-hero-section,
-        .pro-auth-card {
-            min-width: 0 !important;
-            max-width: 100vw !important;
-            width: 100% !important;
-            box-sizing: border-box;
-        }
-        .pro-auth-card {
-            padding: 12px 2vw 10px 2vw !important;
-            border-radius: 14px;
-            box-shadow: 0 2px 10px rgba(108, 92, 231, 0.09);
-        }
-        .pro-title {
-            font-size: 1.1rem;
-        }
-        .pro-feature-list {
-            font-size: 0.92rem;
-        }
-        .auth-switch {
-            font-size: 0.90rem;
-            margin-bottom: 0.5em;
-            margin-top: 0.5em;
-            text-align: center;
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .a {
+                width: 100%;
+                margin-left: 0;
+                padding: 15px;
+                -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+            }
+            
+            .b {
+                grid-template-columns: 1fr;
+                gap: 12px;
+                padding: 0 8px; /* Add padding to prevent content from touching edges */
+            }
+            
+            /* Sidebar as mobile drawer */
+            .d {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 85vw;
+                max-width: 99vw;
+                min-width: 0;
+                height: 100vh;
+                background: var(--sidebar-bg);
+                -webkit-backdrop-filter: var(--backdrop-filter);
+                backdrop-filter: var(--backdrop-filter);
+                box-shadow: 2px 0 16px rgba(0,0,0,0.15);
+                z-index: 2000;
+                transform: translateX(-100%);
+                transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                touch-action: pan-y; /* Prevent horizontal scroll on touch devices */
+            }
+
+            /* Improve touch targets */
+            button, .button, .nav-item {
+                min-height: 44px; /* Apple's recommended minimum touch target size */
+                min-width: 44px;
+                padding: 12px 16px;
+            }
+
+            /* Prevent text size adjustment on orientation change */
+            html {
+                -webkit-text-size-adjust: 100%;
+                text-size-adjust: 100%;
+            }
         }
 
-        @media (max-width: 450px) {
-            .pro-auth-card {
-                padding: 8px 1vw 8px 1vw !important;
+        /* Add support for very small screens */
+        @media (max-width: 320px) {
+            .a {
+                padding: 10px;
             }
-            .pro-title {
-                font-size: 1.02rem;
+            
+            .b {
+                gap: 8px;
             }
-            .pro-feature-list {
-                font-size: 0.86rem;
+            
+            .c {
+                border-radius: 12px;
             }
-            .pro-hero-section {
-                padding: 0 1vw;
+        }
+
+        /* Add support for landscape orientation */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .a {
+                padding: 10px;
             }
-            .auth-switch {
-                font-size: 0.88rem;
+            
+            .b {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 10px;
             }
         }
 
@@ -322,13 +234,19 @@
             max-height: 14vw;
             min-width: 36px;
             min-height: 36px;
+            max-width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+            image-rendering: -webkit-optimize-contrast;
         }
 
         .logo span {
-            font-size: clamp(20px, 5vw, 24px);
+            font-size: 24px;
             font-weight: 800;
-            letter-spacing: 0.5px;
-            -webkit-text-size-adjust: 100%;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            color: inherit;
         }
 
         .auth-buttons button {
