@@ -2326,8 +2326,11 @@
             signupForm.style.display = 'block';
             clearErrors();
             clearFormInputs();
-            // Focus on the username field for better UX
+            
+            // Ensure the form is visible on mobile
             setTimeout(() => {
+                signupForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                window.scrollTo(0, 0);
                 signupUsername.focus();
             }, 100);
         }
@@ -3427,9 +3430,10 @@
                     e.preventDefault();
                     loginForm.style.display = 'none';
                     signupForm.style.display = 'block';
-                    // Ensure the signup form is visible
-                    window.scrollTo(0, 0);
+                    
+                    // Ensure the signup form is visible on mobile
                     setTimeout(() => {
+                        window.scrollTo(0, 0);
                         signupForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     }, 100);
                 });
@@ -3440,36 +3444,27 @@
                     e.preventDefault();
                     signupForm.style.display = 'none';
                     loginForm.style.display = 'block';
-                    window.scrollTo(0, 0);
+                    
+                    // Ensure the login form is visible on mobile
+                    setTimeout(() => {
+                        window.scrollTo(0, 0);
+                        loginForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 100);
                 });
             }
 
             // Fix for mobile input fields
             const inputs = document.querySelectorAll('input');
             inputs.forEach(input => {
+                // Prevent zoom on focus in iOS
                 input.addEventListener('focus', function() {
-                    // Prevent zooming on focus
-                    document.body.style.zoom = 1;
-                    
-                    // Scroll the input into view with padding
-                    setTimeout(() => {
-                        const rect = this.getBoundingClientRect();
-                        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                        const targetY = rect.top + scrollTop - 100; // 100px padding
-                        window.scrollTo({
-                            top: targetY,
-                            behavior: 'smooth'
-                        });
-                    }, 300);
+                    window.scrollTo(0, 0);
+                    document.body.scrollTop = 0;
                 });
 
-                // Fix for Edge and Chrome
-                if (navigator.userAgent.match(/Edge|Chrome/i)) {
-                    input.style.height = '44px';
-                    input.style.lineHeight = '44px';
-                    input.style.padding = '0 12px';
-                    input.style.marginBottom = '10px';
-                }
+                // Fix for mobile input
+                input.style.height = '44px';
+                input.style.padding = '10px 12px';
             });
         });
 
@@ -3498,49 +3493,74 @@
                 overflow: visible !important;
                 margin-bottom: 50px !important;
                 padding-bottom: 30px !important;
+                position: relative !important;
+                z-index: 1 !important;
             }
 
             .auth-form {
                 min-height: auto !important;
                 height: auto !important;
                 overflow: visible !important;
+                padding: 20px 15px !important;
             }
 
             #signupForm {
                 padding-bottom: 50px !important;
+                display: block !important;
+                visibility: visible !important;
+                opacity: 1 !important;
             }
 
             .form-group {
-                margin-bottom: 20px !important;
+                margin-bottom: 15px !important;
             }
 
             input {
                 font-size: 16px !important; /* Prevent zoom on iOS */
             }
+
+            .pro-password-wrapper {
+                position: relative !important;
+                width: 100% !important;
+            }
+
+            .pro-toggle-password {
+                position: absolute !important;
+                right: 12px !important;
+                top: 50% !important;
+                transform: translateY(-50%) !important;
+                cursor: pointer !important;
+            }
+
+            .auth-switch {
+                margin-top: 15px !important;
+                margin-bottom: 15px !important;
+            }
+        }
+
+        @media (max-width: 450px) {
+            .pro-auth-card {
+                padding: 15px 10px !important;
+                margin: 0 10px !important;
+            }
+
+            .auth-form h2 {
+                font-size: 1.2rem !important;
+                margin-bottom: 15px !important;
+            }
+
+            .form-group label {
+                font-size: 0.9rem !important;
+            }
+
+            .form-group input {
+                font-size: 0.9rem !important;
+            }
+
+            .auth-switch {
+                font-size: 0.85rem !important;
+            }
         }
     </style>
-    <script>
-        // Update the form switching logic
-        document.getElementById('switchToSignup').addEventListener('click', function(e) {
-            e.preventDefault();
-            const loginForm = document.getElementById('loginForm');
-            const signupForm = document.getElementById('signupForm');
-            
-            loginForm.style.display = 'none';
-            signupForm.style.display = 'block';
-            
-            // Force reflow
-            void signupForm.offsetWidth;
-            
-            // Add visible class
-            signupForm.classList.add('visible');
-            
-            // Ensure the form is in view
-            setTimeout(() => {
-                window.scrollTo(0, 0);
-                signupForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 100);
-        });
-    </script>
 </body>
 </html>
